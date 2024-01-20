@@ -43,10 +43,13 @@ class _SliderState extends State<SliderScreen> {
       totalPage: 3,
       headerBackgroundColor: Colors.white,
       pageBackgroundColor: Colors.white,
+      centerBackground: true,
+      imageHorizontalOffset: 16,
+      imageVerticalOffset: 16,
       background: [
         Image.asset(
           "assets/image/Firstpage.jpg",
-          height: 350,width: 420,
+          height: 350,width: 350,
         ),
         Image.asset(
           "assets/image/Secondpage.jpg",
@@ -61,7 +64,7 @@ class _SliderState extends State<SliderScreen> {
       pageBodies: [
         Container(
           alignment: Alignment.center,
-          width: MediaQuery.of(context).size.width,
+          width: double.infinity,
           padding: const EdgeInsets.symmetric(horizontal: 40),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,

@@ -22,7 +22,10 @@ class Registerstate extends State<Register>{
               child: SingleChildScrollView(
 
                   padding: EdgeInsets.only(left: 15,top: 120),
-                  child: Row(children: [Container(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children:
+                  [Container(
                     child: Column(
                       children: [
                         Text("Register",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 40),),
@@ -31,8 +34,10 @@ class Registerstate extends State<Register>{
                     ),
                   ),
                     Container(margin: EdgeInsets.only(
-                        left: 120
+                        right: 16
                     ),
+                      width: 100,
+                      height: 100,
                       child:  Image.network("https://cdn3d.iconscout.com/3d/premium/thumb/heart-checkup-report-4034067-3337543.png?f=webp",width:120,height: 100,fit: BoxFit.fill,),
                     ),
                   ],)

@@ -5,8 +5,8 @@ import 'package:flutter/material.dart';
 import 'Splash.dart';
 
 void main() {
-  runApp(MaterialApp(
+  runApp(Material(child:MaterialApp(
     debugShowCheckedModeBanner: false,
     home: SplashScreen(),
-  ));
+  )));
 }
