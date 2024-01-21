@@ -1,3 +1,5 @@
+import 'package:devloperproject1/Register.dart';
+import 'package:devloperproject1/Widgets/Colour.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'dart:ui';
@@ -117,22 +119,26 @@ class Loginpage extends StatefulWidget {
                                   ]),
                                 ),
                                 SizedBox(
-                                    height: MediaQuery.of(context).size.height *
-                                        0.03),
-                                SizedBox(
-                                    height: MediaQuery.of(context).size.height *
-                                        0.03),
+                                  height: 5.0,
+                                ),
 
                                 SizedBox(height: 30),
-                                TextButton(onPressed: () {}, child: Text("Login",style: TextStyle(color: Colors.white),),
-                                    style: ButtonStyle(
-                                        shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                                            RoundedRectangleBorder(
-                                                borderRadius: BorderRadius.circular(18.0),
-                                                side: BorderSide(color: Colors.black)
-                                            )
-                                        )
-                                    )),
+                                ElevatedButton(onPressed: () {}, child: Text("Sign in",style: TextStyle(color: Colors.white,),),
+                                  style: ElevatedButton.styleFrom(primary: ColorConstants.buttonscolor),
+                                    ),
+                                SizedBox(
+                                  height: 10,
+                                ),
+                                Padding(padding: EdgeInsets.only(left: 0,right: 0),
+                                child:
+                                Row(
+                                  children: [ Text("Don't have an account?"),
+                                    TextButton(onPressed: (){
+                                      Navigator.push(context, MaterialPageRoute(builder: (context) => Register(),));
+                                    }, child: Text("Sign up"),
+                                    ),
+                                  ],
+                                ))
                               ]
                             ),
                           ),

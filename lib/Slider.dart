@@ -14,9 +14,9 @@ class _SliderState extends State<SliderScreen> {
   @override
   Widget build(BuildContext context) {
     return OnBoardingSlider(onFinish: (){
-      Navigator.push(context,MaterialPageRoute(builder: (BuildContext context) =>Register()));
+      Navigator.push(context,MaterialPageRoute(builder: (BuildContext context) =>Loginpage()));
     },
-      finishButtonText: 'Register',
+      finishButtonText: 'Log in',
       finishButtonStyle: FinishButtonStyle(
         backgroundColor: Color(0xFF0e9096),
       ),
@@ -29,15 +29,6 @@ class _SliderState extends State<SliderScreen> {
           fontWeight: FontWeight.w600,
         ),
       ),
-
-      trailing:GestureDetector(child: Text("login",style:
-      TextStyle(
-        fontSize: 16,
-        color: Color(0xFF0e9096),
-        fontWeight: FontWeight.w600,),),
-        onTap:(){
-        Navigator.push(context,MaterialPageRoute(builder: (BuildContext context) =>Loginpage()));} ,),
-
 
       controllerColor: Color(0xFF0e9096),
       totalPage: 3,
