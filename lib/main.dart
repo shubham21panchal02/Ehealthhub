@@ -8,6 +8,6 @@ import 'Splash.dart';
 void main() {
   runApp(Material(child:MaterialApp(
     debugShowCheckedModeBanner: false,
-    home: SplashScreen(),
+    home: Ufirstpage(),
   )));
 }
