@@ -20,29 +20,32 @@ class Second extends State<USecondpage>{
       body: SingleChildScrollView(
           child: Column(
             children: [Padding(padding: EdgeInsets.only(top: 25,)),
-              Card(
-                elevation: 10,
-                color: Color(0xFF9dcdd1),
-                shape: BeveledRectangleBorder(borderRadius:BorderRadius.only(topRight: Radius.circular(16.0),
-                    topLeft: Radius.circular(10.0),
-                    bottomRight: Radius.circular(10.0),
-                    bottomLeft: Radius.circular(10.0))),
-                child: Column(
-                  children: [ClipRRect(
-                    borderRadius: BorderRadius.only(topRight:Radius.circular(15),topLeft:Radius.circular(15)),
-                    child: Image(
-                      image: NetworkImage(
-                          'https://sys.mediflam.com/OfflineUploads/HospitalImage/Sterling_Hospital.JPG'),
+              Padding(
+                padding: const EdgeInsets.all(10),
+                child: Card(
+                  elevation: 10,
+                  color: Color(0xFF9dcdd1),
+                  shape: BeveledRectangleBorder(borderRadius:BorderRadius.only(topRight: Radius.circular(16.0),
+                      topLeft: Radius.circular(10.0),
+                      bottomRight: Radius.circular(10.0),
+                      bottomLeft: Radius.circular(10.0))),
+                  child: Column(
+                    children: [ClipRRect(
+                      borderRadius: BorderRadius.only(topRight:Radius.circular(15),topLeft:Radius.circular(15)),
+                      child: Image(
+                        image: NetworkImage(
+                            'https://sys.mediflam.com/OfflineUploads/HospitalImage/Sterling_Hospital.JPG'),
+                      ),
                     ),
-                  ),
-                    Padding(padding: EdgeInsets.only(right:300,top: 10,bottom: 100),
-                    child: Row(
+                      Padding(padding: EdgeInsets.only(right:300,top: 10,bottom: 100),
+                      child: Row(
     children: [
-                        Icon(Icons.telegram_outlined),
-                      Text("3.1km",style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold),),
+                          Icon(Icons.telegram_outlined),
+                        Text("3.1km",style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold),),
     ],
     )),
-                  ],
+                    ],
+                  ),
                 ),
               ),
               SizedBox(
