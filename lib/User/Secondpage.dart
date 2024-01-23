@@ -52,11 +52,13 @@ class Second extends State<USecondpage>{
                 padding: const EdgeInsets.fromLTRB(0, 0, 250, 0),
                 child: Text("Services",style: TextStyle(fontSize: 30,color:ColorConstants.appbarcolor ,fontWeight: FontWeight.bold),),
               ),
-              SizedBox(
-                height: 20,
-              ),
+
               Padding(
-                padding: const EdgeInsets.all(10),
+                padding: const EdgeInsets.only(
+                  left: 10,
+                  right: 10,
+                  bottom: 100,
+                ),
                 child: GridView.builder(
                     shrinkWrap: true,
                         scrollDirection: Axis.vertical,
