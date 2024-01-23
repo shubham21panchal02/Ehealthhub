@@ -1,4 +1,5 @@
 import 'package:devloperproject1/Register.dart';
+import 'package:devloperproject1/User/Firstpage.dart';
 import 'package:devloperproject1/Widgets/Colour.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -123,7 +124,9 @@ class Loginpage extends StatefulWidget {
                                 ),
 
                                 SizedBox(height: 30),
-                                ElevatedButton(onPressed: () {}, child: Text("Sign in",style: TextStyle(color: Colors.white,),),
+                                ElevatedButton(onPressed: () {
+                                  Navigator.push(context, MaterialPageRoute(builder: (context) => Ufirstpage(),));
+                                }, child: Text("Sign in",style: TextStyle(color: Colors.white,),),
                                   style: ElevatedButton.styleFrom(primary: ColorConstants.buttonscolor),
                                     ),
                                 SizedBox(

@@ -1,5 +1,6 @@
 import 'dart:ffi';
 
+import 'package:devloperproject1/User/Firstpage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -19,9 +20,16 @@ class Second extends State<USecondpage>{
     return Scaffold(
       body: SingleChildScrollView(
           child: Column(
-            children: [Padding(padding: EdgeInsets.only(top: 25,)),
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              IconButton(
+                icon: const Icon(Icons.arrow_back_ios),
+                color: ColorConstants.buttonscolor,
+                onPressed: () {
+                },
+              ),
               Padding(
-                padding: const EdgeInsets.all(10),
+                padding: const EdgeInsets.all(5.0),
                 child: Card(
                   elevation: 10,
                   color: Color(0xFF9dcdd1),
@@ -52,10 +60,9 @@ class Second extends State<USecondpage>{
                 height: 15,
               ),
               Padding(
-                padding: const EdgeInsets.fromLTRB(0, 0, 250, 0),
+                padding: const EdgeInsets.fromLTRB(0,0, 250,0),
                 child: Text("Services",style: TextStyle(fontSize: 30,color:ColorConstants.appbarcolor ,fontWeight: FontWeight.bold),),
               ),
-
               Padding(
                 padding: const EdgeInsets.only(
                   left: 10,
@@ -99,15 +106,13 @@ class Second extends State<USecondpage>{
                                      padding: const EdgeInsets.all(8.0),
                                      child: Text("Monday,Ttuesday,wednesday...",style: TextStyle(fontSize: 15)
                                      ),
-                                   )
+                                   ),
                               ],
                             ),
                           );
-                        }),
+                        }
+                        ),
               ),
-
-
-
             ],
           ),
         ),
