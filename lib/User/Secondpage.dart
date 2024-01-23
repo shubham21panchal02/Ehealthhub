@@ -3,6 +3,8 @@ import 'dart:ffi';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import '../Widgets/Colour.dart';
+
 class USecondpage extends StatefulWidget{
   @override
   State<StatefulWidget> createState() {
@@ -43,6 +45,64 @@ class Second extends State<USecondpage>{
                   ],
                 ),
               ),
+              SizedBox(
+                height: 15,
+              ),
+              Padding(
+                padding: const EdgeInsets.fromLTRB(0, 0, 250, 0),
+                child: Text("Services",style: TextStyle(fontSize: 30,color:ColorConstants.appbarcolor ,fontWeight: FontWeight.bold),),
+              ),
+              SizedBox(
+                height: 20,
+              ),
+              Padding(
+                padding: const EdgeInsets.all(10),
+                child: GridView.builder(
+                    shrinkWrap: true,
+                        scrollDirection: Axis.vertical,
+                        itemCount: 4,
+                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 2,
+                            crossAxisSpacing: 5,
+                            mainAxisSpacing: 5),
+                        itemBuilder: (BuildContext Context, int index) {
+                          return Card(
+                            elevation: 12,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(20.0),
+                            ),
+
+                            shadowColor: Colors.black,
+                            child: Column(
+
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                            ClipRRect(
+                            borderRadius: const BorderRadius.only(
+                                topRight: Radius.circular(20),
+                            topLeft: Radius.circular(20),
+                          ),),
+                               Icon(Icons.earbuds,color: ColorConstants.appbarcolor,size: 52,),
+                                Divider(
+                                  height: 20,
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Text("Ear ,Nose & Throat",style: TextStyle(fontSize: 15,fontWeight: FontWeight.bold),),
+                                ),
+                                   Padding(
+                                     padding: const EdgeInsets.all(8.0),
+                                     child: Text("Monday,Ttuesday,wednesday...",style: TextStyle(fontSize: 15)
+                                     ),
+                                   )
+                              ],
+                            ),
+                          );
+                        }),
+              ),
+
+
+
             ],
           ),
         ),
