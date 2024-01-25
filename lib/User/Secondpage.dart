@@ -107,6 +107,7 @@ class Second extends State<USecondpage>{
                                      child: Text("Monday,Ttuesday,wednesday...",style: TextStyle(fontSize: 15)
                                      ),
                                    ),
+
                               ],
                             ),
                           );
