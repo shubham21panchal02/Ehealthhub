@@ -9,18 +9,20 @@ class Uthiredpage extends StatefulWidget {
     // TODO: implement createState
     return Thiredpage();
   }
-
 }
 
 class Thiredpage extends State<Uthiredpage> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Column(
+    return Scaffold(appBar: AppBar(backgroundColor: ColorConstants.appbarcolor,
+      title: Text("Appointment",),
+    ),
+      body:SingleChildScrollView(scrollDirection: Axis.vertical,
+      child:
+      Column(
         children: [
-          Padding(padding: EdgeInsets.only(top:6,right:0,left: 10,bottom: 6),
-          child:Text("Your appoinment has been made",style: TextStyle(color: ColorConstants.buttonscolor,fontSize: 23,fontWeight: FontWeight.bold),) ,),
-        Card(color: ColorConstants.buttonscolor,margin:EdgeInsets.all(10),
+          Padding(padding: EdgeInsets.only(top:0,right:0,left: 10,bottom: 0),),
+        Card(color: ColorConstants.buttonscolor,margin:EdgeInsets.all(5),
           child: Column(
             children: [Padding(padding: EdgeInsets.all(0)),
               Card(elevation: 30,color: Color(0xFF9dcdd1),
@@ -105,11 +107,11 @@ class Thiredpage extends State<Uthiredpage> {
                               children: [
                                 Row(
                                   children: [
-                                    Icon(Icons.details),
+                                    Icon(Icons.date_range),
                                     Text("  Appointment Detail",style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold),)
                                   ],
                                 ),
-                                Container(height: 30,),
+                                Container(height: 10,),
                                 Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                   children: [Padding(padding: EdgeInsets.only(left: 10,right: 30,top: 20,bottom: 20),
                                     child:Column(crossAxisAlignment: CrossAxisAlignment.start,
@@ -144,11 +146,11 @@ class Thiredpage extends State<Uthiredpage> {
                               children: [
                                 Row(
                                   children: [
-                                    Icon(Icons.details),
+                                    Icon(Icons.supervised_user_circle),
                                     Text(" Personal Infomartion",style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold),)
                                   ],
                                 ),
-                                Container(height: 30,),
+                                Container(height: 10,),
                                 Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                   children: [Padding(padding: EdgeInsets.only(left: 10,right: 30,top: 20,bottom: 20),
                                     child:Column(crossAxisAlignment: CrossAxisAlignment.start,
@@ -188,10 +190,10 @@ class Thiredpage extends State<Uthiredpage> {
           ),
         ),
           ElevatedButton(onPressed: (){
-            Navigator.push(context, MaterialPageRoute(builder: (context) => Ufirstpage(),));
           }, style: ElevatedButton.styleFrom(primary: Color(0xFF0e9096)),
               child: Padding(padding: EdgeInsets.only(left: 30,right: 30),child: Text("Back to Home"),))//card
         ],
+      ),
       ),
     );
   }

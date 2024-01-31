@@ -1,3 +1,4 @@
+import 'package:devloperproject1/User/Secondpage.dart';
 import 'package:devloperproject1/Widgets/Colour.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -12,6 +13,7 @@ class  Ufirstpage extends StatefulWidget {
 }
 
 class Home extends State<Ufirstpage> {
+  String userName = "User";
   final _advancedDrawerController = AdvancedDrawerController();
 
 
@@ -51,7 +53,7 @@ class Home extends State<Ufirstpage> {
         child: Scaffold(
 
           appBar: AppBar(backgroundColor: ColorConstants.appbarcolor,
-            title: const Text(''),
+            title: Text('Hi, $userName' ),
             leading: IconButton(
               onPressed: _handleMenuButtonPressed,
               icon: ValueListenableBuilder<AdvancedDrawerValue>(
@@ -118,7 +120,9 @@ class Home extends State<Ufirstpage> {
                                 Center(child:Text("Activity")),
                                 SizedBox(height: 20,),
 
-                                ElevatedButton(onPressed: (){}, child:Text("Find Hospital"),
+                                ElevatedButton(onPressed: (){
+                                  Navigator.push(context, MaterialPageRoute(builder: (context) => USecondpage(),));
+                                }, child:Text("Find Hospital"),
                                   style:ElevatedButton.styleFrom(primary: Color(0xFF0e9096),shape: RoundedRectangleBorder(
                                       borderRadius:BorderRadius.all(Radius.circular(20))
                                   )),)
@@ -131,7 +135,8 @@ class Home extends State<Ufirstpage> {
                     ),
                     Padding(
                       padding: const EdgeInsets.fromLTRB(0, 0, 200, 0),
-                      child: Text("Nearest Hospital",style: TextStyle(fontSize: 25,color: Colors.black,fontWeight: FontWeight.bold),),
+                      child: Text("Nearest Hospital",style: TextStyle(fontSize: 25,fontFamily: 'Calibri',
+                      color: Colors.black,fontWeight: FontWeight.bold),),
                     ),
                     SizedBox(
                       height: 20,
