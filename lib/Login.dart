@@ -14,12 +14,7 @@ class Loginpage extends StatefulWidget {
   }
   }
  class Loginstate extends State<Loginpage>{
-   double _sigmaX = 5; // from 0-10
-   double _sigmaY = 5; // from 0-10
-   double _opacity = 0.2;
-   double _width = 350;
-   double _height = 300;
-   final _formKey = GlobalKey<FormState>();
+
 
    // sign user in method
   @override
@@ -34,7 +29,7 @@ class Loginpage extends StatefulWidget {
             alignment: Alignment.center,
             children: [
               Image.asset(
-                'assets/image/login.jpg',
+                'assets/image/login2.jpg',
                 width: MediaQuery.of(context).size.width,
                 height: MediaQuery.of(context).size.height,
                 fit: BoxFit.cover,
@@ -56,101 +51,29 @@ class Loginpage extends StatefulWidget {
                           color: Colors.white,
                           fontSize: 40,
                           fontWeight: FontWeight.bold)),
-                  SizedBox(height: MediaQuery.of(context).size.height * 0.02),
-                  ClipRect(
-                    child: BackdropFilter(
-                      filter:
-                      ImageFilter.blur(sigmaX: _sigmaX, sigmaY: _sigmaY),
-                      child: Container(
-                        padding:EdgeInsets.symmetric(horizontal: 10.0),
-
-                        decoration: BoxDecoration(
-                            color: Color.fromRGBO(0, 0, 0, 1)
-                                .withOpacity(_opacity),
-                            borderRadius: BorderRadius.all(Radius.circular(30))),
-                        width: MediaQuery.of(context).size.width * 0.9,
-                        height: MediaQuery.of(context).size.height * 0.4,
-                        child: Form(
-                          key: _formKey,
-                          child: Center(
-                            child: Column(
-                              mainAxisSize: MainAxisSize.min,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [TextField(style: TextStyle(fontWeight: FontWeight.bold,color: Colors.black),
-                                decoration: (InputDecoration(labelText: "Log in",
-                                  labelStyle: TextStyle(color: Colors.white),
-                                  enabledBorder: OutlineInputBorder(
-                                    borderSide:BorderSide(color: Colors.black)),
-                                  focusedBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(
-                                        color: Colors.black
-                                    )
-                                ),
-                                  hintText: "Email id",)
-                                ),
-                              ),
-                                Padding(padding: EdgeInsets.all(20)),
-                                TextField(style: TextStyle(fontWeight: FontWeight.bold),
-                                  decoration: (InputDecoration(labelText: "password",
-                                      labelStyle: TextStyle(color: Colors.white),focusedBorder: OutlineInputBorder(
-                                      borderSide: BorderSide(
-                                          color: Colors.black
-                                      )
-                                  ),enabledBorder: OutlineInputBorder(
-                                    borderSide:BorderSide(color: Colors.black)
-                                  ),
-                                    hintText: "password",)),
-                                  obscureText: true,
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 25.0),
-
-
-                                  child: Row(children: [
-                                    SizedBox(
-                                        width:
-                                        MediaQuery.of(context).size.width *
-                                            0.05),
-                                    Column(
-                                      crossAxisAlignment:
-                                      CrossAxisAlignment.start,
-                                      // ignore: prefer_const_literals_to_create_immutables
-                                    )
-                                  ]),
-                                ),
-                                SizedBox(
-                                  height: 5.0,
-                                ),
-
-                                SizedBox(height: 30),
-                                ElevatedButton(onPressed: () {
-                                  Navigator.push(context, MaterialPageRoute(builder: (context) => Ufirstpage(),));
-                                }, child: Text("Sign in",style: TextStyle(color: Colors.white,),),
-                                  style: ElevatedButton.styleFrom(primary: ColorConstants.buttonscolor),
-                                    ),
-                                SizedBox(
-                                  height: 10,
-                                ),
-                                Padding(padding: EdgeInsets.only(left: 0,right: 0),
-                                child:
-                                Row(
-                                  children: [ Text("Don't have an account?"),
-                                    TextButton(onPressed: (){
-                                      Navigator.push(context, MaterialPageRoute(builder: (context) => Register(),));
-                                    }, child: Text("Sign up"),
-                                    ),
-                                  ],
-                                ))
-                              ]
-                            ),
-                          ),
-                        ),
-                      ),
+                  SizedBox(height:20),
+                  Container(margin: EdgeInsets.all(10),
+                    child: Column(
+                      children: [
+                        TextField(decoration: InputDecoration(labelText: "Email id",prefixIconColor:Color(0xFF0e9096)
+                          ,labelStyle: TextStyle(color: Colors.white),hintText: "abc@gmail.com",focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                                color: Colors.white)
+                        ),enabledBorder: OutlineInputBorder(
+                            borderSide:BorderSide(color: Colors.white,)
+                        ),),),
+                        SizedBox(height: 20,),
+                        TextField(decoration: InputDecoration(labelText: "Password",prefixIconColor:Color(0xFF0e9096)
+                          ,labelStyle: TextStyle(color: Colors.white),hintText: "password",focusedBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                  color: Colors.white)
+                          ),enabledBorder: OutlineInputBorder(
+                              borderSide:BorderSide(color: Colors.white,)
+                          ),),),
+                      ],
                     ),
-                  ),
-                ],
-              )
+                  )
+                ],)
             ],
           ),
         ),

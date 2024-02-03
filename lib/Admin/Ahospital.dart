@@ -23,10 +23,19 @@ class Ahospitalstate extends State{
           SizedBox(height:20),
           Center(
             child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: SearchBar(
-                hintText:" Search hospital",
-                leading:Icon(Icons.search,color: ColorConstants.drawercolor,),
+              padding: const EdgeInsets.all(10.0),
+              child:TextField(style: TextStyle(fontWeight: FontWeight.bold,color: Colors.black),
+                decoration: (InputDecoration(label: Icon(Icons.search),
+                  labelStyle: TextStyle(color: Colors.black),
+                  enabledBorder: OutlineInputBorder(
+                      borderSide:BorderSide(color: Colors.black)),
+                  focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(
+                          color: Colors.black
+                      )
+                  ),
+                  hintText: "Search hospital",)
+                ),
               ),
             ),
           ),
