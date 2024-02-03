@@ -1,3 +1,4 @@
+import 'package:animate_do/animate_do.dart';
 import 'package:devloperproject1/Register.dart';
 import 'package:devloperproject1/User/Firstpage.dart';
 import 'package:devloperproject1/Widgets/Colour.dart';
@@ -45,14 +46,15 @@ class Loginpage extends StatefulWidget {
                   ),
                   SizedBox(
                       height: 300),
-
+                  FadeInDown(duration: Duration(milliseconds: 1000),
+                      child:
                    Text("Log in",
                       style: TextStyle(
                           color: Colors.black,
                           fontSize: 40,
-                          fontWeight: FontWeight.bold)),
+                          fontWeight: FontWeight.bold)),),
 
-                  SizedBox(
+                   SizedBox(
                       height: 15),
 
                   Container(margin: EdgeInsets.all(10),
@@ -63,19 +65,21 @@ class Loginpage extends StatefulWidget {
                               children: [
                                 Material(elevation: 20.0,
                                   shadowColor: Colors.green,
-                                child: TextField(style: TextStyle(fontWeight: FontWeight.bold,color: Colors.black),
+
+                                child:
+                                TextField(style: TextStyle(fontWeight: FontWeight.bold,color: Colors.black),
                                 decoration: (InputDecoration(labelText: "Log in",
                                   labelStyle: TextStyle(color: Colors.black),
                                   enabledBorder: OutlineInputBorder(
                                     borderSide:BorderSide(color: Colors.green)),
                                   focusedBorder: OutlineInputBorder(
                                     borderSide: BorderSide(
-                                        color: Colors.black
+                                        color: Colors.green
                                     )
                                 ),
                                   hintText: "Email id",)
-                                ),
-                              ),),
+                                ),),
+                              ),
                                 Padding(padding: EdgeInsets.all(10)),
                                 Material(
                                   elevation: 20,
@@ -87,7 +91,7 @@ class Loginpage extends StatefulWidget {
                                           color: Colors.green
                                       )
                                   ),enabledBorder: OutlineInputBorder(
-                                    borderSide:BorderSide(color: Colors.black)
+                                    borderSide:BorderSide(color: Colors.green)
                                   ),
                                     hintText: "password",)),
                                   obscureText: true,
@@ -124,19 +128,20 @@ class Loginpage extends StatefulWidget {
                                   height: 10,
                                 ),
                                 Padding(padding: EdgeInsets.only(left: 0,right: 0),
-                                child:
+                                    child:
                                 Row(
                                   children: [ Text("Don't have an account?"),
                                     TextButton(onPressed: (){
                                       Navigator.push(context, MaterialPageRoute(builder: (context) => Register(),));
-                                    }, child: Text("Sign up"),
+                                    },
+                                      child: Text("Sign up"),
                                     ),
                                   ],
                                 ))
                               ]
                             ),
                           ),
-                        ),
+                  ),
                 ],
               )
             ],

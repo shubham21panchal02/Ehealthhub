@@ -14,6 +14,6 @@ void main() {
   runApp(Material(child:MaterialApp(
     debugShowCheckedModeBanner: false,
     home:
-    Loginpage(),
+    SplashScreen(),
   )));
 }
