@@ -1,3 +1,4 @@
+import 'package:devloperproject1/Admin/Afeedback.dart';
 import 'package:devloperproject1/Admin/Ahospital.dart';
 import 'package:devloperproject1/Admin/Ausers.dart';
 import 'package:devloperproject1/Widgets/Colour.dart';
@@ -207,7 +208,9 @@ class Afristpagestate extends State<Afristpage>{
                 ),
               ),
             ),
-            InkWell(onTap: (){},
+            InkWell(onTap: (){
+              Navigator.push(context,MaterialPageRoute(builder: (context) => Afeedback(),),);
+            },
               child: Card(margin: EdgeInsets.all(10),elevation: 10,
                 // Set the shape of the card using a rounded rectangle border with a 8 pixel radius
                 shape: RoundedRectangleBorder(
