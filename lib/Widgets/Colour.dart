@@ -15,5 +15,6 @@ class ColorConstants {
   static Color drawercolor = hexToColor('#255052');
   static Color appbarcolor = hexToColor('#0e9096');
   static Color buttonscolor = hexToColor('#0e9096');
+  static Color lightcolor = hexToColor('#9dcdd1');
   static Color secondaryDarkAppColor = Colors.white;
 }

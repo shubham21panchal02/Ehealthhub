@@ -21,14 +21,13 @@ class Ahospitalstate extends State{
       body: Column(
         children: [
           SizedBox(height:20),
-          Center(
+           Center(
             child: Padding(
               padding: const EdgeInsets.all(8.0),
-              child: SearchBar(
-                hintText:" Search hospital",
-                leading:Icon(Icons.search,color: ColorConstants.drawercolor,),
+               child: SearchBar(
+              leading:Icon(Icons.search,color: ColorConstants.drawercolor,),
               ),
-            ),
+           ),
           ),
           SizedBox(height: 10,),
           Expanded(

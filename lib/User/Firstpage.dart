@@ -69,28 +69,6 @@ class Home extends State<Ufirstpage> {
                 },
               ),
             ),
-            actions: [Padding(padding: EdgeInsets.all(10),child:Icon(Icons.notifications),)],
-          ),
-          bottomNavigationBar: BottomNavigationBar(
-             currentIndex: 0,
-
-            items:  <BottomNavigationBarItem>[
-              BottomNavigationBarItem(
-                icon: Icon(Icons.home),
-                label: 'Home',
-
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.business),
-                label: 'HOSPITAL',
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.school),
-                label: 'School',
-              ),
-            ],
-            selectedItemColor:Color(0xFF0e9096) ,
-
           ),
           body:SingleChildScrollView(
             scrollDirection: Axis.vertical,
@@ -208,7 +186,15 @@ class Home extends State<Ufirstpage> {
                                 }),
 
                       ),
-                    )
+                    ),
+                   SizedBox(
+                     height: 40,
+                   ),
+                   ElevatedButton(onPressed: (){},style: ElevatedButton.styleFrom(
+                     primary: ColorConstants.buttonscolor
+                   ),
+                       child: Padding(padding: EdgeInsets.only(top: 20,bottom: 20,left: 100,right: 100),
+                       child: Text("Appointment details"),))
                   ],
                 )
             ),

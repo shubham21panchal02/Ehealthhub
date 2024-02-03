@@ -1,3 +1,4 @@
+import 'package:devloperproject1/User/Fourthpage.dart';
 import 'package:devloperproject1/Widgets/Colour.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -21,7 +22,7 @@ class Service extends State<Servicespage> {
         ),
         body: SingleChildScrollView(
             child: Column(
-          children: [
+            children: [
             ListView.builder(
               shrinkWrap: true,
               physics: NeverScrollableScrollPhysics(),
@@ -29,19 +30,82 @@ class Service extends State<Servicespage> {
               itemBuilder: (BuildContext context, int index) {
                 return InkWell(
                   onTap: (){},
-                  child: Card(margin: EdgeInsets.all(3),
+                  child: Card(margin: EdgeInsets.all(10),color: ColorConstants.lightcolor,
+                    elevation: 5,
                     child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Row(children: [Expanded(
-                            child: Image.network("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcScMRJK34Xds1Wsbg13IYRGQ2vvYaJ1KvQRg97vCj1U1rDO6DObf7ztbxfOLLTYu97rFAg&usqp=CAU",height: 200,),),
-                          ],),
-                        Center(
-                          child:Text("ENT",style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold),) ,
-                        )
+
+                      Image.network("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcScMRJK34Xds1Wsbg13IYRGQ2vvYaJ1KvQRg97vCj1U1rDO6DObf7ztbxfOLLTYu97rFAg&usqp=CAU",height: 200,),
+                        SizedBox(
+                          height: 2,
+                        ),
+                        Row(
+                          children: [
+                            Text("Specialist:",style: TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold),),
+
+                            Text(
+                              "ENT",
+                              style: TextStyle(
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                          ],
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        Row(
+                          children: [
+                            Text("Fees:",style: TextStyle(
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold),),
+                            Icon(Icons.currency_rupee),
+
+                            Text(
+                              "300",
+                              style: TextStyle(
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                          ],
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+
+                        Row(
+                          children: [
+                            Text("Rewards Point:",style: TextStyle(
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold),),
+                            Icon(Icons.currency_exchange,color: Colors.yellow,),
+
+                            Text(
+                              "300",
+                              style: TextStyle(
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                          ],
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        // Center(
+                        //   child:  ElevatedButton(onPressed: (){
+                        //     Navigator.push(context, MaterialPageRoute(builder: (context) => Uforthpage(),));
+                        //   }, child:Text("Book Appointment"),
+                        //     style:ElevatedButton.styleFrom(primary: Color(0xFF0e9096),shape: RoundedRectangleBorder(
+                        //         borderRadius:BorderRadius.all(Radius.circular(20))
+                        //     )),),)
                       ],
                     ),
                   ),
                 );
+
               },
             )
           ],

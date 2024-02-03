@@ -21,6 +21,7 @@ class _SliderState extends State<SliderScreen> {
         backgroundColor: Color(0xFF0e9096),
       ),
 
+
       skipTextButton: Text(
         'Skip',
         style: TextStyle(
@@ -77,7 +78,7 @@ class _SliderState extends State<SliderScreen> {
                 height: 20,
               ),
               const Text(
-                "Manage appointment with your doctor, and get accurate information",
+                "Manage appointment with your hospital, and get accurate information",
                 textAlign: TextAlign.left,
                 style: TextStyle(
                   color: Colors.black26,
@@ -100,7 +101,7 @@ class _SliderState extends State<SliderScreen> {
                 height: 480,
               ),
               Text(
-                "Book the best doctor arround you",
+                "Book the best hospital arround you",
                 textAlign: TextAlign.left,
                 style: TextStyle(
                   color: Colors.black,

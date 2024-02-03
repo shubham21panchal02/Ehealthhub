@@ -21,15 +21,15 @@ class Ausersstate extends State<Ausers>{
       body: Column(
         children: [
           SizedBox(height:20),
-          Center(
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: SearchBar(
-                hintText:" Search users",
-                leading:Icon(Icons.search,color: ColorConstants.drawercolor,),
-              ),
-            ),
-          ),
+          // Center(
+          //   child: Padding(
+          //     padding: const EdgeInsets.all(8.0),
+          //     child: SearchBar(
+          //       hintText:" Search users",
+          //       leading:Icon(Icons.search,color: ColorConstants.drawercolor,),
+          //     ),
+          //   ),
+          // ),
           SizedBox(height: 10,),
           Expanded(
             child: SingleChildScrollView(
