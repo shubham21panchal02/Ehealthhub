@@ -90,7 +90,6 @@ class Second extends State<USecondpage> {
                               ),
                               Row(
                                 children: [
-                                  Padding(padding: EdgeInsets.only(right: 280)),
                                   TextButton(
                                       onPressed: () {
                                         Navigator.push(
@@ -100,12 +99,14 @@ class Second extends State<USecondpage> {
                                                   Servicespage(),
                                             ));
                                       },
-                                      child: Text(
-                                        "View Services",
-                                        style: TextStyle(
-                                            color: Colors.black, fontSize: 15),
-                                      ))
+                                      child:(Text("View Services",
+                                      style: TextStyle(
+                                          color: Colors.black, fontSize: 15),
+                                      )
+                                       )),
                                 ],
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                crossAxisAlignment: CrossAxisAlignment.end,
                               ),
                             ],
                           )),

@@ -1,4 +1,5 @@
 import 'package:devloperproject1/User/Fourthpage.dart';
+import 'package:devloperproject1/User/Thiredpage.dart';
 import 'package:devloperproject1/Widgets/Colour.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -29,7 +30,8 @@ class Service extends State<Servicespage> {
               itemCount: 5,
               itemBuilder: (BuildContext context, int index) {
                 return InkWell(
-                  onTap: (){},
+                  onTap: (){Navigator.push(context, MaterialPageRoute(builder: (context) => Uthiredpage(),));
+                    },
                   child: Card(margin: EdgeInsets.all(10),color: ColorConstants.lightcolor,
                     elevation: 5,
                     child: Column(
