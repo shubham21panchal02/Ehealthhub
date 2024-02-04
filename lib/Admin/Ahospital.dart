@@ -14,20 +14,37 @@ class Ahospitalstate extends State{
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
-    return Scaffold(
+    return Scaffold(backgroundColor:Color(0xFF9dcdd1),
       appBar: AppBar(leading: IconButton(icon:Icon(Icons.arrow_back_ios_new),onPressed: (){
         Navigator.push(context, MaterialPageRoute(builder: (context) => Afristpage(),),);
       },),backgroundColor: ColorConstants.appbarcolor,centerTitle: true,title: Text("Hospital"),),
       body: Column(
         children: [
           SizedBox(height:20),
-           Center(
+          Center(
             child: Padding(
-              padding: const EdgeInsets.all(8.0),
-               child: SearchBar(
-              leading:Icon(Icons.search,color: ColorConstants.drawercolor,),
+              padding: const EdgeInsets.all(10.0),
+              child:TextField( style:TextStyle(fontWeight: FontWeight.bold,color: Colors.black),
+                decoration: (InputDecoration(filled: true,fillColor: Colors.white
+                  ,label: Row(
+                    children: [
+                      Icon(Icons.search),
+                      Text("Search Hospital"),
+                    ],
+                  ),
+                  labelStyle: TextStyle(color: Colors.black),
+                  enabledBorder: OutlineInputBorder(
+                      borderRadius:BorderRadius.circular(50) ,
+                      borderSide:BorderSide(color: Colors.black)),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(
+                        color: Colors.black
+                    ),borderRadius: BorderRadius.circular(50),
+                  ),
+                  hintText: "Search hospital",)
+                ),
               ),
-           ),
+            ),
           ),
           SizedBox(height: 10,),
           Expanded(

@@ -1,4 +1,5 @@
 
+import 'package:devloperproject1/Admin/Afristpage.dart';
 import 'package:devloperproject1/Login.dart';
 import 'package:devloperproject1/Register.dart';
 import 'package:devloperproject1/Slider.dart';
@@ -14,6 +15,6 @@ void main() {
   runApp(Material(child:MaterialApp(
     debugShowCheckedModeBanner: false,
     home:
-    SplashScreen(),
+    Afristpage(),
   )));
 }
