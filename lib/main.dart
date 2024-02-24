@@ -9,12 +9,15 @@ import 'package:devloperproject1/User/Secondpage.dart';
 import 'package:devloperproject1/User/Thiredpage.dart';
 import 'package:devloperproject1/User/Services.dart';
 import 'package:flutter/material.dart';
+import 'Hospital/H-AppointmentDettail.dart';
+import 'Hospital/Hfirstpage.dart';
+import 'Hospital/Registration.dart';
 import 'Splash.dart';
 
 void main() {
   runApp(Material(child:MaterialApp(
     debugShowCheckedModeBanner: false,
     home:
-    SplashScreen(),
+    Rpage(),
   )));
 }

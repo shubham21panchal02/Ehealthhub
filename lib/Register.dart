@@ -1,97 +1,203 @@
+import 'package:animate_do/animate_do.dart';
+import 'package:devloperproject1/Register.dart';
+import 'package:devloperproject1/User/Firstpage.dart';
+import 'package:devloperproject1/Widgets/Colour.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'dart:ui';
+import 'package:flutter/material.dart';
 
-class Register extends StatefulWidget{
+class Registerpage extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
     // TODO: implement createState
     return Registerstate();
   }
 }
-
-class Registerstate extends State<Register>{
+class Registerstate extends State<Registerpage> {
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build ==>
-    return Scaffold(
-    body:SingleChildScrollView(
-      scrollDirection: Axis.vertical,
-      child: Column(
-        children: [
-          Container(color:Color(0xFF0e9096),
+    // TODO: implement build
+    return  Scaffold(
+      body: Container(
+        width: double.infinity,
+        decoration: BoxDecoration(
+            gradient: LinearGradient(
+                begin: Alignment.topCenter,
+                colors: [
+                  Colors.grey.shade900,
+                  Colors.greenAccent.shade100,
+                  Colors.black,
+                ]
+            )
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            SizedBox(height: 80,),
+            Padding(
+              padding: EdgeInsets.all(20),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  FadeInUp(duration: Duration(milliseconds: 1000), child: Text("Register", style: TextStyle(color: Colors.white, fontSize: 40),)),
+                  SizedBox(height: 10,),
+                  FadeInUp(duration: Duration(milliseconds: 1300), child: Text("Welcome User", style: TextStyle(color: Colors.white, fontSize: 18),)),
+                ],
+              ),
+            ),
+            SizedBox(height: 20),
+            Expanded(
               child: SingleChildScrollView(
-
-                  padding: EdgeInsets.only(left: 15,top: 120),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children:
-                  [Container(
+                child: Container(
+                  height: 800,
+                  decoration: BoxDecoration(
+                      color: Colors.black,
+                      borderRadius: BorderRadius.only(topLeft: Radius.circular(60), topRight: Radius.circular(60))
+                  ),
+                  child: Padding(
+                    padding: EdgeInsets.all(30),
                     child: Column(
-                      children: [
-                        Text("Register",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 40),),
-                        Text("Create your account",style: TextStyle(fontSize: 15)),
+                      children: <Widget>[
+                        SizedBox(height: 10,),
+                        FadeInUp(duration: Duration(milliseconds: 1400), child: Container(
+
+                          decoration: BoxDecoration(
+                              color: Colors.black,
+                              borderRadius: BorderRadius.circular(40),
+                              boxShadow: [BoxShadow(
+                                color: Color.fromRGBO(225, 95, 27, .3),
+
+
+                              )]
+                          ),
+                          child: Column(
+                            children: <Widget>[
+                              SizedBox(
+                                height: 40,
+                              ),
+                              Container(
+                                padding: EdgeInsets.all(10),
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(40),
+                                    border: Border.all(
+                                        color: Colors.white,
+                                        width: 1
+                                    )
+                                ),
+                                child: TextField(
+                                  decoration: InputDecoration(
+                                      hintText: "Hospital Name",
+                                      suffixIcon: Icon(Icons.local_hospital,color: Colors.greenAccent.shade100,),
+                                      hintStyle: TextStyle(color: Colors.grey),
+                                      border: InputBorder.none
+                                  ),
+                                ),
+                              ),
+                              SizedBox(
+                                height: 7,
+                              ),
+                              Container(
+
+                                padding: EdgeInsets.all(10),
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(40),
+                                    border: Border.all(
+                                        color: Colors.white,
+                                        width: 1
+                                    )
+                                ),
+                                child: TextField(
+
+                                  decoration: InputDecoration(
+                                      hintText: "Address",
+                                      suffixIcon: Icon(Icons.location_on_outlined,color: Colors.greenAccent.shade100,),
+                                      hintStyle: TextStyle(color: Colors.grey),
+                                      border: InputBorder.none
+                                  ),
+                                ),
+                              ),
+                              SizedBox(
+                                height: 7,
+                              ),
+                              Container(
+
+                                padding: EdgeInsets.all(10),
+
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(40),
+                                    border: Border.all(
+                                        color: Colors.white,
+                                        width: 1
+                                    )
+                                ),
+
+                                child: TextField(
+                                  obscureText: true,
+                                  decoration: InputDecoration(
+                                      suffixIcon: Icon(Icons.email,color: Colors.greenAccent.shade100,),
+                                      hintText: "Email",
+                                      hintStyle: TextStyle(color: Colors.grey),
+                                      border: InputBorder.none
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        )),
+                        SizedBox(
+                          height: 7,
+                        ),
+                        Container(
+
+                          padding: EdgeInsets.all(10),
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(40),
+                              border: Border.all(
+                                  color: Colors.white,
+                                  width: 1
+                              )
+                          ),
+                          child: TextField(
+
+                            decoration: InputDecoration(
+                                suffixIcon: Icon(Icons.remove_red_eye,color: Colors.greenAccent.shade100,),
+                                hintText: "Password",
+                                hintStyle: TextStyle(color: Colors.grey),
+                                border: InputBorder.none
+                            ),
+                          ),
+                        ),
+                        SizedBox(height: 40,),
+                        FadeInUp(duration: Duration(milliseconds: 1500), child: Text("Forgot Password?", style: TextStyle(color: Colors.grey),)),
+                        SizedBox(height: 40,),
+                        FadeInUp(duration: Duration(milliseconds: 1600), child: MaterialButton(
+                          onPressed: () {},
+                          height: 50,
+                          // margin: EdgeInsets.symmetric(horizontal: 50),
+                          color: Colors.greenAccent.shade100,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(50),
+
+                          ),
+                          // decoration: BoxDecoration(
+                          // ),
+                          child: Center(
+                            child: Text("Login", style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),),
+                          ),
+                        )),
+
+
+
                       ],
                     ),
                   ),
-                    Container(margin: EdgeInsets.only(
-                        right: 16
-                    ),
-                      width: 100,
-                      height: 100,
-                      child:  Image.network("https://cdn3d.iconscout.com/3d/premium/thumb/heart-checkup-report-4034067-3337543.png?f=webp",width:120,height: 100,fit: BoxFit.fill,),
-                    ),
-                  ],)
-              )     ),
-          Container(margin: EdgeInsets.all(20),
-              child: Column(
-                  children: [
-                    TextField(decoration: InputDecoration(labelText: "Name",prefixIcon:Icon(Icons.account_circle),prefixIconColor:Color(0xFF0e9096) ,labelStyle: TextStyle(color: Colors.black),hintText: "Name",focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
-                            color: Colors.black)
-                    ),enabledBorder: OutlineInputBorder(
-                        borderSide:BorderSide(color: Color(0xFF0e9096),)
-                    ),),),
-                    SizedBox(height:20 ),
-                    TextField(decoration: InputDecoration(labelText: "Phone",prefixIcon:Icon(Icons.phone),prefixIconColor:Color(0xFF0e9096),labelStyle: TextStyle(color: Colors.black),hintText: "Ex:10 digit",focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
-                            color: Colors.black)
-                    ),enabledBorder: OutlineInputBorder(
-                        borderSide:BorderSide(color: Color(0xFF0e9096),)
-                    ),),keyboardType:  TextInputType.number,),
-                    SizedBox(height:20 ),
-                    TextField(decoration: InputDecoration(labelText: "Age",prefixIcon:Icon(Icons.man),prefixIconColor:Color(0xFF0e9096),labelStyle: TextStyle(color: Colors.black),focusedBorder: OutlineInputBorder(
-                    borderSide: BorderSide(
-                    color: Colors.black)
-                    ),enabledBorder: OutlineInputBorder(
-                        borderSide:BorderSide(color: Color(0xFF0e9096),)
-                    ),),keyboardType:  TextInputType.number),
-                    SizedBox(height:20 ),
-                    TextField(decoration: InputDecoration(labelText: "Email",prefixIcon:Icon(Icons.email),prefixIconColor:Color(0xFF0e9096),labelStyle: TextStyle(color: Colors.black),hintText: "Email",focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
-                            color: Colors.black)
-                    ),enabledBorder: OutlineInputBorder(
-                        borderSide:BorderSide(color: Color(0xFF0e9096),)
-                    ),),),
-                    SizedBox(height:20 ),
-                    TextField(decoration: InputDecoration(labelText: "Password",prefixIcon:Icon(Icons.lock),prefixIconColor:Color(0xFF0e9096),labelStyle: TextStyle(color: Colors.black),focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
-                            color: Colors.black)
-                    ),enabledBorder: OutlineInputBorder(
-                        borderSide:BorderSide(color: Color(0xFF0e9096),)
-                    ),
-                      hintText: "password",)),
-                    SizedBox(height:50),
-                    ElevatedButton(onPressed: (){}, child:Text("Register"),style: ElevatedButton.styleFrom(
-                      primary: Color(0xFF0e9096)
-                    )
-                    ),
-                  ])
-          ),
-
-        ],
+                ),
+              ),
+            )
+          ],
+        ),
       ),
-    )
-
     );
   }
 }

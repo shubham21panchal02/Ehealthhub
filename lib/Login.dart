@@ -132,7 +132,7 @@ class Loginpage extends StatefulWidget {
                                 Row(
                                   children: [ Text("Don't have an account?"),
                                     TextButton(onPressed: (){
-                                      Navigator.push(context, MaterialPageRoute(builder: (context) => Register(),));
+                                      Navigator.push(context, MaterialPageRoute(builder: (context) => Registerpage(),));
                                     },
                                       child: Text("Sign up"),
                                     ),
