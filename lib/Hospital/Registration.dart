@@ -86,7 +86,9 @@ class Loginstate extends State<Rpage> {
                                     )
                                 ),
                                 child: TextField(
+                                  style: TextStyle(color: Colors.white),
                                   decoration: InputDecoration(
+
                                       hintText: "Hospital Name",
                                       suffixIcon: Icon(Icons.local_hospital,color: Colors.greenAccent.shade100,),
                                       hintStyle: TextStyle(color: Colors.grey),
@@ -108,7 +110,7 @@ class Loginstate extends State<Rpage> {
                                     )
                                 ),
                                 child: TextField(
-
+                                  style: TextStyle(color: Colors.white),
                                   decoration: InputDecoration(
                                       hintText: "Address",
                                       suffixIcon: Icon(Icons.location_on_outlined,color: Colors.greenAccent.shade100,),
@@ -133,6 +135,7 @@ class Loginstate extends State<Rpage> {
                                 ),
 
                                 child: TextField(
+                                  style: TextStyle(color: Colors.white),
                                   obscureText: true,
                                   decoration: InputDecoration(
                                     suffixIcon: Icon(Icons.email,color: Colors.greenAccent.shade100,),
@@ -159,7 +162,8 @@ class Loginstate extends State<Rpage> {
                               )
                           ),
                           child: TextField(
-                            style: TextStyle(),
+
+                            style: TextStyle(color: Colors.white),
                             decoration: InputDecoration(
                               suffixIcon: Icon(Icons.remove_red_eye,color: Colors.greenAccent.shade100,),
                                 hintText: "Password",

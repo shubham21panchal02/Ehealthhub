@@ -86,9 +86,10 @@ class Registerstate extends State<Registerpage> {
                                     )
                                 ),
                                 child: TextField(
+                                  style: TextStyle(color: Colors.white),
                                   decoration: InputDecoration(
-                                      hintText: "Hospital Name",
-                                      suffixIcon: Icon(Icons.local_hospital,color: Colors.greenAccent.shade100,),
+                                      hintText: "Enter your name",
+                                      suffixIcon: Icon(Icons.account_box,color: Colors.greenAccent.shade100,),
                                       hintStyle: TextStyle(color: Colors.grey),
                                       border: InputBorder.none
                                   ),
@@ -108,10 +109,10 @@ class Registerstate extends State<Registerpage> {
                                     )
                                 ),
                                 child: TextField(
-
+                                  style: TextStyle(color: Colors.white),
                                   decoration: InputDecoration(
-                                      hintText: "Address",
-                                      suffixIcon: Icon(Icons.location_on_outlined,color: Colors.greenAccent.shade100,),
+                                      hintText: "Age",
+                                      suffixIcon: Icon(Icons.calendar_month,color: Colors.greenAccent.shade100,),
                                       hintStyle: TextStyle(color: Colors.grey),
                                       border: InputBorder.none
                                   ),
@@ -133,10 +134,11 @@ class Registerstate extends State<Registerpage> {
                                 ),
 
                                 child: TextField(
+                                  style: TextStyle(color: Colors.white),
                                   obscureText: true,
                                   decoration: InputDecoration(
-                                      suffixIcon: Icon(Icons.email,color: Colors.greenAccent.shade100,),
-                                      hintText: "Email",
+                                      suffixIcon: Icon(Icons.person,color: Colors.greenAccent.shade100,),
+                                      hintText: "Gender",
                                       hintStyle: TextStyle(color: Colors.grey),
                                       border: InputBorder.none
                                   ),
@@ -159,7 +161,47 @@ class Registerstate extends State<Registerpage> {
                               )
                           ),
                           child: TextField(
+                            style: TextStyle(color: Colors.white),
+                            decoration: InputDecoration(
+                                suffixIcon: Icon(Icons.bloodtype,color: Colors.greenAccent.shade100,),
+                                hintText: "Blood group",
+                                hintStyle: TextStyle(color: Colors.grey),
+                                border: InputBorder.none
+                            ),
+                          ),
+                        ),
+                        Container(
 
+                          padding: EdgeInsets.all(10),
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(40),
+                              border: Border.all(
+                                  color: Colors.white,
+                                  width: 1
+                              )
+                          ),
+                          child: TextField(
+                            style: TextStyle(color: Colors.white),
+                            decoration: InputDecoration(
+                                suffixIcon: Icon(Icons.email,color: Colors.greenAccent.shade100,),
+                                hintText: "Email id",
+                                hintStyle: TextStyle(color: Colors.grey),
+                                border: InputBorder.none
+                            ),
+                          ),
+                        ),
+                        Container(
+
+                          padding: EdgeInsets.all(10),
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(40),
+                              border: Border.all(
+                                  color: Colors.white,
+                                  width: 1
+                              )
+                          ),
+                          child: TextField(
+                            style: TextStyle(color: Colors.white),
                             decoration: InputDecoration(
                                 suffixIcon: Icon(Icons.remove_red_eye,color: Colors.greenAccent.shade100,),
                                 hintText: "Password",
