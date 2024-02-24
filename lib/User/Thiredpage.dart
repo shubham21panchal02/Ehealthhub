@@ -1,6 +1,8 @@
+import 'package:devloperproject1/User/Fourthpage.dart';
 import 'package:devloperproject1/Widgets/Colour.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:quickalert/quickalert.dart';
 
 class Uthiredpage extends StatefulWidget{
   @override
@@ -11,6 +13,20 @@ class Uthiredpage extends StatefulWidget{
 }
 
 class Thiredpage extends State<Uthiredpage>{
+  DateTime selectedDate = DateTime.now();
+  Future<void> _selectDate(BuildContext context) async {
+    final DateTime? picked = await showDatePicker(
+        context: context,
+        initialDate: selectedDate,
+        firstDate: DateTime(2015, 8),
+        lastDate: DateTime(2101));
+    if (picked != null && picked != selectedDate) {
+      setState(() {
+        selectedDate = picked;
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
@@ -34,6 +50,7 @@ class Thiredpage extends State<Uthiredpage>{
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                Image.network("https://sys.mediflam.com/OfflineUploads/HospitalImage/Sterling_Hospital.JPG",),
                 Row(children: [
                   Image.asset('assets/image/hospital.png',
                   width: 35,),
@@ -101,13 +118,48 @@ class Thiredpage extends State<Uthiredpage>{
                         fontWeight: FontWeight.bold),),
                     )
                   ],
-                ),Center(child:
-                    ElevatedButton(onPressed: () {}, child: Text("Book Now",),)),
+                ),
                 SizedBox(
                   height: 10,
                 ),
-                Container(
-                )
+                Center(
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: <Widget>[
+                      Text("${selectedDate.toLocal()}".split(' ')[0]),
+                      const SizedBox(height: 20.0,),
+                      ElevatedButton(
+                        style: TextButton.styleFrom(
+                          backgroundColor: ColorConstants.buttonscolor
+                        ),
+                        onPressed: () => _selectDate(context),
+                        child: const Text('Select date'),
+                      ),
+                    ],
+                  ),
+                ),
+                SizedBox(
+                  height: 100,
+                ),
+    Center(child:
+    ElevatedButton(onPressed: () {
+      QuickAlert.show(
+        context: context,
+        type: QuickAlertType.success,
+        text: 'Book Appointment Successfully!',
+        autoCloseDuration: const Duration(seconds: 5),
+
+        showConfirmBtn: false,
+      );
+    },
+        child: Padding(padding: EdgeInsets.only(top: 20,bottom: 10,left: 100,right: 100),
+      child: Text("Book Now",),
+        )),),
+                SizedBox(
+                  height: 10,
+                ),
+
+
               ],
             ),
           ),
@@ -115,6 +167,39 @@ class Thiredpage extends State<Uthiredpage>{
         )
         ),
       )
+
+    );
+
+  }
+
+  Card buildButton({
+    required onTap,
+    required title,
+    required text,
+    required leadingImage,
+  }) {
+    return Card(
+      shape: const StadiumBorder(),
+      margin: const EdgeInsets.symmetric(
+        horizontal: 20,
+      ),
+      clipBehavior: Clip.antiAlias,
+      elevation: 1,
+      child: ListTile(
+        onTap: onTap,
+        leading: CircleAvatar(
+          backgroundImage: AssetImage(
+            leadingImage,
+          ),
+        ),
+        title: Text(title ?? ""),
+        subtitle: Text(text ?? ""),
+        trailing: const Icon(
+          Icons.keyboard_arrow_right_rounded,
+        ),
+      ),
     );
   }
 }
+
+
