@@ -17,6 +17,9 @@ class Loginpage extends StatefulWidget {
   }
   }
  class Loginstate extends State<Loginpage>{
+   List<String> Role = ['Admin', 'User', 'Hospital']; // Option 2
+   late String SelectedRole;
+
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
@@ -55,7 +58,7 @@ class Loginpage extends StatefulWidget {
                           fontSize: 40,
                           fontWeight: FontWeight.bold)),),
 
-                   SizedBox(
+                  SizedBox(
                       height: 15),
 
                   Container(margin: EdgeInsets.all(10),
@@ -151,4 +154,9 @@ class Loginpage extends StatefulWidget {
       ),
     );
   }
+   @override
+   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+     super.debugFillProperties(properties);
+     properties.add(StringProperty('SelectedRole', SelectedRole));
+   }
  }
