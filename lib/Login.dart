@@ -1,4 +1,5 @@
 import 'package:animate_do/animate_do.dart';
+import 'package:devloperproject1/Optionbutton.dart';
 import 'package:devloperproject1/Register.dart';
 import 'package:devloperproject1/User/Firstpage.dart';
 import 'package:devloperproject1/Widgets/Colour.dart';
@@ -132,7 +133,7 @@ class Loginpage extends StatefulWidget {
                                 Row(
                                   children: [ Text("Don't have an account?"),
                                     TextButton(onPressed: (){
-                                      Navigator.push(context, MaterialPageRoute(builder: (context) => Registerpage(),));
+                                      Navigator.push(context, MaterialPageRoute(builder: (context) => option(),));
                                     },
                                       child: Text("Sign up"),
                                     ),
