@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:animate_do/animate_do.dart';
 import 'package:devloperproject1/Optionbutton.dart';
 import 'package:devloperproject1/Register.dart';
@@ -8,6 +10,9 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'dart:ui';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:http/http.dart' as http;
 
 class Loginpage extends StatefulWidget {
   @override
@@ -17,8 +22,13 @@ class Loginpage extends StatefulWidget {
   }
   }
  class Loginstate extends State<Loginpage>{
-   List<String> Role = ['Admin', 'User', 'Hospital']; // Option 2
-   late String SelectedRole;
+
+   TextEditingController emailController = TextEditingController();
+   TextEditingController passwordController = TextEditingController();
+   final formKey = new GlobalKey<FormState>();
+   var logindata;
+   var data;
+   bool isLoading = false;
 
   @override
   Widget build(BuildContext context) {
@@ -71,7 +81,13 @@ class Loginpage extends StatefulWidget {
                                   shadowColor: Colors.green,
 
                                 child:
-                                TextField(style: TextStyle(fontWeight: FontWeight.bold,color: Colors.black),
+                                TextFormField(controller: emailController,
+                                  validator: (val) {
+    if (val!.isEmpty ||
+    RegExp(r"\s").hasMatch(val)) {
+    return "Email must not be empty";
+    }},
+    style: TextStyle(fontWeight: FontWeight.bold,color: Colors.black),
                                 decoration: (InputDecoration(labelText: "Log in",
                                   labelStyle: TextStyle(color: Colors.black),
                                   enabledBorder: OutlineInputBorder(
@@ -88,7 +104,14 @@ class Loginpage extends StatefulWidget {
                                 Material(
                                   elevation: 20,
                                   shadowColor: Colors.green,
-                                child: TextField(style: TextStyle(fontWeight: FontWeight.bold),
+                                child: TextFormField(controller: passwordController,
+                                  validator:  (val) {
+                                    if (val!.isEmpty ||
+                                        RegExp(r"\s").hasMatch(val)) {
+                                      return "Use Proper Password ";
+                                    }
+                                  },
+                                  style: TextStyle(fontWeight: FontWeight.bold),
                                   decoration: (InputDecoration(labelText: "password",
                                       labelStyle: TextStyle(color: Colors.black),focusedBorder: OutlineInputBorder(
                                       borderSide: BorderSide(
@@ -122,9 +145,7 @@ class Loginpage extends StatefulWidget {
                                 ),
 
                                 SizedBox(height: 30),
-                                ElevatedButton(onPressed: () {
-                                  Navigator.push(context, MaterialPageRoute(builder: (context) => Ufirstpage(),));
-                                },
+                                ElevatedButton(onPressed: _submit,
                                   child: Text("Sign in",style: TextStyle(color: Colors.white,),),
                                   style: ElevatedButton.styleFrom(primary: ColorConstants.buttonscolor),
                                     ),
@@ -154,9 +175,48 @@ class Loginpage extends StatefulWidget {
       ),
     );
   }
-   @override
-   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
-     super.debugFillProperties(properties);
-     properties.add(StringProperty('SelectedRole', SelectedRole));
+   // @override
+   // void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+   //   super.debugFillProperties(properties);
+   //   properties.add(StringProperty('SelectedRole', SelectedRole));
+   // }
+
+   Future<void> _submit() async {
+     final form = formKey.currentState;
+     if (form!.validate()) {
+       setState(() {
+         isLoading = true;
+       });
+       final login_url = Uri.parse(
+           "https://e-healthhub.000webhostapp.com/API/login.php");
+       final response = await http
+           .post(login_url, body: {
+         "EMAIL_ID": emailController.text,
+         "PASSWORD": passwordController.text
+       });
+       if (response.statusCode == 200) {
+         logindata = jsonDecode(response.body);
+         data =
+         jsonDecode(response.body)['user'];
+         print(data);
+         setState(() {
+           isLoading = false;
+         });
+         if (logindata['error'] == false) {
+           SharedPreferences setpreference = await SharedPreferences.getInstance();
+           setpreference.setString('id', data['USER_Id'].toString());
+           setpreference.setString('name', data['U_NAME'].toString());
+
+           Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (BuildContext context) => Ufirstpage()), (Route<dynamic> route) => false);
+         }else{
+           Fluttertoast.showToast(
+               msg: logindata['message'].toString(),
+               toastLength: Toast.LENGTH_LONG,
+               gravity: ToastGravity.BOTTOM,
+               timeInSecForIosWeb: 2
+           );
+         }
+       }
+     }
    }
  }
