@@ -34,7 +34,7 @@ class Loginpage extends StatefulWidget {
   Widget build(BuildContext context) {
     // TODO: implement build
     return Scaffold(
-      body: SingleChildScrollView(
+      body:isLoading ? Center(child: CircularProgressIndicator(color: Colors.greenAccent)) : SingleChildScrollView(
         child:
         Container(
           height: MediaQuery.of(context).size.height,
@@ -47,127 +47,130 @@ class Loginpage extends StatefulWidget {
                 height: MediaQuery.of(context).size.height,
                 fit: BoxFit.cover,
               ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  SizedBox(height: 3),
-                  IconButton(
-                    icon: const Icon(Icons.arrow_back_ios),
-                    color: Colors.white,
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
-                  ),
-                  SizedBox(
-                      height: 300),
-                  FadeInDown(duration: Duration(milliseconds: 1000),
-                      child:
-                   Text("Log in",
-                      style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 40,
-                          fontWeight: FontWeight.bold)),),
+              Form(
+                key: formKey,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    SizedBox(height: 3),
+                    IconButton(
+                      icon: const Icon(Icons.arrow_back_ios),
+                      color: Colors.white,
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                    ),
+                    SizedBox(
+                        height: 300),
+                    FadeInDown(duration: Duration(milliseconds: 1000),
+                        child:
+                     Text("Log in",
+                        style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 40,
+                            fontWeight: FontWeight.bold)),),
 
-                  SizedBox(
-                      height: 15),
+                    SizedBox(
+                        height: 15),
 
-                  Container(margin: EdgeInsets.all(10),
-                          child: Center(
-                            child: Column(
-                              mainAxisSize: MainAxisSize.min,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Material(elevation: 20.0,
-                                  shadowColor: Colors.green,
+                    Container(margin: EdgeInsets.all(10),
+                            child: Center(
+                              child: Column(
+                                mainAxisSize: MainAxisSize.min,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Material(elevation: 20.0,
+                                    shadowColor: Colors.green,
 
-                                child:
-                                TextFormField(controller: emailController,
-                                  validator: (val) {
+                                  child:
+                                  TextFormField(controller: emailController,
+                                    validator: (val) {
     if (val!.isEmpty ||
     RegExp(r"\s").hasMatch(val)) {
     return "Email must not be empty";
     }},
     style: TextStyle(fontWeight: FontWeight.bold,color: Colors.black),
-                                decoration: (InputDecoration(labelText: "Log in",
-                                  labelStyle: TextStyle(color: Colors.black),
-                                  enabledBorder: OutlineInputBorder(
-                                    borderSide:BorderSide(color: Colors.green)),
-                                  focusedBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(
-                                        color: Colors.green
-                                    )
-                                ),
-                                  hintText: "Email id",)
-                                ),),
-                              ),
-                                Padding(padding: EdgeInsets.all(10)),
-                                Material(
-                                  elevation: 20,
-                                  shadowColor: Colors.green,
-                                child: TextFormField(controller: passwordController,
-                                  validator:  (val) {
-                                    if (val!.isEmpty ||
-                                        RegExp(r"\s").hasMatch(val)) {
-                                      return "Use Proper Password ";
-                                    }
-                                  },
-                                  style: TextStyle(fontWeight: FontWeight.bold),
-                                  decoration: (InputDecoration(labelText: "password",
-                                      labelStyle: TextStyle(color: Colors.black),focusedBorder: OutlineInputBorder(
+                                  decoration: (InputDecoration(labelText: "Log in",
+                                    labelStyle: TextStyle(color: Colors.black),
+                                    enabledBorder: OutlineInputBorder(
+                                      borderSide:BorderSide(color: Colors.green)),
+                                    focusedBorder: OutlineInputBorder(
                                       borderSide: BorderSide(
                                           color: Colors.green
                                       )
-                                  ),enabledBorder: OutlineInputBorder(
-                                    borderSide:BorderSide(color: Colors.green)
                                   ),
-                                    hintText: "password",)),
-                                  obscureText: true,
-                                ),),
-                                Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 25.0),
-
-
-                                  child: Row(children: [
-                                    SizedBox(
-                                        width:
-                                        MediaQuery.of(context).size.width *
-                                            0.05),
-                                    Column(
-                                      crossAxisAlignment:
-                                      CrossAxisAlignment.start,
-                                      // ignore: prefer_const_literals_to_create_immutables
-                                    )
-                                  ]),
+                                    hintText: "Email id",)
+                                  ),),
                                 ),
-                                SizedBox(
-                                  height: 0,
-                                ),
-
-                                SizedBox(height: 30),
-                                ElevatedButton(onPressed: _submit,
-                                  child: Text("Sign in",style: TextStyle(color: Colors.white,),),
-                                  style: ElevatedButton.styleFrom(primary: ColorConstants.buttonscolor),
-                                    ),
-                                SizedBox(
-                                  height: 10,
-                                ),
-                                Padding(padding: EdgeInsets.only(left: 0,right: 0),
-                                    child:
-                                Row(
-                                  children: [ Text("Don't have an account?"),
-                                    TextButton(onPressed: (){
-                                      Navigator.push(context, MaterialPageRoute(builder: (context) => option(),));
+                                  Padding(padding: EdgeInsets.all(10)),
+                                  Material(
+                                    elevation: 20,
+                                    shadowColor: Colors.green,
+                                  child: TextFormField(controller: passwordController,
+                                    validator:  (val) {
+                                      if (val!.isEmpty ||
+                                          RegExp(r"\s").hasMatch(val)) {
+                                        return "Use Proper Password ";
+                                      }
                                     },
-                                      child: Text("Sign up"),
+                                    style: TextStyle(fontWeight: FontWeight.bold),
+                                    decoration: (InputDecoration(labelText: "password",
+                                        labelStyle: TextStyle(color: Colors.black),focusedBorder: OutlineInputBorder(
+                                        borderSide: BorderSide(
+                                            color: Colors.green
+                                        )
+                                    ),enabledBorder: OutlineInputBorder(
+                                      borderSide:BorderSide(color: Colors.green)
                                     ),
-                                  ],
-                                ))
-                              ]
+                                      hintText: "password",)),
+                                    obscureText: true,
+                                  ),),
+                                  Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 25.0),
+
+
+                                    child: Row(children: [
+                                      SizedBox(
+                                          width:
+                                          MediaQuery.of(context).size.width *
+                                              0.05),
+                                      Column(
+                                        crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                        // ignore: prefer_const_literals_to_create_immutables
+                                      )
+                                    ]),
+                                  ),
+                                  SizedBox(
+                                    height: 0,
+                                  ),
+
+                                  SizedBox(height: 30),
+                                  ElevatedButton(onPressed: _submit,
+                                    child: Text("Sign in",style: TextStyle(color: Colors.white,),),
+                                    style: ElevatedButton.styleFrom(primary: ColorConstants.buttonscolor),
+                                      ),
+                                  SizedBox(
+                                    height: 10,
+                                  ),
+                                  Padding(padding: EdgeInsets.only(left: 0,right: 0),
+                                      child:
+                                  Row(
+                                    children: [ Text("Don't have an account?"),
+                                      TextButton(onPressed: (){
+                                        Navigator.push(context, MaterialPageRoute(builder: (context) => option(),));
+                                      },
+                                        child: Text("Sign up"),
+                                      ),
+                                    ],
+                                  ))
+                                ]
+                              ),
                             ),
-                          ),
-                  ),
-                ],
+                    ),
+                  ],
+                ),
               )
             ],
           ),
