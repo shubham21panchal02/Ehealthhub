@@ -3,6 +3,7 @@ import 'package:devloperproject1/Widgets/Colour.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_advanced_drawer/flutter_advanced_drawer.dart';
+import 'package:carousel_slider/carousel_slider.dart';
 
 class  Ufirstpage extends StatefulWidget {
   @override
@@ -13,6 +14,13 @@ class  Ufirstpage extends StatefulWidget {
 }
 
 class Home extends State<Ufirstpage> {
+  List imageList=[
+    {"id":1,"image_path":'assets/image/ad1.jpg'},
+    {"id":2,"image_path":'assets/image/ad2.jpg'},
+    {"id":3,"image_path":'assets/image/ad3.jpg'},
+  ];
+  final CarouselController carouselController=CarouselController();
+  int currentIndex=0;
   String userName = "User";
   final _advancedDrawerController = AdvancedDrawerController();
 
@@ -70,8 +78,68 @@ class Home extends State<Ufirstpage> {
               ),
             ),
           ),
-          body:Column(
+          body:
+          Column(
             children: [
+              Stack(
+                children: [
+                  InkWell(
+                    onTap: (){
+                      print(currentIndex);
+                    },
+                    child:CarouselSlider(
+                      items: imageList
+                          .map(
+                            (item) => Image.asset(
+                          item['image_path'],
+                          fit: BoxFit.cover,
+                          width: double.infinity,
+                        ),
+                      )
+                          .toList(),
+                      carouselController: carouselController,
+                      options: CarouselOptions(
+                        scrollPhysics: const BouncingScrollPhysics(),
+                        autoPlay: true,
+                        aspectRatio: 2,
+                        viewportFraction: 1,
+                        onPageChanged: (index, reason) {
+                          setState(() {
+                            currentIndex = index;
+                          });
+                        },
+                      ),
+                    ),
+                  ),
+                  Positioned(
+                    bottom: 10,
+                    left: 0,
+                    right: 0,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: imageList.asMap().entries.map((entry) {
+                        return GestureDetector(
+                          onTap: () => carouselController.animateToPage(entry.key),
+                          child: Container(
+                            width: currentIndex == entry.key ? 17 : 7,
+                            height: 7.0,
+                            margin: const EdgeInsets.symmetric(
+                              horizontal: 3.0,
+                            ),
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10),
+                                color: currentIndex == entry.key
+                                    ? Colors.red
+                                    : Colors.teal),
+                          ),
+                        );
+                      }).toList(),
+                    ),
+                  ),
+                ],
+              ),
+
+
               Expanded(
                 child: SingleChildScrollView(
                   scrollDirection: Axis.vertical,
@@ -81,6 +149,7 @@ class Home extends State<Ufirstpage> {
 
                       child:  Column(
                         children: [
+
                           Center(
                             child: Card(margin: EdgeInsets.all(20),
                                 elevation: 10,shadowColor: Colors.cyan,
