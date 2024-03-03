@@ -1,11 +1,18 @@
+import 'dart:convert';
+import 'dart:io';
+
 import 'package:animate_do/animate_do.dart';
-import 'package:devloperproject1/Register.dart';
-import 'package:devloperproject1/User/Firstpage.dart';
+import 'package:devloperproject1/Login.dart';
 import 'package:devloperproject1/Widgets/Colour.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'dart:ui';
-import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:http_parser/http_parser.dart';
+import 'package:mime/mime.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:http/http.dart' as http;
 
 class Rpage extends StatefulWidget {
   @override
@@ -15,193 +22,357 @@ class Rpage extends StatefulWidget {
   }
 }
 class Loginstate extends State<Rpage> {
+  TextEditingController doctorNameController = TextEditingController();
+  TextEditingController hospitalNameController = TextEditingController();
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
+  TextEditingController phoneNoController = TextEditingController();
+  TextEditingController addressController = TextEditingController();
+
+
+  final formKey = new GlobalKey<FormState>();
+  bool _isLoading = false;
+  var logindata;
+  var data;
+
+  final ImagePicker _picker = ImagePicker();
+  File? _image;
+  Future _getImage() async {
+    final pickedFile = await _picker.pickImage(source: ImageSource.gallery);
+    setState(() {
+      _image = File(pickedFile!.path);
+    });
+  }
+
+  uploadImageMedia(File fileImage) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    final mimeTypeData =
+    lookupMimeType(fileImage.path, headerBytes: [0xFF, 0xD8])?.split('/');
+    final imageUploadRequest =
+    http.MultipartRequest('POST', Uri.parse("https://e-healthhub.000webhostapp.com/API/hregister.php"));
+
+    final file = await http.MultipartFile.fromPath('H_IMG', fileImage.path,
+        contentType: MediaType(mimeTypeData![0], mimeTypeData[1]));
+
+    imageUploadRequest.fields['D_NAME']= "Mrs.Doctor";
+    imageUploadRequest.fields['H_NAME']= hospitalNameController.text;
+    imageUploadRequest.fields['PHONE_NO']= phoneNoController.text ;
+    imageUploadRequest.fields['EMAIL_ID']= emailController.text ;
+    imageUploadRequest.fields['ADDRESS']= addressController.text ;
+    imageUploadRequest.fields['PASSWORD']= passwordController.text ;
+    imageUploadRequest.files.add(file);
+    try {
+      _isLoading = true;
+
+      final streamedResponse = await imageUploadRequest.send();
+
+      streamedResponse.stream.transform(utf8.decoder).listen((value) {
+        if(streamedResponse.statusCode==200){
+          setState(() {
+            _isLoading=false;
+          });
+          logindata = jsonDecode(value);
+          if (logindata['error'] == false) {
+
+            Fluttertoast.showToast(
+                msg: logindata['message'].toString(),
+                toastLength: Toast.LENGTH_LONG,
+                gravity: ToastGravity.BOTTOM,
+                timeInSecForIosWeb: 2
+            );
+            Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder:
+                (BuildContext context) => Loginpage()), (Route<dynamic> route) => false);
+          }else{
+            Fluttertoast.showToast(
+                msg: logindata['message'].toString(),
+                toastLength: Toast.LENGTH_LONG,
+                gravity: ToastGravity.BOTTOM,
+                timeInSecForIosWeb: 2
+            );
+          }
+          Fluttertoast.showToast(
+              msg: "Successfully",
+              toastLength: Toast.LENGTH_LONG,
+              gravity: ToastGravity.BOTTOM,
+              timeInSecForIosWeb: 2
+          );
+          // Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(
+          //     builder: (BuildContext context) => DoctorHomePage()), (
+          //     Route<dynamic> route) => false);
+          print(streamedResponse.stream);
+          print(value);
+        }else{
+          setState(() {
+            _isLoading=false;
+          });
+          Fluttertoast.showToast(
+              msg: "Something went wrong",
+              toastLength: Toast.LENGTH_LONG,
+              gravity: ToastGravity.BOTTOM,
+              timeInSecForIosWeb: 2
+          );
+          print(value);
+        }
+      });
+    } catch (e) {
+      print(e);
+    }
+  }
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
     return  Scaffold(
-      body: Container(
+      body: _isLoading ? Center(child: CircularProgressIndicator(color: Colors.greenAccent)) :  Container(
         width: double.infinity,
         decoration: BoxDecoration(
-            gradient: LinearGradient(
-                begin: Alignment.topCenter,
-                colors: [
-                  Colors.grey.shade900,
-                  Colors.greenAccent.shade100,
-                  Colors.black,
-                ]
-            )
+         color: hexToColor('#ABACA5')
+
         ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            SizedBox(height: 80,),
-            Padding(
-              padding: EdgeInsets.all(20),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  FadeInUp(duration: Duration(milliseconds: 1000), child: Text("Register", style: TextStyle(color: Colors.white, fontSize: 40),)),
-                  SizedBox(height: 10,),
-                  FadeInUp(duration: Duration(milliseconds: 1300), child: Text("Welcome Hospital", style: TextStyle(color: Colors.white, fontSize: 18),)),
-                ],
+        child: Form(
+          key: formKey,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              SizedBox(height: 80,),
+              Padding(
+                padding: EdgeInsets.all(20),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    FadeInUp(duration: Duration(milliseconds: 1000), child: Text("Register", style: TextStyle(color: Colors.black, fontSize: 40),)),
+                    SizedBox(height: 10,),
+                    FadeInUp(duration: Duration(milliseconds: 1300), child: Text("Welcome Hospital", style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold, fontSize: 18),)),
+                  ],
+                ),
               ),
-            ),
-            SizedBox(height: 20),
-            Expanded(
-              child: SingleChildScrollView(
-                child: Container(
-                  height: 800,
-                  decoration: BoxDecoration(
+              SizedBox(height: 20),
+              Expanded(
+                child: SingleChildScrollView(
+                  child: Container(
+                    height: 800,
+                    decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                          end: Alignment.topRight,
+                        colors: [
+                          hexToColor('#477B82'),
+
+                          hexToColor('#ABACA5'),
+                          Colors.white,
+                        ]
+                      )
+                        ,border: Border.all(
                       color: Colors.black,
-                      borderRadius: BorderRadius.only(topLeft: Radius.circular(60), topRight: Radius.circular(60))
-                  ),
-                  child: Padding(
-                    padding: EdgeInsets.all(30),
-                    child: Column(
-                      children: <Widget>[
-                        SizedBox(height: 10,),
-                        FadeInUp(duration: Duration(milliseconds: 1400), child: Container(
+                      width: 1
+                    ),
+                        borderRadius: BorderRadius.only(topLeft: Radius.circular(60), topRight: Radius.circular(60))
+                    ),
+                    child: Padding(
+                      padding: EdgeInsets.all(30),
+                      child: Column(
+                        children: <Widget>[
+                          SizedBox(height: 10,),
+                          FadeInUp(duration: Duration(milliseconds: 1400), child: Container(
 
-                          decoration: BoxDecoration(
-                              color: Colors.black,
-                              borderRadius: BorderRadius.circular(40),
-                              boxShadow: [BoxShadow(
-                                  color: Color.fromRGBO(225, 95, 27, .3),
+                            decoration: BoxDecoration(
+                                gradient: LinearGradient(
+                                  end: Alignment.topRight,
+                                    colors: [
+                                      hexToColor('#477B82'),
 
-
-                              )]
-                          ),
-                          child: Column(
-                            children: <Widget>[
-                             SizedBox(
-                               height: 40,
-                             ),
-                              Container(
-                                padding: EdgeInsets.all(10),
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(40),
-                                    border: Border.all(
-                                        color: Colors.white,
-                                        width: 1
-                                    )
+                                      hexToColor('#ABACA5'),
+                                      Colors.white,
+                                    ]
                                 ),
-                                child: TextField(
-                                  style: TextStyle(color: Colors.white),
-                                  decoration: InputDecoration(
+                                borderRadius: BorderRadius.circular(15),
+                                boxShadow: [BoxShadow(
+                                    color: Color.fromRGBO(225, 95, 27, .3),
 
-                                      hintText: "Hospital Name",
-                                      suffixIcon: Icon(Icons.local_hospital,color: Colors.greenAccent.shade100,),
-                                      hintStyle: TextStyle(color: Colors.grey),
-                                      border: InputBorder.none
-                                  ),
-                                ),
-                              ),
-                              SizedBox(
-                                height: 7,
-                              ),
-                              Container(
 
-                                padding: EdgeInsets.all(10),
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(40),
-                                    border: Border.all(
-                                        color: Colors.white,
-                                        width: 1
-                                    )
-                                ),
-                                child: TextField(
-                                  style: TextStyle(color: Colors.white),
-                                  decoration: InputDecoration(
-                                      hintText: "Address",
-                                      suffixIcon: Icon(Icons.location_on_outlined,color: Colors.greenAccent.shade100,),
-                                      hintStyle: TextStyle(color: Colors.grey),
-                                      border: InputBorder.none
-                                  ),
-                                ),
-                              ),
-                              SizedBox(
-                                height: 7,
-                              ),
-                              Container(
-
-                                padding: EdgeInsets.all(10),
-
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(40),
-                                   border: Border.all(
-                                     color: Colors.white,
-                                     width: 1
-                                   )
-                                ),
-
-                                child: TextField(
-                                  style: TextStyle(color: Colors.white),
-                                  obscureText: true,
-                                  decoration: InputDecoration(
-                                    suffixIcon: Icon(Icons.email,color: Colors.greenAccent.shade100,),
-                                      hintText: "Email",
-                                      hintStyle: TextStyle(color: Colors.grey),
-                                      border: InputBorder.none
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        )),
-                        SizedBox(
-                          height: 7,
-                        ),
-                        Container(
-
-                          padding: EdgeInsets.all(10),
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(40),
-                              border: Border.all(
-                                  color: Colors.white,
-                                  width: 1
-                              )
-                          ),
-                          child: TextField(
-
-                            style: TextStyle(color: Colors.white),
-                            decoration: InputDecoration(
-                              suffixIcon: Icon(Icons.remove_red_eye,color: Colors.greenAccent.shade100,),
-                                hintText: "Password",
-                                hintStyle: TextStyle(color: Colors.grey),
-                                border: InputBorder.none
+                                )]
                             ),
-                          ),
-                        ),
-                        SizedBox(height: 40,),
-                        FadeInUp(duration: Duration(milliseconds: 1500), child: Text("Forgot Password?", style: TextStyle(color: Colors.grey),)),
-                        SizedBox(height: 40,),
-                        FadeInUp(duration: Duration(milliseconds: 1600), child: MaterialButton(
-                          onPressed: () {},
-                          height: 50,
-                          // margin: EdgeInsets.symmetric(horizontal: 50),
-                          color: Colors.greenAccent.shade100,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(50),
+                            child: Column(
+                              children: <Widget>[
 
-                          ),
-                          // decoration: BoxDecoration(
-                          // ),
-                          child: Center(
-                            child: Text("Login", style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),),
-                          ),
-                        )),
+                                Container(
+                                  padding: EdgeInsets.all(10),
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(15),
+                                      border: Border.all(
+                                          color: Colors.black,
+                                          width: 2
+                                      )
+                                  ),
+                                  child: TextFormField(
+                                    controller: hospitalNameController,
+                                    style: TextStyle(color: Colors.black),
+                                    decoration: InputDecoration(
+
+                                        hintText: "Hospital Name",
+                                        suffixIcon: Icon(Icons.local_hospital,color: Colors.blue,),
+                                        hintStyle: TextStyle(color: Colors.black),
+                                        border: InputBorder.none
+                                    ),
+                                  ),
+                                ),
+                                SizedBox(
+                                  height: 7,
+                                ),
+                                Container(
+
+                                  padding: EdgeInsets.all(10),
+
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(15),
+                                     border: Border.all(
+                                       color: Colors.black,
+                                       width: 2
+                                     )
+                                  ),
+
+                                  child: TextFormField(
+                                    controller: emailController,
+                                    style: TextStyle(color: Colors.black),
+                                    obscureText: true,
+                                    decoration: InputDecoration(
+                                      suffixIcon: Icon(Icons.email,color: Colors.blue,),
+                                        hintText: "Email",
+                                        hintStyle: TextStyle(color: Colors.black),
+                                        border: InputBorder.none
+                                    ),
+                                  ),
+                                ),SizedBox(
+                                  height: 7,
+                                ),
+                                Container(
+
+                                  padding: EdgeInsets.all(10),
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(15),
+                                      border: Border.all(
+                                          color: Colors.black,
+                                          width: 2
+                                      )
+                                  ),
+                                  child: TextFormField(
+                                    controller: passwordController,
+                                    style: TextStyle(color: Colors.black),
+                                    decoration: InputDecoration(
+                                        suffixIcon: Icon(Icons.remove_red_eye,color: Colors.blue,),
+                                        hintText: "Password",
+                                        hintStyle: TextStyle(color: Colors.black),
+                                        border: InputBorder.none
+                                    ),
+                                  ),
+                                ),
+                                SizedBox(height: 7,),
+                                Container(
+                                  padding: EdgeInsets.all(10),
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(15),
+                                      border: Border.all(
+                                          color: Colors.black,
+                                          width: 2
+                                      )
+                                  ),
+                                  child: TextFormField(
+                                    controller: phoneNoController,
+                                    style: TextStyle(color: Colors.black),
+                                    decoration: InputDecoration(
+                                        suffixIcon: Icon(Icons.phone,color: Colors.blue,),
+                                        hintText: "PHONE_NO",
+                                        hintStyle: TextStyle(color: Colors.black),
+                                        border: InputBorder.none
+                                    ),
+                                  ),
+                                ),
+                                SizedBox(
+                                  height:20 ,
+                                ),
+                                SingleChildScrollView(
+                                  scrollDirection: Axis.horizontal,
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    children: [
+
+                                      Text("Upload Hospital Photo",style: TextStyle(fontSize: 15,color: Colors.black),),
+                                      SizedBox(
+                                        width: 10,
+                                      ),
+                                      TextButton(onPressed: _getImage, child: Text("Upload Photo",style: TextStyle(fontSize: 20),),style: ButtonStyle(
+                                          backgroundColor: MaterialStateProperty.all(Colors.grey.shade200),
+
+                                          elevation: MaterialStateProperty.all(15),
+                                          shape: MaterialStateProperty.all(
+
+                                              RoundedRectangleBorder(
+                                                  side: BorderSide.none,
+                                                  borderRadius: BorderRadius.circular(20)
+                                              )
+                                          )
+                                      ),
+                                      )
+                                    ],
+                                  ),
+                                ),
+
+                              ],
+                            ),
+                          )),
+
+
+                          SizedBox(height: 40,),
+                          FadeInUp(duration: Duration(milliseconds: 1500), child: Text("Forgot Password?", style: TextStyle(color: Colors.black),)),
+                          SizedBox(height: 40,),
+                          FadeInUp(duration: Duration(milliseconds: 1600), child: MaterialButton(
+                            onPressed: _submit,
+                            height: 50,
+                            // margin: EdgeInsets.symmetric(horizontal: 50),
+                            color: Colors.greenAccent.shade100,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(50),
+
+                            ),
+                            // decoration: BoxDecoration(
+                            // ),
+                            child: Center(
+                              child: Text("Sign In", style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),),
+                            ),
+                          )),
 
 
 
-                      ],
+                        ],
+                      ),
                     ),
                   ),
                 ),
-              ),
-            )
-          ],
+              )
+            ],
+          ),
         ),
       ),
     );
   }
+
+  void _submit() {
+    final form = formKey.currentState;
+    if (form!.validate()) {
+      if(_image != null){
+        setState(() {
+          _isLoading = true;
+        });
+        uploadImageMedia(_image!);
+      }else{
+        Fluttertoast.showToast(
+            msg: "Please select image",
+            toastLength: Toast.LENGTH_LONG,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 2
+        );
+      }
+
+    }
+
+  }
+
 }

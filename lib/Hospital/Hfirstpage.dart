@@ -1,5 +1,6 @@
 import 'dart:ui';
 
+import 'package:devloperproject1/Hospital/profile.dart';
 import 'package:devloperproject1/Widgets/Colour.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -31,7 +32,9 @@ class hopital extends State<h_firstpage> {
 
        ),
        actions: [
-         InkWell(onTap: (){},
+         InkWell(onTap: (){
+           Navigator.push(context, MaterialPageRoute(builder: (context) => profile(),));
+         },
            child: Padding(
              padding: EdgeInsets.all(8),
              child: Icon(Icons.account_circle_sharp,
