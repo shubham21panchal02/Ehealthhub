@@ -1,9 +1,13 @@
 import 'dart:ui';
 
-import 'package:devloperproject1/Hospital/profile.dart';
+import 'package:carousel_slider/carousel_controller.dart';
+import 'package:carousel_slider/carousel_slider.dart';
+import 'package:devloperproject1/Hospital/H-patientProfile.dart';
+import 'package:devloperproject1/Hospital/p.dart';
 import 'package:devloperproject1/Widgets/Colour.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_advanced_drawer/flutter_advanced_drawer.dart';
 import 'package:lottie/lottie.dart';
 
 import '../Widgets/Colour.dart';
@@ -19,6 +23,17 @@ class h_firstpage extends StatefulWidget {
 
 }
 class hopital extends State<h_firstpage> {
+  List imageList=[
+    {"id":1,"image_path":'assets/image/had1.jpeg'},
+    {"id":2,"image_path":'assets/image/had2.jpeg'},
+    {"id":3,"image_path":'assets/image/had3.jpeg'},
+  ];
+  final CarouselController carouselController=CarouselController();
+  int currentIndex=0;
+  String userName = "User";
+  final _advancedDrawerController = AdvancedDrawerController();
+
+
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
@@ -33,7 +48,7 @@ class hopital extends State<h_firstpage> {
        ),
        actions: [
          InkWell(onTap: (){
-           Navigator.push(context, MaterialPageRoute(builder: (context) => profile(),));
+           Navigator.push(context, MaterialPageRoute(builder: (context) => p(),));
          },
            child: Padding(
              padding: EdgeInsets.all(8),
@@ -48,6 +63,7 @@ class hopital extends State<h_firstpage> {
               children: [
 
                 Stack(children: [
+
             Container(
             height: 300,
 
@@ -106,97 +122,92 @@ class hopital extends State<h_firstpage> {
                 Divider(
                   height: 1,
                 ),
-                Container(
-                  height: 500,
-                  decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                      colors: [
-                        Colors.greenAccent.shade200,
-                        Colors.white
+                SingleChildScrollView(
+                  scrollDirection: Axis.vertical,
+                  child: Container(
+                    decoration: BoxDecoration(
+
+                    ),
+                    child: Column(
+                      children: [
+                        Container(
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10)
+                          ),
+                          child: Card(
+
+                            elevation: 10,
+                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+                            child: ListTile(
+                              title: Text("Home"),
+                              trailing: Icon(Icons.home),
+
+                            ),
+                          ),
+                        ),
+                        Container(
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10)
+                          ),
+                          child: Card(
+
+                            elevation: 10,
+                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+                            child: ListTile(
+                              title: Text("Feedback"),
+                              trailing: Icon(Icons.feedback_outlined),
+
+                            ),
+                          ),
+                        ),
+                        Container(
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10)
+                          ),
+                          child: Card(
+
+                            elevation: 10,
+                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+                            child: ListTile(
+                              title: Text("Home"),
+                              leading: Icon(Icons.home),
+
+                            ),
+                          ),
+                        ),
+                        Container(
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10)
+                          ),
+                          child: Card(
+
+                            elevation: 10,
+                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+                            child: ListTile(
+                              title: Text("Home"),
+                              leading: Icon(Icons.home),
+
+                            ),
+                          ),
+                        ),                     Container(
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10)
+                          ),
+                          child: Card(
+
+                            elevation: 10,
+                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+                            child: ListTile(
+                              title: Text("Home"),
+                              leading: Icon(Icons.home),
+
+                            ),
+                          ),
+                        ),
+
+
                       ],
-                      begin: Alignment.topRight,
-                      end: Alignment.bottomLeft
-                    )
-                  ),
-                  child: Column(
-                    children: [
-                      Container(
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10)
-                        ),
-                        child: Card(
-
-                          elevation: 10,
-                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-                          child: ListTile(
-                            title: Text("Home"),
-                            leading: Icon(Icons.home),
-
-                          ),
-                        ),
-                      ),
-                      Container(
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10)
-                        ),
-                        child: Card(
-
-                          elevation: 10,
-                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-                          child: ListTile(
-                            title: Text("Home"),
-                            leading: Icon(Icons.home),
-
-                          ),
-                        ),
-                      ),
-                      Container(
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10)
-                        ),
-                        child: Card(
-
-                          elevation: 10,
-                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-                          child: ListTile(
-                            title: Text("Home"),
-                            leading: Icon(Icons.home),
-
-                          ),
-                        ),
-                      ),
-                      Container(
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10)
-                        ),
-                        child: Card(
-
-                          elevation: 10,
-                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-                          child: ListTile(
-                            title: Text("Home"),
-                            leading: Icon(Icons.home),
-
-                          ),
-                        ),
-                      ),                     Container(
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10)
-                        ),
-                        child: Card(
-
-                          elevation: 10,
-                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-                          child: ListTile(
-                            title: Text("Home"),
-                            leading: Icon(Icons.home),
-
-                          ),
-                        ),
-                      ),
-
-
-                    ],
+                    ),
                   ),
                 )
 
@@ -207,6 +218,64 @@ class hopital extends State<h_firstpage> {
        scrollDirection:  Axis.vertical,
        child:Column(
          children:[
+           Stack(
+             children: [
+               InkWell(
+                 onTap: (){
+                   print(currentIndex);
+                 },
+                 child:CarouselSlider(
+                   items: imageList
+                       .map(
+                         (item) => Image.asset(
+                       item['image_path'],
+                       fit: BoxFit.cover,
+                       width: double.infinity,
+                     ),
+                   )
+                       .toList(),
+                   carouselController: carouselController,
+                   options: CarouselOptions(
+                     scrollPhysics: const BouncingScrollPhysics(),
+                     autoPlay: true,
+                     aspectRatio: 2,
+                     viewportFraction: 1,
+                     onPageChanged: (index, reason) {
+                       setState(() {
+                         currentIndex = index;
+                       });
+                     },
+                   ),
+                 ),
+               ),
+               Positioned(
+                 bottom: 10,
+                 left: 0,
+                 right: 0,
+                 child: Row(
+                   mainAxisAlignment: MainAxisAlignment.center,
+                   children: imageList.asMap().entries.map((entry) {
+                     return GestureDetector(
+                       onTap: () => carouselController.animateToPage(entry.key),
+                       child: Container(
+                         width: currentIndex == entry.key ? 17 : 7,
+                         height: 7.0,
+                         margin: const EdgeInsets.symmetric(
+                           horizontal: 3.0,
+                         ),
+                         decoration: BoxDecoration(
+                             borderRadius: BorderRadius.circular(10),
+                             color: currentIndex == entry.key
+                                 ? Colors.red
+                                 : Colors.teal),
+                       ),
+                     );
+                   }).toList(),
+                 ),
+               ),
+             ],
+           ),
+
            Container(
              height: 300,
              child: Image.asset("assets/image/th.jpg",width: double.infinity,fit: BoxFit.cover,),
@@ -226,7 +295,7 @@ class hopital extends State<h_firstpage> {
                    },
                    child:Container(
 
-                     height: 200,
+                     height: 250,
                      width: 250,
                      decoration: BoxDecoration(
                        boxShadow: [
@@ -265,37 +334,42 @@ class hopital extends State<h_firstpage> {
                  SizedBox(
                    width: 5,
                  ),
-                 Container(
-                   height: 200,
-                   width: 250,
-                   decoration: BoxDecoration(
-                       borderRadius: BorderRadius.circular(10),
-                       border: Border.all(
-                           color: Colors.black,
-                           width: 0.2
-                       ),
-                    boxShadow: [ BoxShadow(
-                       color: Colors.white38,
-                       blurRadius: 5,
-                       blurStyle: BlurStyle.normal,
+                 InkWell(
+                   onTap: (){
+                     Navigator.push(context, MaterialPageRoute(builder: (context) => patient_profile(),));
+                   },
+                   child: Container(
+                     height: 250,
+                     width: 250,
+                     decoration: BoxDecoration(
+                         borderRadius: BorderRadius.circular(10),
+                         border: Border.all(
+                             color: Colors.black,
+                             width: 0.2
+                         ),
+                      boxShadow: [ BoxShadow(
+                         color: Colors.white38,
+                         blurRadius: 5,
+                         blurStyle: BlurStyle.normal,
 
-                     )
-                     ],
-                   ),
-                   child: Card(
-                     elevation: 10,
-                     shape: RoundedRectangleBorder(
-                         borderRadius: BorderRadius.circular(10)
-                     ),
-                     child: Column(
-                       children: [
-                         Image.asset("assets/image/Firstpage.jpg"),
-                         Text("Patient Profile",style: TextStyle(
-                           fontWeight: FontWeight.bold,
-                           fontSize: 15,
-                           color: Colors.black
-                         ),)
+                       )
                        ],
+                     ),
+                     child: Card(
+                       elevation: 10,
+                       shape: RoundedRectangleBorder(
+                           borderRadius: BorderRadius.circular(10)
+                       ),
+                       child: Column(
+                         children: [
+                           Image.asset("assets/image/Firstpage.jpg"),
+                           Text("Patient Profile",style: TextStyle(
+                             fontWeight: FontWeight.bold,
+                             fontSize: 15,
+                             color: Colors.black
+                           ),)
+                         ],
+                       ),
                      ),
                    ),
                  )

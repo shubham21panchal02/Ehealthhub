@@ -73,7 +73,6 @@ class Loginstate extends State<Rpage> {
           });
           logindata = jsonDecode(value);
           if (logindata['error'] == false) {
-
             Fluttertoast.showToast(
                 msg: logindata['message'].toString(),
                 toastLength: Toast.LENGTH_LONG,
@@ -122,236 +121,246 @@ class Loginstate extends State<Rpage> {
   Widget build(BuildContext context) {
     // TODO: implement build
     return  Scaffold(
-      body: _isLoading ? Center(child: CircularProgressIndicator(color: Colors.greenAccent)) :  Container(
-        width: double.infinity,
-        decoration: BoxDecoration(
-         color: hexToColor('#ABACA5')
+      body: _isLoading ? Center(child: CircularProgressIndicator(color: Colors.greenAccent)) :
 
-        ),
-        child: Form(
-          key: formKey,
+        SingleChildScrollView(
+          physics: AlwaysScrollableScrollPhysics
+            (),
+          scrollDirection: Axis.vertical,
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              SizedBox(height: 80,),
-              Padding(
-                padding: EdgeInsets.all(20),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    FadeInUp(duration: Duration(milliseconds: 1000), child: Text("Register", style: TextStyle(color: Colors.black, fontSize: 40),)),
-                    SizedBox(height: 10,),
-                    FadeInUp(duration: Duration(milliseconds: 1300), child: Text("Welcome Hospital", style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold, fontSize: 18),)),
-                  ],
-                ),
-              ),
-              SizedBox(height: 20),
-              Expanded(
-                child: SingleChildScrollView(
-                  child: Container(
-                    height: 800,
-                    decoration: BoxDecoration(
-                      gradient: LinearGradient(
-                          end: Alignment.topRight,
-                        colors: [
-                          hexToColor('#477B82'),
 
-                          hexToColor('#ABACA5'),
-                          Colors.white,
-                        ]
-                      )
-                        ,border: Border.all(
-                      color: Colors.black,
-                      width: 1
-                    ),
-                        borderRadius: BorderRadius.only(topLeft: Radius.circular(60), topRight: Radius.circular(60))
-                    ),
-                    child: Padding(
-                      padding: EdgeInsets.all(30),
-                      child: Column(
-                        children: <Widget>[
-                          SizedBox(height: 10,),
-                          FadeInUp(duration: Duration(milliseconds: 1400), child: Container(
+          children: [
+            SizedBox(
+              height: 10,
+            ),
+            Container(
+          width: double.infinity,
+            height: 250,
+          decoration: BoxDecoration(
 
-                            decoration: BoxDecoration(
-                                gradient: LinearGradient(
-                                  end: Alignment.topRight,
-                                    colors: [
-                                      hexToColor('#477B82'),
+            image: DecorationImage(
+              image: AssetImage('assets/image/Firstpage.jpg'),fit: BoxFit.cover,
+            ),
 
-                                      hexToColor('#ABACA5'),
-                                      Colors.white,
-                                    ]
-                                ),
-                                borderRadius: BorderRadius.circular(15),
-                                boxShadow: [BoxShadow(
-                                    color: Color.fromRGBO(225, 95, 27, .3),
+          ),
+          child: Form(
+            key: formKey,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                SizedBox(height: 120,),
+                Padding(
+                  padding: EdgeInsets.all(30),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: <Widget>[
+                      FadeInUp(duration: Duration(milliseconds: 1000), child: Text("Register", style: TextStyle(color: Colors.transparent, fontSize: 20),)),
+                      SizedBox(height: 10,),
+                      FadeInUp(duration: Duration(milliseconds: 1300), child: Text("Welcome Hospital", style: TextStyle(color: Colors.transparent,fontWeight: FontWeight.bold, fontSize: 18),)),
+                    ],
+                  ),
+                ),]),),),
 
 
-                                )]
-                            ),
+                  SingleChildScrollView(
+                    scrollDirection: Axis.vertical,
+                    child: Container(
+
+
+                          decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.only(topLeft: Radius.circular(15), topRight: Radius.circular(15))
+                          ),
+                          child: Padding(
+                            padding: EdgeInsets.all(30),
                             child: Column(
+
                               children: <Widget>[
 
-                                Container(
-                                  padding: EdgeInsets.all(10),
-                                  decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(15),
-                                      border: Border.all(
-                                          color: Colors.black,
-                                          width: 2
-                                      )
-                                  ),
-                                  child: TextFormField(
-                                    controller: hospitalNameController,
-                                    style: TextStyle(color: Colors.black),
-                                    decoration: InputDecoration(
 
-                                        hintText: "Hospital Name",
-                                        suffixIcon: Icon(Icons.local_hospital,color: Colors.blue,),
-                                        hintStyle: TextStyle(color: Colors.black),
-                                        border: InputBorder.none
-                                    ),
-                                  ),
-                                ),
-                                SizedBox(
-                                  height: 7,
-                                ),
-                                Container(
+                                FadeInUp(duration: Duration(milliseconds: 1400),
 
-                                  padding: EdgeInsets.all(10),
 
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(15),
-                                     border: Border.all(
-                                       color: Colors.black,
-                                       width: 2
-                                     )
-                                  ),
 
-                                  child: TextFormField(
-                                    controller: emailController,
-                                    style: TextStyle(color: Colors.black),
-                                    obscureText: true,
-                                    decoration: InputDecoration(
-                                      suffixIcon: Icon(Icons.email,color: Colors.blue,),
-                                        hintText: "Email",
-                                        hintStyle: TextStyle(color: Colors.black),
-                                        border: InputBorder.none
-                                    ),
-                                  ),
-                                ),SizedBox(
-                                  height: 7,
-                                ),
-                                Container(
 
-                                  padding: EdgeInsets.all(10),
-                                  decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(15),
-                                      border: Border.all(
-                                          color: Colors.black,
-                                          width: 2
-                                      )
-                                  ),
-                                  child: TextFormField(
-                                    controller: passwordController,
-                                    style: TextStyle(color: Colors.black),
-                                    decoration: InputDecoration(
-                                        suffixIcon: Icon(Icons.remove_red_eye,color: Colors.blue,),
-                                        hintText: "Password",
-                                        hintStyle: TextStyle(color: Colors.black),
-                                        border: InputBorder.none
-                                    ),
-                                  ),
-                                ),
-                                SizedBox(height: 7,),
-                                Container(
-                                  padding: EdgeInsets.all(10),
-                                  decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(15),
-                                      border: Border.all(
-                                          color: Colors.black,
-                                          width: 2
-                                      )
-                                  ),
-                                  child: TextFormField(
-                                    controller: phoneNoController,
-                                    style: TextStyle(color: Colors.black),
-                                    decoration: InputDecoration(
-                                        suffixIcon: Icon(Icons.phone,color: Colors.blue,),
-                                        hintText: "PHONE_NO",
-                                        hintStyle: TextStyle(color: Colors.black),
-                                        border: InputBorder.none
-                                    ),
-                                  ),
-                                ),
-                                SizedBox(
-                                  height:20 ,
-                                ),
-                                SingleChildScrollView(
-                                  scrollDirection: Axis.horizontal,
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                    children: [
+                                    child: Container(
 
-                                      Text("Upload Hospital Photo",style: TextStyle(fontSize: 15,color: Colors.black),),
-                                      SizedBox(
-                                        width: 10,
+                                      decoration: BoxDecoration(
+                                          color: Colors.white,
+
+                                          borderRadius: BorderRadius.circular(15),
+                                          boxShadow: [BoxShadow(
+                                            color: Color.fromRGBO(225, 95, 27, .3),
+
+
+                                          )]
                                       ),
-                                      TextButton(onPressed: _getImage, child: Text("Upload Photo",style: TextStyle(fontSize: 20),),style: ButtonStyle(
-                                          backgroundColor: MaterialStateProperty.all(Colors.grey.shade200),
+                                      child: Column(
+                                        children: <Widget>[
 
-                                          elevation: MaterialStateProperty.all(15),
-                                          shape: MaterialStateProperty.all(
+                                          Container(
+                                            padding: EdgeInsets.all(10),
+                                            decoration: BoxDecoration(
+                                                borderRadius: BorderRadius.circular(15),
+                                                border: Border.all(
+                                                    color: Colors.black,
+                                                    width: 2
+                                                )
+                                            ),
+                                            child: TextFormField(
+                                              controller: hospitalNameController,
+                                              style: TextStyle(color: Colors.black),
+                                              decoration: InputDecoration(
 
-                                              RoundedRectangleBorder(
-                                                  side: BorderSide.none,
-                                                  borderRadius: BorderRadius.circular(20)
-                                              )
-                                          )
+                                                  hintText: "Hospital Name",
+                                                  suffixIcon: Icon(Icons.local_hospital,color: Colors.blue,),
+                                                  hintStyle: TextStyle(color: Colors.black),
+                                                  border: InputBorder.none
+                                              ),
+                                            ),
+                                          ),
+                                          SizedBox(
+                                            height: 7,
+                                          ),
+                                          Container(
+
+                                            padding: EdgeInsets.all(10),
+
+                                            decoration: BoxDecoration(
+                                                borderRadius: BorderRadius.circular(15),
+                                                border: Border.all(
+                                                    color: Colors.black,
+                                                    width: 2
+                                                )
+                                            ),
+
+                                            child: TextFormField(
+                                              controller: emailController,
+                                              style: TextStyle(color: Colors.black),
+                                              decoration: InputDecoration(
+                                                  suffixIcon: Icon(Icons.email,color: Colors.blue,),
+                                                  hintText: "Email",
+                                                  hintStyle: TextStyle(color: Colors.black),
+                                                  border: InputBorder.none
+                                              ),
+                                            ),
+                                          ),SizedBox(
+                                            height: 7,
+                                          ),
+                                          Container(
+
+                                            padding: EdgeInsets.all(10),
+                                            decoration: BoxDecoration(
+                                                borderRadius: BorderRadius.circular(15),
+                                                border: Border.all(
+                                                    color: Colors.black,
+                                                    width: 2
+                                                )
+                                            ),
+                                            child: TextFormField(
+                                              controller: passwordController,
+                                              obscureText: true,
+                                              style: TextStyle(color: Colors.black),
+                                              decoration: InputDecoration(
+                                                  suffixIcon: Icon(Icons.remove_red_eye,color: Colors.blue,),
+                                                  hintText: "Password",
+                                                  hintStyle: TextStyle(color: Colors.black),
+                                                  border: InputBorder.none
+                                              ),
+                                            ),
+                                          ),
+                                          SizedBox(height: 7,),
+                                          Container(
+                                            padding: EdgeInsets.all(10),
+                                            decoration: BoxDecoration(
+                                                borderRadius: BorderRadius.circular(15),
+                                                border: Border.all(
+                                                    color: Colors.black,
+                                                    width: 2
+                                                )
+                                            ),
+                                            child: TextFormField(
+                                              controller: phoneNoController,
+                                              style: TextStyle(color: Colors.black),
+                                              decoration: InputDecoration(
+                                                  suffixIcon: Icon(Icons.phone,color: Colors.blue,),
+                                                  hintText: "PHONE_NO",
+                                                  hintStyle: TextStyle(color: Colors.black),
+                                                  border: InputBorder.none
+                                              ),
+                                            ),
+                                          ),
+                                          SizedBox(
+                                            height:20 ,
+                                          ),
+                                          SingleChildScrollView(
+                                            scrollDirection: Axis.horizontal,
+                                            child: Row(
+                                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                              children: [
+
+                                                Text("Upload Hospital Photo",style: TextStyle(fontSize: 10,color: Colors.black),),
+                                                SizedBox(
+                                                  width: 10,
+                                                ),
+                                                TextButton(onPressed: _getImage, child: Text("Upload Photo",style: TextStyle(fontSize: 20),),style: ButtonStyle(
+                                                    backgroundColor: MaterialStateProperty.all(Colors.grey.shade200),
+
+                                                    elevation: MaterialStateProperty.all(15),
+                                                    shape: MaterialStateProperty.all(
+
+                                                        RoundedRectangleBorder(
+                                                            side: BorderSide.none,
+                                                            borderRadius: BorderRadius.circular(20)
+                                                        )
+                                                    )
+                                                ),
+                                                )
+                                              ],
+                                            ),
+                                          ),
+
+                                        ],
                                       ),
-                                      )
-                                    ],
+                                    ),
                                   ),
-                                ),
+
+
+
+                                SizedBox(height: 40,),
+                                FadeInUp(duration: Duration(milliseconds: 1500), child: Text("Forgot Password?", style: TextStyle(color: Colors.black),)),
+                                SizedBox(height: 40,),
+                                FadeInUp(duration: Duration(milliseconds: 1600), child: MaterialButton(
+                                  onPressed: _submit,
+                                  height: 50,
+                                  // margin: EdgeInsets.symmetric(horizontal: 50),
+                                  color: Colors.greenAccent.shade100,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(50),
+
+                                  ),
+                                  // decoration: BoxDecoration(
+                                  // ),
+                                  child: Center(
+                                    child: Text("Sign In", style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),),
+                                  ),
+                                )),
+
+
 
                               ],
                             ),
-                          )),
-
-
-                          SizedBox(height: 40,),
-                          FadeInUp(duration: Duration(milliseconds: 1500), child: Text("Forgot Password?", style: TextStyle(color: Colors.black),)),
-                          SizedBox(height: 40,),
-                          FadeInUp(duration: Duration(milliseconds: 1600), child: MaterialButton(
-                            onPressed: _submit,
-                            height: 50,
-                            // margin: EdgeInsets.symmetric(horizontal: 50),
-                            color: Colors.greenAccent.shade100,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(50),
-
-                            ),
-                            // decoration: BoxDecoration(
-                            // ),
-                            child: Center(
-                              child: Text("Sign In", style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),),
-                            ),
-                          )),
-
-
-
-                        ],
-                      ),
-                    ),
+                          ),
+                        ),
                   ),
-                ),
-              )
-            ],
-          ),
-        ),
-      ),
-    );
+
+
+
+
+      ]),
+        )
+      );
+
   }
 
   void _submit() {

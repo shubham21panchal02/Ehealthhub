@@ -11,7 +11,7 @@ import 'package:mime/mime.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 
-class profile extends StatefulWidget{
+class p extends StatefulWidget{
   @override
   State<StatefulWidget> createState() {
     // TODO: implement createState
@@ -19,7 +19,7 @@ class profile extends StatefulWidget{
   }
 
 }
-class profilescreen extends State<profile>{
+class profilescreen extends State<p>{
 
 
   TextEditingController addPrescripationController = TextEditingController();
