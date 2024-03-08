@@ -1,4 +1,6 @@
+import 'package:devloperproject1/User/Fourthpage.dart';
 import 'package:devloperproject1/User/Secondpage.dart';
+import 'package:devloperproject1/User/feedback.dart';
 import 'package:devloperproject1/Widgets/Colour.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -59,7 +61,6 @@ class Home extends State<Ufirstpage> {
           borderRadius: const BorderRadius.all(Radius.circular(16)),
         ),
         child: Scaffold(
-
           appBar: AppBar(backgroundColor: ColorConstants.appbarcolor,
             title: Text('Hi, $userName' ),
             leading: IconButton(
@@ -77,203 +78,215 @@ class Home extends State<Ufirstpage> {
                 },
               ),
             ),
+            actions: [
+              Icon(Icons.notifications),
+            ],
           ),
           body:
+
+
           Column(
-            children: [
-              Stack(
-                children: [
-                  InkWell(
-                    onTap: (){
-                      print(currentIndex);
-                    },
-                    child:CarouselSlider(
-                      items: imageList
-                          .map(
-                            (item) => Image.asset(
-                          item['image_path'],
-                          fit: BoxFit.cover,
-                          width: double.infinity,
+              children: [
+                Stack(
+                  children: [
+                    InkWell(
+                      onTap: (){
+                        print(currentIndex);
+                      },
+                      child:CarouselSlider(
+                        items: imageList
+                            .map(
+                              (item) => Image.asset(
+                            item['image_path'],
+                            fit: BoxFit.cover,
+                            width: double.infinity,
+                          ),
+                        )
+                            .toList(),
+                        carouselController: carouselController,
+                        options: CarouselOptions(
+                          scrollPhysics: const BouncingScrollPhysics(),
+                          autoPlay: true,
+                          aspectRatio: 2,
+                          viewportFraction: 1,
+                          onPageChanged: (index, reason) {
+                            setState(() {
+                              currentIndex = index;
+                            });
+                          },
                         ),
-                      )
-                          .toList(),
-                      carouselController: carouselController,
-                      options: CarouselOptions(
-                        scrollPhysics: const BouncingScrollPhysics(),
-                        autoPlay: true,
-                        aspectRatio: 2,
-                        viewportFraction: 1,
-                        onPageChanged: (index, reason) {
-                          setState(() {
-                            currentIndex = index;
-                          });
-                        },
                       ),
                     ),
-                  ),
-                  Positioned(
-                    bottom: 10,
-                    left: 0,
-                    right: 0,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: imageList.asMap().entries.map((entry) {
-                        return GestureDetector(
-                          onTap: () => carouselController.animateToPage(entry.key),
-                          child: Container(
-                            width: currentIndex == entry.key ? 17 : 7,
-                            height: 7.0,
-                            margin: const EdgeInsets.symmetric(
-                              horizontal: 3.0,
-                            ),
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10),
-                                color: currentIndex == entry.key
-                                    ? Colors.red
-                                    : Colors.teal),
-                          ),
-                        );
-                      }).toList(),
-                    ),
-                  ),
-                ],
-              ),
-
-
-              Expanded(
-                child: SingleChildScrollView(
-                  scrollDirection: Axis.vertical,
-
-                  child: Container(
-                      alignment: Alignment.topLeft,
-
-                      child:  Column(
-                        children: [
-
-                          Center(
-                            child: Card(margin: EdgeInsets.all(20),
-                                elevation: 10,shadowColor: Colors.cyan,
-                                color: Color(0xFF9dcdd1),
-                                shape: RoundedRectangleBorder(borderRadius: BorderRadius.only(topRight: Radius.circular(16.0),
-                                    topLeft: Radius.circular(16.0),
-                                    bottomRight: Radius.circular(16.0),
-                                    bottomLeft: Radius.circular(16.0))),
-                                child: Padding(padding: EdgeInsets.only(left: 40,right: 40,top: 10,bottom: 10),
-                                  child:Column(
-                                    children: [
-                                      Image.asset('assets/image/hospital.png',width: 40,),
-                                      SizedBox(height: 5,),
-                                      Center(child: Text("Make Hospital Appoinment",style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold),)),
-                                      SizedBox(height: 5,),
-                                      Center(child: Text("Make Appoinment With Hospital For Tomorrow Without Mannageing Your Current Activity",
-                                      textAlign: TextAlign.center,),),
-                                      SizedBox(height: 20,),
-
-                                      ElevatedButton(onPressed: (){
-                                        Navigator.push(context, MaterialPageRoute(builder: (context) => USecondpage(),));
-                                      }, child:Text("Find Hospital"),
-                                        style:ElevatedButton.styleFrom(primary: Color(0xFF0e9096),shape: RoundedRectangleBorder(
-                                            borderRadius:BorderRadius.all(Radius.circular(20))
-                                        )),)
-                                    ],
-                                  ),)
-                            ),
-                          ),
-                          SizedBox(
-                            height: 15,
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.fromLTRB(0, 0, 200, 0),
-                            child: Text("Nearest Hospital",style: TextStyle(fontSize: 25,fontFamily: 'Calibri',
-                            color: Colors.black,fontWeight: FontWeight.bold),),
-                          ),
-                          SizedBox(
-                            height: 20,
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.fromLTRB(10, 0, 0, 0),
+                    Positioned(
+                      bottom: 10,
+                      left: 0,
+                      right: 0,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: imageList.asMap().entries.map((entry) {
+                          return GestureDetector(
+                            onTap: () => carouselController.animateToPage(entry.key),
                             child: Container(
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(45),
-
-                                    ),
-                                height: 300,
-
-                                  child: GridView.builder(
-                                    scrollDirection: Axis.horizontal,
-                                      itemCount: 10,
-                                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                                          crossAxisCount: 1,
-                                          crossAxisSpacing: 5,
-                                          mainAxisSpacing: 5),
-                                      itemBuilder: (BuildContext Context, int index) {
-                                        return Card(
-
-                                         elevation: 10,
-                                          shadowColor: Colors.black,
-                                          child: Column(
-
-                                            crossAxisAlignment: CrossAxisAlignment.start,
-                                            children: [
-                                              Image.asset('assets/image/free.jpg',height: 160,fit: BoxFit.cover,width: double.infinity,),
-                                               Divider(
-                                                 height: 10,
-                                               ),
-                                              Padding(
-                                                padding: const EdgeInsets.only(
-                                                  bottom: 10,
-                                                ),
-                                                child: Expanded(child: Row(
-                                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                  children: [
-                                                    Padding(
-                                                      padding: const EdgeInsets.only(left: 10),
-                                                      child: Text("Zydus Hospital",style: TextStyle(color: Colors.black,fontWeight:FontWeight.bold,fontSize: 20, ),),
-                                                    ),
-                                                    Padding(
-                                                      padding: const EdgeInsets.only(
-                                                        right: 10
-                                                      ),
-                                                      child: TextButton(onPressed: (){},
-                                                         child: Text("Book Appointment",style: TextStyle(fontSize: 12),),
-                                                         style: ButtonStyle(
-                                                           shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                                                             RoundedRectangleBorder(
-                                                               borderRadius: BorderRadius.circular(18.0),
-                                                               side: BorderSide(
-                                                                 color: ColorConstants.appbarcolor,
-                                                               )
-                                                             )
-                                                           )
-                                                         ),
-                                                      ),
-                                                    ),
-                                                  ],
-                                                )),
-                                              )
-                                            ],
-                                          ),
-                                        );
-                                      }),
-
+                              width: currentIndex == entry.key ? 17 : 7,
+                              height: 7.0,
+                              margin: const EdgeInsets.symmetric(
+                                horizontal: 3.0,
+                              ),
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(10),
+                                  color: currentIndex == entry.key
+                                      ? Colors.red
+                                      : Colors.teal),
                             ),
-                          ),
-                         SizedBox(
-                           height: 40,
-                         ),
-                        ],
-                      )
-                  ),
+                          );
+                        }).toList(),
+                      ),
+                    ),
+                  ],
                 ),
-              ),
-              ElevatedButton(onPressed: (){},style: ElevatedButton.styleFrom(
-                  primary: ColorConstants.buttonscolor
-              ),
-                  child: Padding(padding: EdgeInsets.only(top: 20,bottom: 20,left: 100,right: 100),
-                    child: Text("Appointment details"),)),
-              SizedBox(height: 20,)
-            ],
-          ),),
+
+
+                Expanded(
+
+
+
+
+               child:  SingleChildScrollView(
+                 physics: AlwaysScrollableScrollPhysics(),
+                 child: Container(
+                          alignment: Alignment.topLeft,
+
+                          child:  Column(
+                            children: [
+
+                              Center(
+                                child: Card(margin: EdgeInsets.all(20),
+                                    elevation: 10,shadowColor: Colors.cyan,
+                                    color: Color(0xFF9dcdd1),
+                                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.only(topRight: Radius.circular(16.0),
+                                        topLeft: Radius.circular(16.0),
+                                        bottomRight: Radius.circular(16.0),
+                                        bottomLeft: Radius.circular(16.0))),
+                                    child: Padding(padding: EdgeInsets.only(left: 40,right: 40,top: 10,bottom: 10),
+                                      child:Column(
+                                        children: [
+                                          Image.asset('assets/image/hospital.png',width: 40,),
+                                          SizedBox(height: 5,),
+                                          Center(child: Text("Make Hospital Appoinment",style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold),)),
+                                          SizedBox(height: 5,),
+                                          Center(child: Text("Make Appoinment With Hospital For Tomorrow Without Mannageing Your Current Activity",
+                                          textAlign: TextAlign.center,),),
+                                          SizedBox(height: 20,),
+
+                                          ElevatedButton(onPressed: (){
+                                            Navigator.push(context, MaterialPageRoute(builder: (context) => USecondpage(),));
+                                          }, child:Text("Find Hospital"),
+                                            style:ElevatedButton.styleFrom(primary: Color(0xFF0e9096),shape: RoundedRectangleBorder(
+                                                borderRadius:BorderRadius.all(Radius.circular(20))
+                                            )),)
+                                        ],
+                                      ),)
+                                ),
+                              ),
+                              SizedBox(
+                                height: 15,
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.fromLTRB(0, 0, 200, 0),
+                                child: Text("Nearest Hospital",style: TextStyle(fontSize: 25,fontFamily: 'Calibri',
+                                color: Colors.black,fontWeight: FontWeight.bold),),
+                              ),
+                              SizedBox(
+                                height: 20,
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.fromLTRB(10, 0, 0, 0),
+                                child: Container(
+                                        decoration: BoxDecoration(
+                                          borderRadius: BorderRadius.circular(45),
+
+                                        ),
+                                    height: 300,
+
+                                      child: GridView.builder(
+                                        scrollDirection: Axis.horizontal,
+                                          itemCount: 10,
+                                          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                                              crossAxisCount: 1,
+                                              crossAxisSpacing: 5,
+                                              mainAxisSpacing: 5),
+                                          itemBuilder: (BuildContext Context, int index) {
+                                            return Card(
+
+                                             elevation: 10,
+                                              shadowColor: Colors.black,
+                                              child: Column(
+
+                                                crossAxisAlignment: CrossAxisAlignment.start,
+                                                children: [
+                                                  Image.asset('assets/image/free.jpg',height: 160,fit: BoxFit.cover,width: double.infinity,),
+                                                   Divider(
+                                                     height: 10,
+                                                   ),
+                                                  Padding(
+                                                    padding: const EdgeInsets.only(
+                                                      bottom: 10,
+                                                    ),
+                                                    child: Expanded(child: Row(
+                                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                      children: [
+                                                        Padding(
+                                                          padding: const EdgeInsets.only(left: 10),
+                                                          child: Text("Zydus Hospital",style: TextStyle(color: Colors.black,fontWeight:FontWeight.bold,fontSize: 20, ),),
+                                                        ),
+                                                        Padding(
+                                                          padding: const EdgeInsets.only(
+                                                            right: 10
+                                                          ),
+                                                          child: TextButton(onPressed: (){},
+                                                             child: Text("Book Appointment",style: TextStyle(fontSize: 12),),
+                                                             style: ButtonStyle(
+                                                               shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                                                                 RoundedRectangleBorder(
+                                                                   borderRadius: BorderRadius.circular(18.0),
+                                                                   side: BorderSide(
+                                                                     color: ColorConstants.appbarcolor,
+                                                                   )
+                                                                 )
+                                                               )
+                                                             ),
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    )),
+                                                  )
+                                                ],
+                                              ),
+                                            );
+                                          }),
+
+                                ),
+                              ),
+                             SizedBox(
+                               height: 40,
+                             ),
+                            ],
+                          )
+                      ),
+               ),
+                  ),
+
+                ElevatedButton(onPressed: (){
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => Uforthpage()));
+                },style: ElevatedButton.styleFrom(
+                    primary: ColorConstants.buttonscolor
+                ),
+                    child: Padding(padding: EdgeInsets.only(top: 20,bottom: 20,left: 100,right: 100),
+                      child: Text("Appointment details"),)),
+                SizedBox(height: 20,)
+              ],
+            ),
+          ),
         drawer: SafeArea(
           child: Container(
             child: ListTileTheme(
@@ -304,9 +317,11 @@ class Home extends State<Ufirstpage> {
                     title: Text('Profile'),
                   ),
                   ListTile(
-                    onTap: () {},
+                    onTap: () {
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => feedback(),));
+                    },
                     leading: Icon(Icons.favorite),
-                    title: Text('Favourites'),
+                    title: Text('Feedback'),
                   ),
                   ListTile(
                     onTap: () {},

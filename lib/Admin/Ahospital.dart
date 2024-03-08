@@ -57,7 +57,7 @@ class Ahospitalstate extends State{
                   ),
                     child: Column(
                       children: [
-                        Image.asset('assets/image/hospital.png',height: 100,),
+                        Image.asset('assets/image/feedback.jpg',height: 100,),
                         Container(
                           child: Column(
                             children: [

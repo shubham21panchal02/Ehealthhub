@@ -20,6 +20,6 @@ void main() {
   runApp(Material(child:MaterialApp(
     debugShowCheckedModeBanner: false,
     home:
-    patient_profile(),
+    SplashScreen(),
   )));
 }
