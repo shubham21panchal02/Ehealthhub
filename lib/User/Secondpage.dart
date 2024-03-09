@@ -1,9 +1,11 @@
 
+import 'dart:convert';
+
 import 'package:devloperproject1/User/Firstpage.dart';
 import 'package:devloperproject1/User/Services.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
+import 'package:http/http.dart' as http;
 import '../Widgets/Colour.dart';
 
 class USecondpage extends StatefulWidget {
@@ -15,6 +17,35 @@ class USecondpage extends StatefulWidget {
 }
 
 class Second extends State<USecondpage> {
+  String data="";
+  var hospitaldata;
+  bool isLoading=true;
+
+  void initState() {
+    super.initState();
+    getData("hospital");
+  }
+  Future<void> getData(String category) async {
+    setState(() {
+      isLoading=true;
+    });
+    http.Response response =
+    await http.get(
+      Uri.parse("https://e-healthhub.000webhostapp.com/API/h_fetchapi1.php"),);
+    if (response.statusCode == 200) {
+      setState(() {
+        data = response.body;
+        hospitaldata = jsonDecode(data!)["data"];
+        isLoading = false;
+      });
+    } else {
+      setState(() {
+        isLoading = false;
+      });
+      // Handle error
+      print("Failed to fetch data. Status code: ${response.statusCode}");
+    }
+  }
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
@@ -23,7 +54,7 @@ class Second extends State<USecondpage> {
         backgroundColor: ColorConstants.appbarcolor,
         title: Text('Hospitals'),
       ),
-      body: SingleChildScrollView(
+      body:  isLoading ? Center(child: CircularProgressIndicator(color: Colors.greenAccent)) : SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -48,7 +79,7 @@ class Second extends State<USecondpage> {
                             topLeft: Radius.circular(15)),
                         child: Image(
                           image: NetworkImage(
-                              'https://sys.mediflam.com/OfflineUploads/HospitalImage/Sterling_Hospital.JPG'),
+                              "https://e-healthhub.000webhostapp.com/API/" + jsonDecode(data!)["data"][index]["H_IMG"]),
                         ),
                       ),
                       Padding(
@@ -62,7 +93,7 @@ class Second extends State<USecondpage> {
                                   Image.asset('assets/image/hospital.png',
                                       width: 35),
                                   Text(
-                                    "  Sterling Hospital",
+                                   jsonDecode(data!)["data"][index]["H_NAME"],
                                     style: TextStyle(
                                         fontSize: 20,
                                         fontWeight: FontWeight.bold),
@@ -80,7 +111,7 @@ class Second extends State<USecondpage> {
                                       width: 35),
                                   Expanded(
                                       child: Text(
-                                    "206, Siddhraj Zori, Next to Essar petrol pump, Sargasan, Gandhinagar: 382421. Gujarat, India.",
+                                        jsonDecode(data!)["data"][index]["ADDRESS"],
                                     style: TextStyle(
                                         fontSize: 20,
                                         fontWeight: FontWeight.bold),
@@ -113,7 +144,7 @@ class Second extends State<USecondpage> {
                   ),
                 );
               },
-              itemCount: 10,
+              itemCount: hospitaldata.length,
               shrinkWrap: true,
             ),
             SizedBox(

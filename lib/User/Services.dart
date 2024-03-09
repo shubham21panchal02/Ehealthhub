@@ -1,3 +1,5 @@
+import 'dart:convert';
+import 'package:http/http.dart' as http;
 import 'package:devloperproject1/User/Fourthpage.dart';
 import 'package:devloperproject1/User/Thiredpage.dart';
 import 'package:devloperproject1/Widgets/Colour.dart';
@@ -13,6 +15,35 @@ class Servicespage extends StatefulWidget {
 }
 
 class Service extends State<Servicespage> {
+  String data="";
+  var servicedata;
+  bool isLoading=true;
+
+  void initState() {
+    super.initState();
+    getData("servicedata");
+  }
+  Future<void> getData(String category) async {
+    setState(() {
+      isLoading=true;
+    });
+    http.Response response =
+    await http.get(
+      Uri.parse("https://e-healthhub.000webhostapp.com/API/servicefetch.php"),);
+    if (response.statusCode == 200) {
+      setState(() {
+        data = response.body;
+        servicedata = jsonDecode(data!)["data"];
+        isLoading = false;
+      });
+    } else {
+      setState(() {
+        isLoading = false;
+      });
+      // Handle error
+      print("Failed to fetch data. Status code: ${response.statusCode}");
+    }
+  }
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
@@ -26,9 +57,9 @@ class Service extends State<Servicespage> {
             children: [
             ListView.builder(
               shrinkWrap: true,
+              itemCount: 10,
               physics: NeverScrollableScrollPhysics(),
-              itemCount: 5,
-              itemBuilder: (BuildContext context, int index) {
+              itemBuilder: (context, index)  {
                 return InkWell(
                   onTap: (){Navigator.push(context, MaterialPageRoute(builder: (context) => Uthiredpage(),));
                     },
@@ -38,7 +69,7 @@ class Service extends State<Servicespage> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
 
-                      Image.network("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcScMRJK34Xds1Wsbg13IYRGQ2vvYaJ1KvQRg97vCj1U1rDO6DObf7ztbxfOLLTYu97rFAg&usqp=CAU",height: 200,),
+                      Image.network("https://e-healthhub.000webhostapp.com/API/" + jsonDecode(data!)["data"][index]["S_IMG"]),
                         SizedBox(
                           height: 2,
                         ),
@@ -49,7 +80,7 @@ class Service extends State<Servicespage> {
                             fontWeight: FontWeight.bold),),
 
                             Text(
-                              "ENT",
+                              jsonDecode(data!)["data"][index]["SPECIALIST"],
                               style: TextStyle(
                                   fontSize: 20,
                                   fontWeight: FontWeight.bold),
@@ -67,7 +98,7 @@ class Service extends State<Servicespage> {
                             Icon(Icons.currency_rupee),
 
                             Text(
-                              "300",
+                                jsonDecode(data!)["data"][index]["FEES"],
                               style: TextStyle(
                                   fontSize: 20,
                                   fontWeight: FontWeight.bold),
@@ -96,18 +127,10 @@ class Service extends State<Servicespage> {
                         SizedBox(
                           height: 10,
                         ),
-                        // Center(
-                        //   child:  ElevatedButton(onPressed: (){
-                        //     Navigator.push(context, MaterialPageRoute(builder: (context) => Uforthpage(),));
-                        //   }, child:Text("Book Appointment"),
-                        //     style:ElevatedButton.styleFrom(primary: Color(0xFF0e9096),shape: RoundedRectangleBorder(
-                        //         borderRadius:BorderRadius.all(Radius.circular(20))
-                        //     )),),)
                       ],
                     ),
                   ),
                 );
-
               },
             )
           ],

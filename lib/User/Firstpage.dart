@@ -295,22 +295,6 @@ class Home extends State<Ufirstpage> {
               child: Column(
                 mainAxisSize: MainAxisSize.max,
                 children: [
-                  Container(
-                    width: 128.0,
-                    height: 128.0,
-                    margin: const EdgeInsets.only(
-                      top: 24.0,
-                      bottom: 64.0,
-                    ),
-                    clipBehavior: Clip.antiAlias,
-                    decoration: BoxDecoration(
-                      color: Colors.black26,
-                      shape: BoxShape.circle,
-                    ),
-                    child: Image.asset(
-                      'assets/images/flutter_logo.png',
-                    ),
-                  ),
                   ListTile(
                     onTap: () {},
                     leading: Icon(Icons.account_circle_rounded),
