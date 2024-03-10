@@ -14,6 +14,9 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 
+import 'Admin/Afristpage.dart';
+import 'Hospital/Hfirstpage.dart';
+
 class Loginpage extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
@@ -201,8 +204,21 @@ class Loginpage extends StatefulWidget {
            SharedPreferences setpreference = await SharedPreferences.getInstance();
            setpreference.setString('id', data['USER_Id'].toString());
            setpreference.setString('name', data['U_NAME'].toString());
+           setpreference.setString('email', data['EMAIL_ID'].toString());
+           setpreference.setString('role', data['ROLE'].toString());
+           if(setpreference.getString('ROLE') !=null && setpreference.getString('ROLE') == "0" )
+             {
+               Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (BuildContext context) => Afristpage()), (Route<dynamic> route) => false);
+             }
+          else if(setpreference.getString('ROLE') !=null && setpreference.getString('ROLE') == "1" )
+           {
+             Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (BuildContext context) => Ufirstpage()), (Route<dynamic> route) => false);
+           }
+           else
+           {
+             Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (BuildContext context) => h_firstpage()), (Route<dynamic> route) => false);
+           }
 
-           Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (BuildContext context) => Ufirstpage()), (Route<dynamic> route) => false);
          }else{
            Fluttertoast.showToast(
                msg: logindata['message'].toString(),

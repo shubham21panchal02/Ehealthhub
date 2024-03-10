@@ -172,7 +172,7 @@ class Thiredpage extends State<Uthiredpage>{
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: <Widget>[
-                      Text("${selectedDate.toLocal()}".split(' ')[0]),
+                      Text("${selectedTime.toString()}".split(' ')[0]),
                       const SizedBox(height: 20.0,),
                       ElevatedButton(
                         style: TextButton.styleFrom(

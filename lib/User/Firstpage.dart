@@ -1,6 +1,7 @@
 import 'package:devloperproject1/User/Fourthpage.dart';
 import 'package:devloperproject1/User/Secondpage.dart';
 import 'package:devloperproject1/User/feedback.dart';
+import 'package:devloperproject1/User/profie_user.dart';
 import 'package:devloperproject1/Widgets/Colour.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -298,7 +299,7 @@ class Home extends State<Ufirstpage> {
                   ListTile(
                     onTap: () {},
                     leading: Icon(Icons.account_circle_rounded),
-                    title: Text('Profile'),
+                    title: Text('Edit Profile'),
                   ),
                   ListTile(
                     onTap: () {
@@ -313,7 +314,9 @@ class Home extends State<Ufirstpage> {
                     title: Text('Settings'),
                   ),
                   ListTile(
-                    onTap: () {},
+                    onTap: () {
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => user_profile(),));
+                    },
                     leading: Icon(Icons.logout),
                     title: Text('Log out'),
                   ),

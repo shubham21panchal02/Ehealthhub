@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import '../Widgets/Colour.dart';
+
 class  Adetailpage  extends StatefulWidget{
   @override
   State<StatefulWidget> createState() {
@@ -17,6 +19,9 @@ class ad extends State<Adetailpage> with TickerProviderStateMixin{
 
     // TODO: implement build
      return Scaffold(
+         appBar: AppBar(backgroundColor: ColorConstants.appbarcolor,
+           title: const Text('Appointment Detail'),
+         ),
 
 
        body:
@@ -42,10 +47,7 @@ decoration: BoxDecoration(
 
              ),
           child: Column(children:[
-            SizedBox(
-              height: 50,
-            ),
-            Text("Appointment Detail",style: TextStyle(fontSize: 30,color: Colors.black),),
+
 
           ListView.builder(
 
