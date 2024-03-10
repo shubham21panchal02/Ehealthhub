@@ -5,6 +5,15 @@ import 'package:flutter/material.dart';
 import 'package:quickalert/quickalert.dart';
 
 class Uthiredpage extends StatefulWidget{
+  final String hospitalImage;
+  final String hospitalName;
+  final String hospitalAddress;
+  final String Speciallist;
+  final String fees;
+  final String hospitalId;
+
+  Uthiredpage({required this.hospitalImage,required this.hospitalName,required this.hospitalAddress,
+    required this.Speciallist,required this.fees,required this.hospitalId});
   @override
   State<StatefulWidget> createState() {
     // TODO: implement createState
@@ -13,6 +22,23 @@ class Uthiredpage extends StatefulWidget{
 }
 
 class Thiredpage extends State<Uthiredpage>{
+
+  TimeOfDay selectedTime = TimeOfDay.now();
+
+  Future<void> _selectTime(BuildContext context) async {
+    final TimeOfDay? picked_s = await showTimePicker(
+        context: context,
+        initialTime: selectedTime, builder: (BuildContext? context, Widget? child) {
+      return MediaQuery(
+        data: MediaQuery.of(context!).copyWith(alwaysUse24HourFormat: false),
+        child: child!,
+      );});
+
+    if (picked_s != null && picked_s != selectedTime )
+      setState(() {
+        selectedTime = picked_s;
+      });
+  }
   DateTime selectedDate = DateTime.now();
   Future<void> _selectDate(BuildContext context) async {
     final DateTime? picked = await showDatePicker(
@@ -50,12 +76,12 @@ class Thiredpage extends State<Uthiredpage>{
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Image.network("https://sys.mediflam.com/OfflineUploads/HospitalImage/Sterling_Hospital.JPG",),
+                Image.network(widget.hospitalImage,),
                 Row(children: [
                   Image.asset('assets/image/hospital.png',
                   width: 35,),
                   Text(
-                    "  Sterling Hospital",
+                    widget.hospitalName,
                     style: TextStyle(
                         fontSize: 20,
                         fontWeight: FontWeight.bold),
@@ -72,7 +98,7 @@ class Thiredpage extends State<Uthiredpage>{
                         width: 35),
                     Expanded(
                         child: Text(
-                          "206, Siddhraj Zori, Next to Essar petrol pump, Sargasan, Gandhinagar: 382421. Gujarat, India.",
+                          widget.hospitalAddress,
                           style: TextStyle(
                               fontSize: 20,
                               fontWeight: FontWeight.bold),
@@ -99,7 +125,7 @@ class Thiredpage extends State<Uthiredpage>{
                     Text("Specialist:",style:TextStyle(
                         fontSize: 20,
                         fontWeight: FontWeight.bold),),
-                    Expanded(child: Text("ENT",style: TextStyle(
+                    Expanded(child: Text(widget.Speciallist,style: TextStyle(
                         fontSize: 20,
                         fontWeight: FontWeight.bold),))
                   ],
@@ -113,7 +139,7 @@ class Thiredpage extends State<Uthiredpage>{
                         fontSize: 20,
                         fontWeight: FontWeight.bold),),
                     Icon(Icons.currency_rupee),
-                    Expanded(child: Text("500",style: TextStyle(
+                    Expanded(child: Text(widget.fees,style: TextStyle(
                         fontSize: 20,
                         fontWeight: FontWeight.bold),),
                     )
@@ -138,9 +164,31 @@ class Thiredpage extends State<Uthiredpage>{
                     ],
                   ),
                 ),
+
+                SizedBox(
+                  height: 20,
+                ),
+                Center(
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: <Widget>[
+                      Text("${selectedDate.toLocal()}".split(' ')[0]),
+                      const SizedBox(height: 20.0,),
+                      ElevatedButton(
+                        style: TextButton.styleFrom(
+                            backgroundColor: ColorConstants.buttonscolor
+                        ),
+                        onPressed: () => _selectTime(context),
+                        child: const Text('Select Time'),
+                      ),
+                    ],
+                  ),
+                ),
+
                 SizedBox(
                   height: 100,
                 ),
+
     Center(child:
     ElevatedButton(onPressed: () {
       QuickAlert.show(
@@ -148,7 +196,6 @@ class Thiredpage extends State<Uthiredpage>{
         type: QuickAlertType.success,
         text: 'Book Appointment Successfully!',
         autoCloseDuration: const Duration(seconds: 5),
-
         showConfirmBtn: false,
       );
     },
@@ -159,7 +206,6 @@ class Thiredpage extends State<Uthiredpage>{
                   height: 10,
                 ),
 
-
               ],
             ),
           ),
@@ -169,7 +215,6 @@ class Thiredpage extends State<Uthiredpage>{
       )
 
     );
-
   }
 
   Card buildButton({

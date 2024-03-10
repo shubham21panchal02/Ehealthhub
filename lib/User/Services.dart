@@ -7,6 +7,14 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class Servicespage extends StatefulWidget {
+  final String hospitalId;
+  final String hospitalName;
+  final String hospitalImage;
+  final String hospitalAddress;
+
+  Servicespage({required this.hospitalAddress,required this.hospitalName,required this.hospitalId,
+    required this.hospitalImage});
+
   @override
   State<StatefulWidget> createState() {
     // TODO: implement createState
@@ -52,7 +60,7 @@ class Service extends State<Servicespage> {
           backgroundColor: ColorConstants.appbarcolor,
           title: Text("Services"),
         ),
-        body: SingleChildScrollView(
+        body:  isLoading ? Center(child: CircularProgressIndicator(color: Colors.greenAccent)) :SingleChildScrollView(
             child: Column(
             children: [
             ListView.builder(
@@ -61,7 +69,14 @@ class Service extends State<Servicespage> {
               physics: NeverScrollableScrollPhysics(),
               itemBuilder: (context, index)  {
                 return InkWell(
-                  onTap: (){Navigator.push(context, MaterialPageRoute(builder: (context) => Uthiredpage(),));
+                  onTap: (){Navigator.push(context, MaterialPageRoute(builder: (context) => Uthiredpage(
+                      hospitalAddress: widget.hospitalAddress,
+                      hospitalId:widget.hospitalId ,
+                      hospitalImage:widget.hospitalImage ,
+                      hospitalName:widget.hospitalName,
+                    Speciallist: jsonDecode(data!)["data"][index]["SPECIALIST"],
+                    fees: jsonDecode(data!)["data"][index]["FEES"],
+                  ),));
                     },
                   child: Card(margin: EdgeInsets.all(10),color: ColorConstants.lightcolor,
                     elevation: 5,

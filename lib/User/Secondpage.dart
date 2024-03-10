@@ -126,8 +126,11 @@ class Second extends State<USecondpage> {
                                             context,
                                             MaterialPageRoute(
                                               builder: (context) =>
-                                                  Servicespage(),
-                                            ));
+                                                  Servicespage(hospitalAddress: jsonDecode(data!)["data"][index]["ADDRESS"] ,
+                                                      hospitalId:jsonDecode(data!)["data"][index]["H_ID"] ,
+                                                      hospitalImage:"https://e-healthhub.000webhostapp.com/API/" + jsonDecode(data!)["data"][index]["H_IMG"] ,
+                                                      hospitalName:jsonDecode(data!)["data"][index]["H_NAME"]
+                                            )));
                                       },
                                       child:(Text("View Services",
                                       style: TextStyle(

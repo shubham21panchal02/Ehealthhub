@@ -354,9 +354,6 @@ class Loginstate extends State<Rpage> {
                         ),
                   ),
 
-
-
-
       ]),
         )
       );
