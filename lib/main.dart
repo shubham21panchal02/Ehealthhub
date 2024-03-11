@@ -7,7 +7,6 @@ import 'package:devloperproject1/Slider.dart';
 import 'package:devloperproject1/User/Firstpage.dart';
 import 'package:devloperproject1/User/Fourthpage.dart';
 import 'package:devloperproject1/User/Secondpage.dart';
-
 import 'package:devloperproject1/User/Services.dart';
 import 'package:devloperproject1/User/Thiredpage.dart';
 import 'package:flutter/material.dart';
