@@ -20,6 +20,6 @@ import 'Splash.dart';
 void main() {
   runApp(Material(child:MaterialApp(
     debugShowCheckedModeBanner: false,
-    home: USecondpage(),
+    home: Ufirstpage(),
   )));
 }

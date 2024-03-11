@@ -54,7 +54,7 @@ class Second extends State<USecondpage> {
         backgroundColor: ColorConstants.appbarcolor,
         title: Text('Hospitals'),
       ),
-      body:  isLoading ? Center(child: CircularProgressIndicator(color: Colors.greenAccent)) : SingleChildScrollView(
+      body:   SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
