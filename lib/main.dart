@@ -19,6 +19,6 @@ import 'Splash.dart';
 void main() {
   runApp(Material(child:MaterialApp(
     debugShowCheckedModeBanner: false,
-    home: Ufirstpage(),
+    home: Loginpage(),
   )));
 }

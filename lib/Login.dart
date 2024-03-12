@@ -30,6 +30,7 @@ class Loginpage extends StatefulWidget {
    TextEditingController passwordController = TextEditingController();
    final formKey = new GlobalKey<FormState>();
    var logindata;
+   bool _passwordVisible = false;
    var data;
    bool isLoading = false;
 
@@ -57,7 +58,7 @@ class Loginpage extends StatefulWidget {
               height: 30,
             ),
             Form(
-          key: formKey,child:
+            key: formKey,child:
             SingleChildScrollView(
               scrollDirection: Axis.vertical,
               child: Container(
@@ -133,9 +134,20 @@ class Loginpage extends StatefulWidget {
                       }
                     },
                     style: TextStyle(color: Colors.black),
-                    obscureText: true,
+                    obscureText: !_passwordVisible,
                     decoration: InputDecoration(
-                        suffixIcon: Icon(Icons.password,color: Colors.blue,),
+                        suffixIcon:  IconButton(onPressed: (){
+                          setState(() {
+                            _passwordVisible = !_passwordVisible;
+                          });
+                        },
+                          icon: Icon(
+                            // Based on passwordVisible state choose the icon
+                            _passwordVisible
+                                ? Icons.visibility
+                                : Icons.visibility_off,
+                            color: Theme.of(context).primaryColorDark,
+                          ),),
                         hintText: "password",
                         hintStyle: TextStyle(color: Colors.black),
                         border: InputBorder.none
@@ -200,34 +212,45 @@ class Loginpage extends StatefulWidget {
          setState(() {
            isLoading = false;
          });
-         if (logindata['error'] == false) {
-           SharedPreferences setpreference = await SharedPreferences.getInstance();
-           setpreference.setString('id', data['USER_Id'].toString());
-           setpreference.setString('name', data['U_NAME'].toString());
-           setpreference.setString('email', data['EMAIL_ID'].toString());
-           setpreference.setString('role', data['ROLE'].toString());
-           if(setpreference.getString('ROLE') !=null && setpreference.getString('ROLE') == "0" )
-             {
-               Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (BuildContext context) => Afristpage()), (Route<dynamic> route) => false);
+           if (logindata['error'] == false) {
+             Fluttertoast.showToast(
+                 msg: logindata['message'].toString(),
+                 toastLength: Toast.LENGTH_LONG,
+                 gravity: ToastGravity.BOTTOM,
+                 timeInSecForIosWeb: 2
+             );
+             SharedPreferences prefs = await SharedPreferences.getInstance();
+             bool _seen = (prefs.getBool('seen') ?? false);
+             if (_seen) {
+               if (prefs.getString('id') != null) {
+                 if (prefs.getString('ROLE') != null &&
+                     prefs.getString('ROLE') == "1") {
+                   var pushAndRemoveUntil = Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(
+                       builder: (BuildContext context) => Ufirstpage()), (
+                       Route<dynamic> route) => false);
+                 }
+                 else if (prefs.getString('ROLE') != null &&
+                     prefs.getString('ROLE') == "2") {
+                   Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(
+                       builder: (BuildContext context) => h_firstpage()), (
+                       Route<dynamic> route) => true);
+                 }
+                 else if(prefs.getString('ROLE') != null &&
+                     prefs.getString('ROLE') == "0")
+                 {
+                   Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(
+                       builder: (BuildContext context) => Afristpage()), (
+                       Route<dynamic> route) => false);
+                 }}
+               } else {
+                 Fluttertoast.showToast(
+                     msg: logindata['message'].toString(),
+                     toastLength: Toast.LENGTH_LONG,
+                     gravity: ToastGravity.BOTTOM,
+                     timeInSecForIosWeb: 2
+                 );
+               }
              }
-          else if(setpreference.getString('ROLE') !=null && setpreference.getString('ROLE') == "1" )
-           {
-             Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (BuildContext context) => Ufirstpage()), (Route<dynamic> route) => false);
            }
-           else
-           {
-             Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (BuildContext context) => h_firstpage()), (Route<dynamic> route) => false);
-           }
-
-         }else{
-           Fluttertoast.showToast(
-               msg: logindata['message'].toString(),
-               toastLength: Toast.LENGTH_LONG,
-               gravity: ToastGravity.BOTTOM,
-               timeInSecForIosWeb: 2
-           );
-         }
+         }}
        }
-     }
-   }
- }

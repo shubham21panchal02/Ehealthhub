@@ -54,7 +54,7 @@ class Second extends State<USecondpage> {
         backgroundColor: ColorConstants.appbarcolor,
         title: Text('Hospitals'),
       ),
-      body:   SingleChildScrollView(
+      body:  isLoading ? Center(child: CircularProgressIndicator(color: Colors.black)) : SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -63,8 +63,9 @@ class Second extends State<USecondpage> {
               physics: NeverScrollableScrollPhysics(),
               itemBuilder: (context, index) {
                 return Card(
-                  elevation: 10,
-                  color: Color(0xFF9dcdd1),
+                  margin: EdgeInsets.all(10),
+                  elevation: 20,
+                  color: Colors.white,
                   shape: BeveledRectangleBorder(
                       borderRadius: BorderRadius.only(
                           topRight: Radius.circular(16.0),
@@ -92,16 +93,17 @@ class Second extends State<USecondpage> {
                                 children: [
                                   Image.asset('assets/image/hospital.png',
                                       width: 35),
+                                  Expanded(child:
                                   Text(
                                    jsonDecode(data!)["data"][index]["H_NAME"],
                                     style: TextStyle(
                                         fontSize: 20,
                                         fontWeight: FontWeight.bold),
-                                  ),
+                                  ),)
                                 ],
                               ),
                               SizedBox(
-                                height: 8,
+                                height: 10
                               ),
                               Row(
                                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -116,6 +118,22 @@ class Second extends State<USecondpage> {
                                         fontSize: 20,
                                         fontWeight: FontWeight.bold),
                                   )),
+                                ],
+                              ),
+                              SizedBox(
+                                height: 10,
+                              ),
+                              Row(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Icon(Icons.call),
+                                  Expanded(
+                                      child: Text(
+                                        jsonDecode(data!)["data"][index]["PHONE_NO"],
+                                        style: TextStyle(
+                                            fontSize: 20,
+                                            fontWeight: FontWeight.bold),
+                                      )),
                                 ],
                               ),
                               Row(

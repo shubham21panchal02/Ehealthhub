@@ -22,6 +22,7 @@ class Rpage extends StatefulWidget {
   }
 }
 class Loginstate extends State<Rpage> {
+
   TextEditingController doctorNameController = TextEditingController();
   TextEditingController hospitalNameController = TextEditingController();
   TextEditingController emailController = TextEditingController();
@@ -34,6 +35,7 @@ class Loginstate extends State<Rpage> {
   bool _isLoading = false;
   var logindata;
   var data;
+  bool _passwordVisible = false;
 
   final ImagePicker _picker = ImagePicker();
   File? _image;
@@ -117,7 +119,11 @@ class Loginstate extends State<Rpage> {
       print(e);
     }
   }
+
   @override
+  void initState() {
+    _passwordVisible = false;
+  }
   Widget build(BuildContext context) {
     // TODO: implement build
     return  Scaffold(
@@ -209,6 +215,12 @@ class Loginstate extends State<Rpage> {
                                             ),
                                             child: TextFormField(
                                               controller: hospitalNameController,
+                                              validator:  (val) {
+                                                if (val!.isEmpty ||
+                                                    RegExp(r"\s").hasMatch(val)) {
+                                                  return "Enter Hospital Name ";
+                                                }
+                                              },
                                               style: TextStyle(color: Colors.black),
                                               decoration: InputDecoration(
 
@@ -236,6 +248,12 @@ class Loginstate extends State<Rpage> {
 
                                             child: TextFormField(
                                               controller: emailController,
+                                              validator:  (val) {
+                                                if (val!.isEmpty ||
+                                                    RegExp(r"\s").hasMatch(val)) {
+                                                  return "Enter email ";
+                                                }
+                                              },
                                               style: TextStyle(color: Colors.black),
                                               decoration: InputDecoration(
                                                   suffixIcon: Icon(Icons.email,color: Colors.blue,),
@@ -259,11 +277,58 @@ class Loginstate extends State<Rpage> {
                                             ),
                                             child: TextFormField(
                                               controller: passwordController,
-                                              obscureText: true,
+                                              obscureText: !_passwordVisible,
+                                              validator:  (val) {
+                                                if (val!.isEmpty ||
+                                                    RegExp(r"\s").hasMatch(val)) {
+                                                  return "Enter password ";
+                                                }
+                                              },
                                               style: TextStyle(color: Colors.black),
                                               decoration: InputDecoration(
-                                                  suffixIcon: Icon(Icons.remove_red_eye,color: Colors.blue,),
+                                                  suffixIcon: IconButton(onPressed: (){
+                                                    setState(() {
+                                                      _passwordVisible = !_passwordVisible;
+                                                    });
+                                                  },
+                                                      icon: Icon(
+                                                        // Based on passwordVisible state choose the icon
+                                                        _passwordVisible
+                                                            ? Icons.visibility
+                                                            : Icons.visibility_off,
+                                                        color: Theme.of(context).primaryColorDark,
+                                                      ),),
+
                                                   hintText: "Password",
+                                                  hintStyle: TextStyle(color: Colors.black),
+                                                  border: InputBorder.none
+                                              ),
+                                            ),
+                                          ),
+                                          SizedBox(height: 7,),
+                                          Container(
+
+                                            padding: EdgeInsets.all(10),
+                                            decoration: BoxDecoration(
+                                                borderRadius: BorderRadius.circular(15),
+                                                border: Border.all(
+                                                    color: Colors.black,
+                                                    width: 2
+                                                )
+                                            ),
+                                            child: TextFormField(
+                                              controller: addressController,
+
+                                              validator:  (val) {
+                                                if (val!.isEmpty ||
+                                                    RegExp(r"\s").hasMatch(val)) {
+                                                  return "Enter address ";
+                                                }
+                                              },
+                                              style: TextStyle(color: Colors.black),
+                                              decoration: InputDecoration(
+                                                  suffixIcon: Icon(Icons.location_on,color: Colors.blue,),
+                                                  hintText: "Address",
                                                   hintStyle: TextStyle(color: Colors.black),
                                                   border: InputBorder.none
                                               ),
@@ -281,6 +346,12 @@ class Loginstate extends State<Rpage> {
                                             ),
                                             child: TextFormField(
                                               controller: phoneNoController,
+                                              validator:  (val) {
+                                                if (val!.isEmpty ||
+                                                    RegExp(r"\s").hasMatch(val)) {
+                                                  return "Enter Phone No ";
+                                                }
+                                              },
                                               style: TextStyle(color: Colors.black),
                                               decoration: InputDecoration(
                                                   suffixIcon: Icon(Icons.phone,color: Colors.blue,),
@@ -325,11 +396,7 @@ class Loginstate extends State<Rpage> {
                                     ),
                                   ),
 
-
-
-                                SizedBox(height: 40,),
-                                FadeInUp(duration: Duration(milliseconds: 1500), child: Text("Forgot Password?", style: TextStyle(color: Colors.black),)),
-                                SizedBox(height: 40,),
+                                SizedBox(height: 20,),
                                 FadeInUp(duration: Duration(milliseconds: 1600), child: MaterialButton(
                                   onPressed: _submit,
                                   height: 50,
@@ -360,6 +427,7 @@ class Loginstate extends State<Rpage> {
 
   }
 
+
   void _submit() {
     final form = formKey.currentState;
     if (form!.validate()) {
@@ -368,7 +436,8 @@ class Loginstate extends State<Rpage> {
           _isLoading = true;
         });
         uploadImageMedia(_image!);
-      }else{
+      }
+      else{
         Fluttertoast.showToast(
             msg: "Please select image",
             toastLength: Toast.LENGTH_LONG,

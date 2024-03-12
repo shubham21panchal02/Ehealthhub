@@ -26,60 +26,73 @@ class Registerstate extends State<Registerpage> {
   var logindata;
   var data;
   bool isLoading = false;
+  bool _passwordVisible = false;
+
 
 
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
     return  Scaffold(
-      body: Container(
-        width: double.infinity,
-        decoration: BoxDecoration(
-            gradient: LinearGradient(
-                begin: Alignment.topCenter,
-                colors: [
-                  Colors.grey.shade900,
-                  Colors.greenAccent.shade100,
-                  Colors.black,
-                ]
-            )
-        ),
+      body:
+
+      SingleChildScrollView(
+        physics: AlwaysScrollableScrollPhysics
+          (),
+        scrollDirection: Axis.vertical,
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            SizedBox(height: 80,),
-            Padding(
-              padding: EdgeInsets.all(20),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  FadeInUp(duration: Duration(milliseconds: 1000), child: Text("Register", style: TextStyle(color: Colors.white, fontSize: 40),)),
-                  SizedBox(height: 10,),
-                  FadeInUp(duration: Duration(milliseconds: 1300), child: Text("Welcome User", style: TextStyle(color: Colors.white, fontSize: 18),)),
-                ],
+
+            children: [
+              SizedBox(
+                height: 10,
               ),
-            ),
-            SizedBox(height: 20),
-            Expanded(
-              child: SingleChildScrollView(
+              Container(
+                width: double.infinity,
+                height: 250,
+                decoration: BoxDecoration(
+
+                  image: DecorationImage(
+                    image: AssetImage('assets/image/Firstpage.jpg'),fit: BoxFit.cover,
+                  ),
+
+                ),
+                child: Form(
+                  key: _formKey,
+                  child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        SizedBox(height: 120,),
+                        Padding(
+                          padding: EdgeInsets.all(30),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: <Widget>[
+                              FadeInUp(duration: Duration(milliseconds: 1000), child: Text("Register", style: TextStyle(color: Colors.transparent, fontSize: 20),)),
+                              SizedBox(height: 10,),
+                              FadeInUp(duration: Duration(milliseconds: 1300), child: Text("Welcome Hospital", style: TextStyle(color: Colors.transparent,fontWeight: FontWeight.bold, fontSize: 18),)),
+                            ],
+                          ),
+                        ),]),),),
+
+
+              SingleChildScrollView(
+                scrollDirection: Axis.vertical,
                 child: Container(
-                  height: 800,
                   decoration: BoxDecoration(
-                      color: Colors.black,
-                      borderRadius: BorderRadius.only(topLeft: Radius.circular(60), topRight: Radius.circular(60))
+                      color: Colors.white,
+                      borderRadius: BorderRadius.only(topLeft: Radius.circular(15), topRight: Radius.circular(15))
                   ),
                   child: Padding(
                     padding: EdgeInsets.all(30),
-                    child: Form(
-                      key: _formKey,
-                      child: Column(
-                        children: <Widget>[
-                          SizedBox(height: 10,),
-                          FadeInUp(duration: Duration(milliseconds: 1400), child: Container(
+                    child: Column(
+                      children: <Widget>[
+                        FadeInUp(duration: Duration(milliseconds: 1400),
+                          child: Container(
 
                             decoration: BoxDecoration(
-                                color: Colors.black,
-                                borderRadius: BorderRadius.circular(40),
+                                color: Colors.white,
+
+                                borderRadius: BorderRadius.circular(15),
                                 boxShadow: [BoxShadow(
                                   color: Color.fromRGBO(225, 95, 27, .3),
 
@@ -88,30 +101,30 @@ class Registerstate extends State<Registerpage> {
                             ),
                             child: Column(
                               children: <Widget>[
-                                SizedBox(
-                                  height: 40,
-                                ),
+
                                 Container(
                                   padding: EdgeInsets.all(10),
                                   decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(40),
+                                      borderRadius: BorderRadius.circular(15),
                                       border: Border.all(
-                                          color: Colors.white,
-                                          width: 1
+                                          color: Colors.black,
+                                          width: 2
                                       )
                                   ),
-                                  child: TextFormField(controller: userNameController,
+                                  child: TextFormField(
+                                    controller: userNameController,
                                     validator:  (val) {
                                       if (val!.isEmpty ||
                                           RegExp(r"\s").hasMatch(val)) {
-                                        return "Use Proper name";
+                                        return "Enter User Name ";
                                       }
                                     },
-                                    style: TextStyle(color: Colors.white),
+                                    style: TextStyle(color: Colors.black),
                                     decoration: InputDecoration(
-                                        hintText: "Enter your name",
-                                        suffixIcon: Icon(Icons.account_box,color: Colors.greenAccent.shade100,),
-                                        hintStyle: TextStyle(color: Colors.grey),
+
+                                        hintText: "User Name",
+                                        suffixIcon: Icon(Icons.account_circle,color: Colors.blue,),
+                                        hintStyle: TextStyle(color: Colors.black),
                                         border: InputBorder.none
                                     ),
                                   ),
@@ -122,24 +135,29 @@ class Registerstate extends State<Registerpage> {
                                 Container(
                                   padding: EdgeInsets.all(10),
                                   decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(40),
+                                      borderRadius: BorderRadius.circular(15),
                                       border: Border.all(
-                                          color: Colors.white,
-                                          width: 1
+                                          color: Colors.black,
+                                          width: 2
                                       )
                                   ),
-                                  child: TextFormField(controller: ageController,
+                                  child: TextFormField(
+                                    controller: ageController,
                                     validator:  (val) {
                                       if (val!.isEmpty ||
                                           RegExp(r"\s").hasMatch(val)) {
-                                        return "Use Proper age ";
+                                        return "Enter Your Age ";
                                       }
                                     },
-                                    style: TextStyle(color: Colors.white),
+                                    style: TextStyle(color: Colors.black),
                                     decoration: InputDecoration(
+
                                         hintText: "Age",
-                                        suffixIcon: Icon(Icons.calendar_month,color: Colors.greenAccent.shade100,),
-                                        hintStyle: TextStyle(color: Colors.grey),
+                                        suffixIcon: IconButton(onPressed: (){
+
+                                        },
+                                          icon: Icon(Icons.date_range),),
+                                        hintStyle: TextStyle(color: Colors.black),
                                         border: InputBorder.none
                                     ),
                                   ),
@@ -147,147 +165,197 @@ class Registerstate extends State<Registerpage> {
                                 SizedBox(
                                   height: 7,
                                 ),
+
                                 Container(
                                   padding: EdgeInsets.all(10),
                                   decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(40),
+                                      borderRadius: BorderRadius.circular(15),
                                       border: Border.all(
-                                          color: Colors.white,
-                                          width: 1
+                                          color: Colors.black,
+                                          width: 2
                                       )
                                   ),
 
-                                  child: TextFormField(controller: genderController,
+                                  child: TextFormField(
+                                    controller: emailController,
                                     validator:  (val) {
                                       if (val!.isEmpty ||
                                           RegExp(r"\s").hasMatch(val)) {
-                                        return "Use Proper gender";
+                                        return "Enter email ";
                                       }
                                     },
-                                    style: TextStyle(color: Colors.white),
-                                    obscureText: true,
+                                    style: TextStyle(color: Colors.black),
                                     decoration: InputDecoration(
-                                        suffixIcon: Icon(Icons.person,color: Colors.greenAccent.shade100,),
-                                        hintText: "Gender",
-                                        hintStyle: TextStyle(color: Colors.grey),
+                                        suffixIcon: Icon(Icons.email,color: Colors.blue,),
+                                        hintText: "Email",
+                                        hintStyle: TextStyle(color: Colors.black),
                                         border: InputBorder.none
                                     ),
                                   ),
+                                ),SizedBox(
+                                  height: 7,
+                                ),
+                                Container(
+
+                                  padding: EdgeInsets.all(10),
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(15),
+                                      border: Border.all(
+                                          color: Colors.black,
+                                          width: 2
+                                      )
+                                  ),
+                                  child: TextFormField(
+                                    controller: passwordController,
+                                    validator:  (val) {
+                                      if (val!.isEmpty ||
+                                          RegExp(r"\s").hasMatch(val)) {
+                                        return "Enter password ";
+                                      }
+                                    },
+                                    obscureText: !_passwordVisible,
+                                    style: TextStyle(color: Colors.black),
+                                    decoration: InputDecoration(
+                                        suffixIcon: IconButton(onPressed: (){
+                                          setState(() {
+                                            _passwordVisible = !_passwordVisible;
+                                          });
+                                        },
+                                          icon: Icon(
+                                            // Based on passwordVisible state choose the icon
+                                            _passwordVisible
+                                                ? Icons.visibility
+                                                : Icons.visibility_off,
+                                            color: Theme.of(context).primaryColorDark,
+                                          ),),
+                                        hintText: "Password",
+                                        hintStyle: TextStyle(color: Colors.black),
+                                        border: InputBorder.none
+                                    ),
+                                  ),
+                                ),
+                                SizedBox(height: 7,),
+                                Container(
+                                  padding: EdgeInsets.all(10),
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(15),
+                                      border: Border.all(
+                                          color: Colors.black,
+                                          width: 2
+                                      )
+                                  ),
+                                  child: TextFormField(
+                                    controller: genderController,
+                                    validator:  (val) {
+                                      if (val!.isEmpty ||
+                                          RegExp(r"\s").hasMatch(val)) {
+                                        return "Enter Your Gender ";
+                                      }
+                                    },
+                                    style: TextStyle(color: Colors.black),
+                                    decoration: InputDecoration(
+
+                                        hintText: "Gender",
+                                        suffixIcon: Icon(Icons.person,color: Colors.blue,),
+                                        hintStyle: TextStyle(color: Colors.black),
+                                        border: InputBorder.none
+                                    ),
+                                  ),
+                                ),
+                                SizedBox(
+                                  height: 7,
+                                ),
+                                Container(
+                                  padding: EdgeInsets.all(10),
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(15),
+                                      border: Border.all(
+                                          color: Colors.black,
+                                          width: 2
+                                      )
+                                  ),
+                                  child: TextFormField(
+                                    controller: addressController,
+                                    validator:  (val) {
+                                      if (val!.isEmpty ||
+                                          RegExp(r"\s").hasMatch(val)) {
+                                        return "Enter Address ";
+                                      }
+                                    },
+                                    style: TextStyle(color: Colors.black),
+                                    decoration: InputDecoration(
+
+                                        hintText: "Address",
+                                        suffixIcon: Icon(Icons.location_on,color: Colors.blue,),
+                                        hintStyle: TextStyle(color: Colors.black),
+                                        border: InputBorder.none
+                                    ),
+                                  ),
+                                ),
+                                SizedBox(
+                                  height: 7,
+                                ),
+                                Container(
+                                  padding: EdgeInsets.all(10),
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(15),
+                                      border: Border.all(
+                                          color: Colors.black,
+                                          width: 2
+                                      )
+                                  ),
+                                  child: TextFormField(
+                                    controller: bloodgroupController,
+                                    validator:  (val) {
+                                      if (val!.isEmpty ||
+                                          RegExp(r"\s").hasMatch(val)) {
+                                        return "Enter Your Bloodgroup ";
+                                      }
+                                    },
+                                    style: TextStyle(color: Colors.black),
+                                    decoration: InputDecoration(
+
+                                        hintText: "Blood Group",
+                                        suffixIcon: Icon(Icons.bloodtype,color: Colors.blue,),
+                                        hintStyle: TextStyle(color: Colors.black),
+                                        border: InputBorder.none
+                                    ),
+                                  ),
+                                ),
+                                SizedBox(
+                                  height: 7,
                                 ),
                               ],
                             ),
-                          )),
-                          SizedBox(
-                            height: 7,
                           ),
-                          Container(
+                        ),
+                        SizedBox(height: 20,),
+                        FadeInUp(duration: Duration(milliseconds: 1600), child: MaterialButton(
+                          onPressed: _submit,
+                          height: 50,
+                          // margin: EdgeInsets.symmetric(horizontal: 50),
+                          color: Colors.greenAccent.shade100,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(50),
 
-                            padding: EdgeInsets.all(10),
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(40),
-                                border: Border.all(
-                                    color: Colors.white,
-                                    width: 1
-                                )
-                            ),
-                            child: TextFormField(controller: bloodgroupController,
-                              validator:  (val) {
-                                if (val!.isEmpty ||
-                                    RegExp(r"\s").hasMatch(val)) {
-                                  return "Use Proper Password ";
-                                }
-                              },
-                              style: TextStyle(color: Colors.white),
-                              decoration: InputDecoration(
-                                  suffixIcon: Icon(Icons.bloodtype,color: Colors.greenAccent.shade100,),
-                                  hintText: "Blood group",
-                                  hintStyle: TextStyle(color: Colors.grey),
-                                  border: InputBorder.none
-                              ),
-                            ),
                           ),
-                          Container(
-
-                            padding: EdgeInsets.all(10),
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(40),
-                                border: Border.all(
-                                    color: Colors.white,
-                                    width: 1
-                                )
-                            ),
-                            child: TextFormField(controller: emailController,
-                              validator:  (val) {
-                                if (val!.isEmpty ||
-                                    RegExp(r"\s").hasMatch(val)) {
-                                  return "Use Proper Email id";
-                                }
-                              },
-                              style: TextStyle(color: Colors.white),
-                              decoration: InputDecoration(
-                                  suffixIcon: Icon(Icons.email,color: Colors.greenAccent.shade100,),
-                                  hintText: "Email id",
-                                  hintStyle: TextStyle(color: Colors.grey),
-                                  border: InputBorder.none
-                              ),
-                            ),
+                          // decoration: BoxDecoration(
+                          // ),
+                          child: Center(
+                            child: Text("Sign In", style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),),
                           ),
-                          Container(
+                        )),
 
-                            padding: EdgeInsets.all(10),
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(40),
-                                border: Border.all(
-                                    color: Colors.white,
-                                    width: 1
-                                )
-                            ),
-                            child: TextFormField(controller: passwordController,
-                              validator:  (val) {
-                                if (val!.isEmpty ||
-                                    RegExp(r"\s").hasMatch(val)) {
-                                  return "Use Proper Password ";
-                                }
-                              },
-                              style: TextStyle(color: Colors.white),
-                              decoration: InputDecoration(
-                                  suffixIcon: Icon(Icons.remove_red_eye,color: Colors.greenAccent.shade100,),
-                                  hintText: "Password",
-                                  hintStyle: TextStyle(color: Colors.grey),
-                                  border: InputBorder.none
-                              ),
-                            ),
-                          ),
-                          SizedBox(height: 40,),
-                          FadeInUp(duration: Duration(milliseconds: 1500), child: Text("Forgot Password?", style: TextStyle(color: Colors.grey),)),
-                          SizedBox(height: 40,),
-                          FadeInUp(duration: Duration(milliseconds: 1600), child: MaterialButton(
-                            onPressed:_submit,
-                            height: 50,
-                            // margin: EdgeInsets.symmetric(horizontal: 50),
-                            color: Colors.greenAccent.shade100,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(50),
 
-                            ),
-                            // decoration: BoxDecoration(
-                            // ),
-                            child: Center(
-                              child: Text("Login",
-                                style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
-                              ),
-                            ),
-                          )),
-                        ],
-                      ),
+
+                      ],
                     ),
                   ),
                 ),
               ),
-            )
-          ],
-        ),
-      ),
+
+            ]),
+      )
     );
 }
 
@@ -331,7 +399,8 @@ Future<void> _submit() async {
         Navigator.of(context).pushAndRemoveUntil(
             MaterialPageRoute(builder: (context) => Loginpage()),
                 (route) => false);
-      }else{
+      }
+      else{
         Fluttertoast.showToast(
             msg: logindata['message'].toString(),
             toastLength: Toast.LENGTH_LONG,

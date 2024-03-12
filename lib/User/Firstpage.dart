@@ -1,3 +1,4 @@
+import 'package:devloperproject1/Login.dart';
 import 'package:devloperproject1/User/Fourthpage.dart';
 import 'package:devloperproject1/User/Secondpage.dart';
 import 'package:devloperproject1/User/feedback.dart';
@@ -7,6 +8,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_advanced_drawer/flutter_advanced_drawer.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class  Ufirstpage extends StatefulWidget {
   @override
@@ -84,8 +86,6 @@ class Home extends State<Ufirstpage> {
             ],
           ),
           body:
-
-
           Column(
               children: [
                 Stack(
@@ -148,10 +148,6 @@ class Home extends State<Ufirstpage> {
 
 
                 Expanded(
-
-
-
-
                child:  SingleChildScrollView(
                  physics: AlwaysScrollableScrollPhysics(),
                  child: Container(
@@ -290,36 +286,119 @@ class Home extends State<Ufirstpage> {
           ),
         drawer: SafeArea(
           child: Container(
-            child: ListTileTheme(
-              textColor: Colors.white,
-              iconColor: Colors.white,
+
+            child:Container(
               child: Column(
-                mainAxisSize: MainAxisSize.max,
                 children: [
-                  ListTile(
-                    onTap: () {},
-                    leading: Icon(Icons.account_circle_rounded),
-                    title: Text('Edit Profile'),
+                  SingleChildScrollView(
+                    scrollDirection: Axis.vertical,
+                    child: Container(
+                      height: 250,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          CircleAvatar(
+                            backgroundColor: ColorConstants.appbarcolor,
+                            foregroundColor: Colors.black,
+                            radius: 70,
+                            child: Center(child: Text("D",style: TextStyle(fontSize: 50
+                              ,),),)
+                          ),
+                          SizedBox(
+                            height: 10,
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(left: 10),
+                            child: Row(
+                             mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.end,
+                              children: [
+                                Text("Name : ",style: TextStyle(fontSize: 15,),),
+                                Text("Dhruv",style: TextStyle(fontSize: 15,))
+                              ],
+                            ),
+                          ),
+                          SizedBox(
+                            height: 10,
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(left: 10),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.end,
+                              children: [
+                                Text("Age : ",style: TextStyle(fontSize: 15,),),
+                                Text("20",style: TextStyle(fontSize: 15,))
+                              ],
+                            ),
+                          ),
+                          SizedBox(
+                            height: 10,
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(left: 10),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.end,
+                              children: [
+                                Text("Email : ",style: TextStyle(fontSize: 15,),),
+                                Text("dhruv123@gmail.com",style: TextStyle(fontSize: 15,))
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+
+                    ),
+
                   ),
-                  ListTile(
-                    onTap: () {
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => feedback(),));
-                    },
-                    leading: Icon(Icons.favorite),
-                    title: Text('Feedback'),
+                  Divider(
+                    height: 10,
+                    color: ColorConstants.appbarcolor,
+                    thickness: 2,
                   ),
-                  ListTile(
-                    onTap: () {},
-                    leading: Icon(Icons.settings),
-                    title: Text('Settings'),
-                  ),
-                  ListTile(
-                    onTap: () {
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => user_profile(),));
-                    },
-                    leading: Icon(Icons.logout),
-                    title: Text('Log out'),
-                  ),
+
+                  ListTileTheme(
+                    textColor: Colors.white,
+                    iconColor: Colors.white,
+                    child: Column(
+                      mainAxisSize: MainAxisSize.max,
+                      children: [
+                        ListTile(
+                          onTap: () {
+                            Navigator.push(context, MaterialPageRoute(builder: (context) => user_profile(),));
+                          },
+                          leading: Icon(Icons.account_circle_rounded),
+                          title: Text('Edit Profile'),
+                        ),
+                        ListTile(
+                          onTap: () {
+                            Navigator.push(context, MaterialPageRoute(builder: (context) => feedback(),));
+                          },
+                          leading: Icon(Icons.favorite),
+                          title: Text('Feedback'),
+                        ),
+                        ListTile(
+                          onTap: () {},
+                          leading: Icon(Icons.settings),
+                          title: Text('Settings'),
+                        ),
+                        ListTile(
+                          onTap: () async{
+                            final pref =await SharedPreferences.getInstance();
+                            await pref.clear();
+                            await pref.setBool('seen',true);
+                            Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder:
+                            (BuildContext context)=>Loginpage()),(
+                            Route<dynamic>route) => false);
+                          },
+                          leading: Icon(Icons.logout),
+                          title: Text('Log out'),
+                        ),
+                ],
+              ),
+
+            ),
                   Spacer(),
                   DefaultTextStyle(
                     style: TextStyle(

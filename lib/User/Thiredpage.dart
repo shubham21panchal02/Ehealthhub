@@ -73,158 +73,161 @@ class Thiredpage extends State<Uthiredpage>{
         title: Text("Book Appointment",),
       ),
       body:SingleChildScrollView(
-          child: (
-          Column(
-            children: [
-            Card(margin: EdgeInsets.all(10),
-            elevation: 10,
-            color: ColorConstants.lightcolor,
-            shape: BeveledRectangleBorder(
-                borderRadius: BorderRadius.only(
-                    topRight: Radius.circular(16.0),
-                    topLeft: Radius.circular(10.0),
-                    bottomRight: Radius.circular(10.0),
-                    bottomLeft: Radius.circular(10.0))),
-                child:
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Image.network(widget.hospitalImage,),
-                    Row(children: [
-                      Image.asset('assets/image/hospital.png',
-                      width: 35,),
-                      Text(
-                        widget.hospitalName,
-                        style: TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold),
+          child: Form(
+            key:_formKey ,
+            child: (
+            Column(
+              children: [
+              Card(margin: EdgeInsets.all(10),
+              elevation: 10,
+              color: ColorConstants.lightcolor,
+              shape: BeveledRectangleBorder(
+                  borderRadius: BorderRadius.only(
+                      topRight: Radius.circular(16.0),
+                      topLeft: Radius.circular(10.0),
+                      bottomRight: Radius.circular(10.0),
+                      bottomLeft: Radius.circular(10.0))),
+                  child:
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Image.network(widget.hospitalImage,),
+                      Row(children: [
+                        Image.asset('assets/image/hospital.png',
+                        width: 35,),
+                        Text(
+                          widget.hospitalName,
+                          style: TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold),
+                        ),
+                      ],),
+                      SizedBox(
+                        height: 8,
                       ),
-                    ],),
-                    SizedBox(
-                      height: 8,
-                    ),
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Image.asset(
-                            'assets/image/hospital location.png',
-                            width: 35),
-                        Expanded(
-                            child: Text(
-                              widget.hospitalAddress,
-                              style: TextStyle(
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.bold),
-                            )),
-                      ],
-                    ),
-                    SizedBox(
-                      height: 8,
-                    ),
-                    Row(
-                      children: [
-                        Image.asset('assets/image/doctor.jpg',
-                        width:35),
-                       Expanded(child: Text("Dr.Panchal Dhruv",style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold),))
-                      ],
-                    ),
-                    SizedBox(
-                      height: 8,
-                    ),
-                    Row(crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text("Specialist:",style:TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold),),
-                        Expanded(child: Text(widget.Speciallist,style: TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold),))
-                      ],
-                    ),
-                    SizedBox(
-                      height: 8,
-                    ),
-                    Row(crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text("Fees:",style:TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold),),
-                        Icon(Icons.currency_rupee),
-                        Expanded(child: Text(widget.fees,style: TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold),),
-                        )
-                      ],
-                    ),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    Center(
-                      child: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        children: <Widget>[
-                          Text("${selectedDate.toLocal()}".split(' ')[0]),
-                          const SizedBox(height: 20.0,),
-                          ElevatedButton(
-                            style: TextButton.styleFrom(
-                              backgroundColor: ColorConstants.buttonscolor
-                            ),
-                            onPressed: () => _selectDate(context),
-                            child: const Text('Select date'),
-                          ),
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Image.asset(
+                              'assets/image/hospital location.png',
+                              width: 35),
+                          Expanded(
+                              child: Text(
+                                widget.hospitalAddress,
+                                style: TextStyle(
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.bold),
+                              )),
                         ],
                       ),
-                    ),
-
-                    SizedBox(
-                      height: 20,
-                    ),
-                    Center(
-                      child: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        children: <Widget>[
-                          Text("${selectedTime.toString()}".split(' ')[0]),
-                          const SizedBox(height: 20.0,),
-                          ElevatedButton(
-                            style: TextButton.styleFrom(
+                      SizedBox(
+                        height: 8,
+                      ),
+                      Row(
+                        children: [
+                          Image.asset('assets/image/doctor.jpg',
+                          width:35),
+                         Expanded(child: Text("Dr.Panchal Dhruv",style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold),))
+                        ],
+                      ),
+                      SizedBox(
+                        height: 8,
+                      ),
+                      Row(crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text("Specialist:",style:TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold),),
+                          Expanded(child: Text(widget.Speciallist,style: TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold),))
+                        ],
+                      ),
+                      SizedBox(
+                        height: 8,
+                      ),
+                      Row(crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text("Fees:",style:TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold),),
+                          Icon(Icons.currency_rupee),
+                          Expanded(child: Text(widget.fees,style: TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold),),
+                          )
+                        ],
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      Center(
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: <Widget>[
+                            Text("${selectedDate.toLocal()}".split(' ')[0]),
+                            const SizedBox(height: 20.0,),
+                            ElevatedButton(
+                              style: TextButton.styleFrom(
                                 backgroundColor: ColorConstants.buttonscolor
+                              ),
+                              onPressed: () => _selectDate(context),
+                              child: const Text('Select date'),
                             ),
-                            onPressed: () => _selectTime(context),
-                            child: const Text('Select Time'),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
-                    ),
 
-                    SizedBox(
-                      height: 100,
-                    ),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      Center(
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: <Widget>[
+                            Text("${selectedTime.toString()}".split(' ')[0]),
+                            const SizedBox(height: 20.0,),
+                            ElevatedButton(
+                              style: TextButton.styleFrom(
+                                  backgroundColor: ColorConstants.buttonscolor
+                              ),
+                              onPressed: () => _selectTime(context),
+                              child: const Text('Select Time'),
+                            ),
+                          ],
+                        ),
+                      ),
+
+                      SizedBox(
+                        height: 100,
+                      ),
 
     Center(child:
     ElevatedButton(onPressed: () {_submit();
       QuickAlert.show(
-          context: context,
-          type: QuickAlertType.success,
-          text: 'Book Appointment Successfully!',
-          autoCloseDuration: const Duration(seconds: 5),
-          showConfirmBtn: false,
+            context: context,
+            type: QuickAlertType.success,
+            text: 'Book Appointment Successfully!',
+            autoCloseDuration: const Duration(seconds: 5),
+            showConfirmBtn: false,
       );
     },
-          child: Padding(padding: EdgeInsets.only(top: 20,bottom: 10,left: 100,right: 100),
+            child: Padding(padding: EdgeInsets.only(top: 20,bottom: 10,left: 100,right: 100),
       child: Text("Book Now",),
-          )),),
-                    SizedBox(
-                      height: 10,
-                    ),
+            )),),
+                      SizedBox(
+                        height: 10,
+                      ),
 
-                  ],
+                    ],
+                  ),
                 ),
-              ),
 
-            ],
-          )
+              ],
+            )
+            ),
           ),
         ),
 
