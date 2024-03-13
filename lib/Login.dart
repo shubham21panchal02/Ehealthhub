@@ -216,20 +216,23 @@ class Loginpage extends StatefulWidget {
              SharedPreferences setpre = await SharedPreferences.getInstance();
              setpre.setString('id',data['U_ID'].toString());
              setpre.setString('name',data['U_NAME'].toString());
-             setpre.setString('email',data['EMAIL_ID'].toString());
+             setpre.setString('email',data['E_MAIL'].toString());
+             setpre.setString('password',data['PASSWORD'].toString());
              setpre.setString('role',data['ROLE'].toString());
-             var temp_role = setpre.getString('U_ID').toString();
+             var temp_role = setpre.getString('id').toString();
+
              print(temp_role);
-             print("ROLE");
-             print(data["ROLE"].toString());
-             if(setpre.getString('ROLE').toString() == "0")
-               {
-                 Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) => Afristpage(),), (route) => false);
-               }
-             else if(setpre.getString('ROLE').toString() == "1")
-               {
-                 Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) => Ufirstpage(),), (route) => false);
-               }
+             print("ROLE ");
+             print( data['ROLE'].toString());
+
+               if(setpre.getString('ROLE').toString() == "0")
+                 {
+                   Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) => Afristpage(),), (route) => false);
+                 }
+            else if(setpre.getString('ROLE').toString() == "1")
+             {
+               Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) => Ufirstpage(),), (route) => false);
+             }
              else
                {
                  Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) => h_firstpage(),), (route) => false);
