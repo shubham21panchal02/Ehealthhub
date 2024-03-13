@@ -213,30 +213,27 @@ class Loginpage extends StatefulWidget {
            isLoading = false;
          });
            if (logindata['error'] == false) {
-             SharedPreferences setpre = await SharedPreferences.getInstance();
-             setpre.setString('id',data['U_ID'].toString());
-             setpre.setString('name',data['U_NAME'].toString());
-             setpre.setString('email',data['E_MAIL'].toString());
-             setpre.setString('password',data['PASSWORD'].toString());
-             setpre.setString('role',data['ROLE'].toString());
-             var temp_role = setpre.getString('id').toString();
+             SharedPreferences share= await
+              SharedPreferences.getInstance();
+               String? id = share.getString('id');
+               String? role = share.getString('role');
 
-             print(temp_role);
-             print("ROLE ");
-             print( data['ROLE'].toString());
-
-               if(setpre.getString('ROLE').toString() == "0")
-                 {
-                   Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) => Afristpage(),), (route) => false);
+               if (id != null) {
+                 if (role == '0') {
+                   Navigator.of(context).pushReplacement(
+                     MaterialPageRoute(builder: (BuildContext context) => Afristpage()),
+                   );
+                 } else if (role == '1') {
+                   Navigator.of(context).pushReplacement(
+                     MaterialPageRoute(builder: (BuildContext context) => Ufirstpage()),
+                   );
                  }
-            else if(setpre.getString('ROLE').toString() == "1")
-             {
-               Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) => Ufirstpage(),), (route) => false);
-             }
-             else
-               {
-                 Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) => h_firstpage(),), (route) => false);
+               } else {
+                 Navigator.of(context).pushReplacement(
+                   MaterialPageRoute(builder: (BuildContext context) => h_firstpage()),
+                 );
                }
+             }
 
                } else {
                  Fluttertoast.showToast(
@@ -248,4 +245,4 @@ class Loginpage extends StatefulWidget {
                }
              }
            }
-         }}
+         }
