@@ -8,7 +8,9 @@ import 'package:devloperproject1/Widgets/Colour.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_advanced_drawer/flutter_advanced_drawer.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
+import '../Login.dart';
 import 'H-AppointmentDettail.dart';
 import 'h_feedback.dart';
 
@@ -153,14 +155,22 @@ class hopital extends State<h_firstpage> {
                 ),
               ),
               Expanded(child: SizedBox()),
-              Container(
-                decoration: BoxDecoration(),
-                child: Card(
-                  color: ColorConstants.appbarcolor,
-                  elevation: 1,
-                  child: ListTile(
-                    title: Text("Log Out"),
-                    trailing: Icon(Icons.logout),
+              InkWell(
+                onTap: () async{
+                  final pref = await SharedPreferences.getInstance();
+                  await pref.clear();
+                  await pref.setBool('seen', true);
+                  Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) => Loginpage()), (route) => false);
+                },
+                child: Container(
+                  decoration: BoxDecoration(),
+                  child: Card(
+                    color: ColorConstants.appbarcolor,
+                    elevation: 1,
+                    child: ListTile(
+                      title: Text("Log Out"),
+                      trailing: Icon(Icons.logout),
+                    ),
                   ),
                 ),
               ),
