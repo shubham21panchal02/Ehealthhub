@@ -213,35 +213,28 @@ class Loginpage extends StatefulWidget {
            isLoading = false;
          });
            if (logindata['error'] == false) {
-             Fluttertoast.showToast(
-                 msg: logindata['message'].toString(),
-                 toastLength: Toast.LENGTH_LONG,
-                 gravity: ToastGravity.BOTTOM,
-                 timeInSecForIosWeb: 2
-             );
-             SharedPreferences prefs = await SharedPreferences.getInstance();
-             bool _seen = (prefs.getBool('seen') ?? false);
-             if (_seen) {
-               if (prefs.getString('id') != null) {
-                 if (prefs.getString('ROLE') != null &&
-                     prefs.getString('ROLE') == "1") {
-                   var pushAndRemoveUntil = Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(
-                       builder: (BuildContext context) => Ufirstpage()), (
-                       Route<dynamic> route) => false);
-                 }
-                 else if (prefs.getString('ROLE') != null &&
-                     prefs.getString('ROLE') == "2") {
-                   Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(
-                       builder: (BuildContext context) => h_firstpage()), (
-                       Route<dynamic> route) => true);
-                 }
-                 else if(prefs.getString('ROLE') != null &&
-                     prefs.getString('ROLE') == "0")
-                 {
-                   Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(
-                       builder: (BuildContext context) => Afristpage()), (
-                       Route<dynamic> route) => false);
-                 }}
+             SharedPreferences setpre = await SharedPreferences.getInstance();
+             setpre.setString('id',data['U_ID'].toString());
+             setpre.setString('name',data['U_NAME'].toString());
+             setpre.setString('email',data['EMAIL_ID'].toString());
+             setpre.setString('role',data['ROLE'].toString());
+             var temp_role = setpre.getString('U_ID').toString();
+             print(temp_role);
+             print("ROLE");
+             print(data["ROLE"].toString());
+             if(setpre.getString('ROLE').toString() == "0")
+               {
+                 Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) => Afristpage(),), (route) => false);
+               }
+             else if(setpre.getString('ROLE').toString() == "1")
+               {
+                 Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) => Ufirstpage(),), (route) => false);
+               }
+             else
+               {
+                 Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) => h_firstpage(),), (route) => false);
+               }
+
                } else {
                  Fluttertoast.showToast(
                      msg: logindata['message'].toString(),
@@ -253,4 +246,3 @@ class Loginpage extends StatefulWidget {
              }
            }
          }}
-       }
