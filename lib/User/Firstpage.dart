@@ -57,6 +57,7 @@ class Home extends State<Ufirstpage> {
       alignment: Alignment.center,
       child: Image(
      image:NetworkImage("https://e-healthhub.000webhostapp.com/API/" + jsonDecode(data!)["data"][index]["H_IMG"]
+
       ),
     ),)
   ];
