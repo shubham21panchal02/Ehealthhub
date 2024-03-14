@@ -201,7 +201,7 @@ class Thiredpage extends State<Uthiredpage>{
                       ),
 
                       SizedBox(
-                        height: 100,
+                        height: 20,
                       ),
 
     Center(child:

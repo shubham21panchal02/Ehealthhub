@@ -212,6 +212,7 @@ class Loginpage extends StatefulWidget {
          setState(() {
            isLoading = false;
          });
+
            if (logindata['error'] == false) {
              SharedPreferences setpre = await SharedPreferences.getInstance();
              setpre.setString('id',data['U_ID'].toString());
@@ -235,7 +236,7 @@ class Loginpage extends StatefulWidget {
              }
              else
                {
-                 Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) => h_firstpage(),), (route) => false);
+                 Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) => Ufirstpage(),), (route) => false);
                }
 
                } else {
@@ -248,4 +249,5 @@ class Loginpage extends StatefulWidget {
                }
              }
            }
-         }}
+         }
+}

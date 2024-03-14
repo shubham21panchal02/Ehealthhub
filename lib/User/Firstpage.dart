@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:devloperproject1/Login.dart';
 import 'package:devloperproject1/User/Fourthpage.dart';
 import 'package:devloperproject1/User/Secondpage.dart';
@@ -9,6 +11,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_advanced_drawer/flutter_advanced_drawer.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:flutter_card_swiper/flutter_card_swiper.dart';
+import 'package:http/http.dart' as http;
 
 class  Ufirstpage extends StatefulWidget {
   @override
@@ -19,6 +23,43 @@ class  Ufirstpage extends StatefulWidget {
 }
 
 class Home extends State<Ufirstpage> {
+  String data="";
+  var hospitaldata;
+  bool isLoading=true;
+
+  void initState() {
+    super.initState();
+    getData("hospital");
+  }
+  Future<void> getData(String category) async {
+    setState(() {
+      isLoading=true;
+    });
+    http.Response response =
+    await http.get(
+      Uri.parse("https://e-healthhub.000webhostapp.com/API/h_fetchapi1.php"),);
+    if (response.statusCode == 200) {
+      setState(() {
+        data = response.body;
+        hospitaldata = jsonDecode(data!)["data"];
+        isLoading = false;
+      });
+    } else {
+      setState(() {
+        isLoading = false;
+      });
+      // Handle error
+      print("Failed to fetch data. Status code: ${response.statusCode}");
+    }
+  }
+  List<Container> cardsBuilder = [
+    Container(
+      alignment: Alignment.center,
+      child: Image(
+     image:NetworkImage("https://e-healthhub.000webhostapp.com/API/" + jsonDecode(data!)["data"][index]["H_IMG"]
+      ),
+    ),)
+  ];
   List imageList=[
     {"id":1,"image_path":'assets/image/ad1.jpg'},
     {"id":2,"image_path":'assets/image/ad2.jpg'},
@@ -149,7 +190,7 @@ class Home extends State<Ufirstpage> {
 
                 Expanded(
                child:  SingleChildScrollView(
-                 physics: AlwaysScrollableScrollPhysics(),
+                 physics: NeverScrollableScrollPhysics(),
                  child: Container(
                           alignment: Alignment.topLeft,
 
@@ -190,7 +231,7 @@ class Home extends State<Ufirstpage> {
                               ),
                               Padding(
                                 padding: const EdgeInsets.fromLTRB(0, 0, 200, 0),
-                                child: Text("Nearest Hospital",style: TextStyle(fontSize: 25,fontFamily: 'Calibri',
+                                child: Text("Hospitals",style: TextStyle(fontSize: 25,fontFamily: 'Calibri',
                                 color: Colors.black,fontWeight: FontWeight.bold),),
                               ),
                               SizedBox(
@@ -205,65 +246,16 @@ class Home extends State<Ufirstpage> {
                                         ),
                                     height: 300,
 
-                                      child: GridView.builder(
-                                        scrollDirection: Axis.horizontal,
-                                          itemCount: 10,
-                                          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                                              crossAxisCount: 1,
-                                              crossAxisSpacing: 5,
-                                              mainAxisSpacing: 5),
-                                          itemBuilder: (BuildContext Context, int index) {
-                                            return Card(
-
-                                             elevation: 10,
-                                              shadowColor: Colors.black,
-                                              child: Column(
-
-                                                crossAxisAlignment: CrossAxisAlignment.start,
-                                                children: [
-                                                  Image.asset('assets/image/free.jpg',height: 160,fit: BoxFit.cover,width: double.infinity,),
-                                                   Divider(
-                                                     height: 10,
-                                                   ),
-                                                  Padding(
-                                                    padding: const EdgeInsets.only(
-                                                      bottom: 10,
-                                                    ),
-                                                    child: Expanded(child: Row(
-                                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                      children: [
-                                                        Padding(
-                                                          padding: const EdgeInsets.only(left: 10),
-                                                          child: Text("Zydus Hospital",style: TextStyle(color: Colors.black,fontWeight:FontWeight.bold,fontSize: 20, ),),
-                                                        ),
-                                                        Padding(
-                                                          padding: const EdgeInsets.only(
-                                                            right: 10
-                                                          ),
-                                                          child: TextButton(onPressed: (){},
-                                                             child: Text("Book Appointment",style: TextStyle(fontSize: 12),),
-                                                             style: ButtonStyle(
-                                                               shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                                                                 RoundedRectangleBorder(
-                                                                   borderRadius: BorderRadius.circular(18.0),
-                                                                   side: BorderSide(
-                                                                     color: ColorConstants.appbarcolor,
-                                                                   )
-                                                                 )
-                                                               )
-                                                             ),
-                                                          ),
-                                                        ),
-                                                      ],
-                                                    )),
-                                                  )
-                                                ],
-                                              ),
-                                            );
-                                          }),
-
+                                      child:Flexible(
+                                 child: CardSwiper(
+                                 cardsCount: cardsBuilder.length,
+                                 cardBuilder: (context, index, percentThresholdX, percentThresholdY) => cardsBuilder[index],
                                 ),
-                              ),
+                                ),
+
+
+                               ),
+                                ),
                              SizedBox(
                                height: 40,
                              ),
