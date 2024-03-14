@@ -164,49 +164,50 @@ class Thiredpage extends State<Uthiredpage>{
                       SizedBox(
                         height: 10,
                       ),
-                      Center(
+                    /*  Center(
                         child: Column(
                           mainAxisSize: MainAxisSize.min,
                           children: <Widget>[
                             Text("${selectedDate.toLocal()}".split(' ')[0]),
                             const SizedBox(height: 20.0,),
-                            ElevatedButton(
-                              style: TextButton.styleFrom(
-                                backgroundColor: ColorConstants.buttonscolor
-                              ),
-                              onPressed: () => _selectDate(context),
-                              child: const Text('Select date'),
-                            ),
+                            // ElevatedButton(
+                            //   style: TextButton.styleFrom(
+                            //     backgroundColor: ColorConstants.buttonscolor
+                            //   ),
+                            //   onPressed: () => _selectDate(context),
+                            //   child: const Text('Select date'),
+                            // ),
                           ],
                         ),
-                      ),
+                      ),*/
 
                       SizedBox(
                         height: 20,
                       ),
-                      Center(
-                        child: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          children: <Widget>[
-                            Text("${selectedTime.toString()}".split(' ')[0]),
-                            const SizedBox(height: 20.0,),
-                            ElevatedButton(
-                              style: TextButton.styleFrom(
-                                  backgroundColor: ColorConstants.buttonscolor
-                              ),
-                              onPressed: () => _selectTime(context),
-                              child: const Text('Select Time'),
-                            ),
-                          ],
-                        ),
-                      ),
+                      // Center(
+                      //   child: Column(
+                      //     mainAxisSize: MainAxisSize.min,
+                      //     children: <Widget>[
+                      //       Text("${selectedTime.toString()}".split(' ')[0]),
+                      //       const SizedBox(height: 20.0,),
+                      //       ElevatedButton(
+                      //         style: TextButton.styleFrom(
+                      //             backgroundColor: ColorConstants.buttonscolor
+                      //         ),
+                      //         onPressed: () => _selectTime(context),
+                      //         child: const Text('Select Time'),
+                      //       ),
+                      //     ],
+                      //   ),
+                      // ),
 
                       SizedBox(
                         height: 100,
                       ),
 
     Center(child:
-    ElevatedButton(onPressed: () {Navigator.push(context, MaterialPageRoute(builder: (context) => BookingPage(),));
+    ElevatedButton(onPressed: () {
+      Navigator.push(context, MaterialPageRoute(builder: (context) => BookingPage(),));
      //  QuickAlert.show(
      //        context: context,
      //        type: QuickAlertType.success,
@@ -264,50 +265,50 @@ class Thiredpage extends State<Uthiredpage>{
     );
   }
   //
-  // Future<void> _submit() async {
-  //   final form = _formKey.currentState;
-  //   if (form!.validate()) {
-  //     setState(() {
-  //       isLoading = true;
-  //     });
-  //     final login_url = Uri.parse(
-  //         "https://e-healthhub.000webhostapp.com/API/schedule.php");
-  //
-  //     final response = await http
-  //         .post(login_url, body: {
-  //       "S_DATE": s_dateController.text,
-  //       "S_TIME": s_timeController.text,
-  //     });
-  //     if (response.statusCode == 200) {
-  //       print("object");
-  //       scheduledata = jsonDecode(response.body);
-  //       data =
-  //       jsonDecode(response.body)['user'];
-  //       print(scheduledata);
-  //       setState(() {
-  //         isLoading = false;
-  //       });
-  //       if (scheduledata['error'] == false) {
-  //         Fluttertoast.showToast(
-  //             msg: scheduledata['message'].toString(),
-  //             toastLength: Toast.LENGTH_LONG,
-  //             gravity: ToastGravity.BOTTOM,
-  //             timeInSecForIosWeb: 2
-  //         );
-  //         Navigator.of(context).pushAndRemoveUntil(
-  //             MaterialPageRoute(builder: (context) => Ufirstpage()),
-  //                 (route) => false);
-  //       }else{
-  //         Fluttertoast.showToast(
-  //             msg: scheduledata['message'].toString(),
-  //             toastLength: Toast.LENGTH_LONG,
-  //             gravity: ToastGravity.BOTTOM,
-  //             timeInSecForIosWeb: 2
-  //         );
-  //       }
-  //     }
-  //   }
-  // }
+  Future<void> _submit() async {
+    final form = _formKey.currentState;
+    if (form!.validate()) {
+      setState(() {
+        isLoading = true;
+      });
+      final login_url = Uri.parse(
+          "https://e-healthhub.000webhostapp.com/API/schedule.php");
+
+      final response = await http
+          .post(login_url, body: {
+        "S_DATE": s_dateController.text,
+        "S_TIME": s_timeController.text,
+      });
+      if (response.statusCode == 200) {
+        print("object");
+        scheduledata = jsonDecode(response.body);
+        data =
+        jsonDecode(response.body)['user'];
+        print(scheduledata);
+        setState(() {
+          isLoading = false;
+        });
+        if (scheduledata['error'] == false) {
+          Fluttertoast.showToast(
+              msg: scheduledata['message'].toString(),
+              toastLength: Toast.LENGTH_LONG,
+              gravity: ToastGravity.BOTTOM,
+              timeInSecForIosWeb: 2
+          );
+          Navigator.of(context).pushAndRemoveUntil(
+              MaterialPageRoute(builder: (context) => Ufirstpage()),
+                  (route) => false);
+        }else{
+          Fluttertoast.showToast(
+              msg: scheduledata['message'].toString(),
+              toastLength: Toast.LENGTH_LONG,
+              gravity: ToastGravity.BOTTOM,
+              timeInSecForIosWeb: 2
+          );
+        }
+      }
+    }
+  }
   
 }
 
