@@ -24,6 +24,7 @@ class  Ufirstpage extends StatefulWidget {
 }
 
 class Home extends State<Ufirstpage> {
+
   String data="";
   var hospitaldata;
   bool isLoading=true;
@@ -223,8 +224,8 @@ class Home extends State<Ufirstpage> {
                                 height: 16,
                               ),
                               Padding(
-                                padding: const EdgeInsets.fromLTRB(0, 0, 230, 0),
-                                child: Text("Best Hospital",style: TextStyle(fontSize: 25,fontFamily: 'Calibri',
+                                padding: const EdgeInsets.fromLTRB(0, 0, 150, 0),
+                                child: Text("Top 10 Best Hospital",style: TextStyle(fontSize: 25,fontFamily: 'Calibri',
                                 color: Colors.black,fontWeight: FontWeight.bold),),
                               ),
                               SizedBox(
@@ -241,7 +242,10 @@ class Home extends State<Ufirstpage> {
 
                                       child:InkWell(
                                         onTap: (){
-                                          Navigator.push(context, MaterialPageRoute(builder: (context) => USecondpage()));
+                                          Navigator.push(context, MaterialPageRoute(builder: (context) => USecondpage(
+
+                                          )
+                                          ));
                                         },
                                         child:
                                       GridView.builder(
@@ -278,6 +282,11 @@ class Home extends State<Ufirstpage> {
                                                           padding: const EdgeInsets.only(
                                                             right: 10
                                                           ),
+                                                        ),
+                                                        Row(children: [
+                                                          Icon(Icons.star,color: Colors.yellow,)
+                                                        ],
+
                                                         ),
                                                       ]
                                                   )))

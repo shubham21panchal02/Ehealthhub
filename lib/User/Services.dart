@@ -9,8 +9,8 @@ import 'package:flutter/material.dart';
 
 class Servicespage extends StatefulWidget {
   final String hospitalId;
-  final String hospitalName;
   final String hospitalImage;
+  final String hospitalName;
   final String hospitalAddress;
 
   Servicespage({required this.hospitalAddress,required this.hospitalName,required this.hospitalId,
