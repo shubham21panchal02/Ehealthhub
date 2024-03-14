@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:devloperproject1/User/Firstpage.dart';
 import 'package:devloperproject1/User/Fourthpage.dart';
 import 'package:devloperproject1/Widgets/Colour.dart';
+import 'package:devloperproject1/calander.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -55,7 +56,7 @@ class Thiredpage extends State<Uthiredpage>{
     final DateTime? picked = await showDatePicker(
         context: context,
         initialDate: selectedDate,
-        firstDate: DateTime(2015, 8),
+        firstDate: DateTime(DateTime.monthsPerYear),
         lastDate: DateTime(2101));
 
     if (picked != null && picked != selectedDate) {
@@ -205,17 +206,17 @@ class Thiredpage extends State<Uthiredpage>{
                       ),
 
     Center(child:
-    ElevatedButton(onPressed: () {_submit();
-      QuickAlert.show(
-            context: context,
-            type: QuickAlertType.success,
-            text: 'Book Appointment Successfully!',
-            autoCloseDuration: const Duration(seconds: 5),
-            showConfirmBtn: false,
-      );
+    ElevatedButton(onPressed: () {Navigator.push(context, MaterialPageRoute(builder: (context) => BookingPage(),));
+     //  QuickAlert.show(
+     //        context: context,
+     //        type: QuickAlertType.success,
+     //        text: 'Book Appointment Successfully!',
+     //        autoCloseDuration: const Duration(seconds: 5),
+     //        showConfirmBtn: false,
+     // );
     },
             child: Padding(padding: EdgeInsets.only(top: 20,bottom: 10,left: 100,right: 100),
-      child: Text("Book Now",),
+      child: Text("Select Your Slot",),
             )),),
                       SizedBox(
                         height: 10,
@@ -262,51 +263,52 @@ class Thiredpage extends State<Uthiredpage>{
       ),
     );
   }
-
-  Future<void> _submit() async {
-    final form = _formKey.currentState;
-    if (form!.validate()) {
-      setState(() {
-        isLoading = true;
-      });
-      final login_url = Uri.parse(
-          "https://e-healthhub.000webhostapp.com/API/schedule.php");
-
-      final response = await http
-          .post(login_url, body: {
-        "S_DATE": s_dateController.text,
-        "S_TIME": s_timeController.text,
-      });
-      if (response.statusCode == 200) {
-        print("object");
-        scheduledata = jsonDecode(response.body);
-        data =
-        jsonDecode(response.body)['user'];
-        print(scheduledata);
-        setState(() {
-          isLoading = false;
-        });
-        if (scheduledata['error'] == false) {
-          Fluttertoast.showToast(
-              msg: scheduledata['message'].toString(),
-              toastLength: Toast.LENGTH_LONG,
-              gravity: ToastGravity.BOTTOM,
-              timeInSecForIosWeb: 2
-          );
-          Navigator.of(context).pushAndRemoveUntil(
-              MaterialPageRoute(builder: (context) => Ufirstpage()),
-                  (route) => false);
-        }else{
-          Fluttertoast.showToast(
-              msg: scheduledata['message'].toString(),
-              toastLength: Toast.LENGTH_LONG,
-              gravity: ToastGravity.BOTTOM,
-              timeInSecForIosWeb: 2
-          );
-        }
-      }
-    }
-  }
+  //
+  // Future<void> _submit() async {
+  //   final form = _formKey.currentState;
+  //   if (form!.validate()) {
+  //     setState(() {
+  //       isLoading = true;
+  //     });
+  //     final login_url = Uri.parse(
+  //         "https://e-healthhub.000webhostapp.com/API/schedule.php");
+  //
+  //     final response = await http
+  //         .post(login_url, body: {
+  //       "S_DATE": s_dateController.text,
+  //       "S_TIME": s_timeController.text,
+  //     });
+  //     if (response.statusCode == 200) {
+  //       print("object");
+  //       scheduledata = jsonDecode(response.body);
+  //       data =
+  //       jsonDecode(response.body)['user'];
+  //       print(scheduledata);
+  //       setState(() {
+  //         isLoading = false;
+  //       });
+  //       if (scheduledata['error'] == false) {
+  //         Fluttertoast.showToast(
+  //             msg: scheduledata['message'].toString(),
+  //             toastLength: Toast.LENGTH_LONG,
+  //             gravity: ToastGravity.BOTTOM,
+  //             timeInSecForIosWeb: 2
+  //         );
+  //         Navigator.of(context).pushAndRemoveUntil(
+  //             MaterialPageRoute(builder: (context) => Ufirstpage()),
+  //                 (route) => false);
+  //       }else{
+  //         Fluttertoast.showToast(
+  //             msg: scheduledata['message'].toString(),
+  //             toastLength: Toast.LENGTH_LONG,
+  //             gravity: ToastGravity.BOTTOM,
+  //             timeInSecForIosWeb: 2
+  //         );
+  //       }
+  //     }
+  //   }
+  // }
+  
 }
 
 

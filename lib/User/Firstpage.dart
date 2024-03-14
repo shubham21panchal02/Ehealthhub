@@ -116,9 +116,7 @@ class Home extends State<Ufirstpage> {
                 },
               ),
             ),
-            actions: [
-              Icon(Icons.notifications),
-            ],
+
           ),
           body:
           Column(
@@ -297,6 +295,7 @@ class Home extends State<Ufirstpage> {
 
                                 ),
                               ),),
+
                              SizedBox(
                                height: 41,
                              ),
@@ -304,16 +303,7 @@ class Home extends State<Ufirstpage> {
                           )
                       ),
                ),
-                  ),
-
-                ElevatedButton(onPressed: (){
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => Uforthpage()));
-                },style: ElevatedButton.styleFrom(
-                    primary: ColorConstants.buttonscolor
                 ),
-                    child: Padding(padding: EdgeInsets.only(top: 20,bottom: 20,left: 100,right: 100),
-                      child: Text("Appointment details"),)),
-                SizedBox(height: 20,)
               ],
             ),
           ),
@@ -413,8 +403,8 @@ class Home extends State<Ufirstpage> {
                         ),
                         ListTile(
                           onTap: () {},
-                          leading: Icon(Icons.settings),
-                          title: Text('Settings'),
+                          leading: Icon(Icons.details),
+                          title: Text('Appointment Details'),
                         ),
                         ListTile(
                           onTap: () async{
