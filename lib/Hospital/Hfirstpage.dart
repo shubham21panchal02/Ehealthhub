@@ -37,7 +37,7 @@ class hopital extends State<h_firstpage> {
   Widget build(BuildContext context) {
     // TODO: implement build
     return Scaffold(
-      backgroundColor: ColorConstants.lightcolor,
+
         appBar: AppBar(
           backgroundColor: ColorConstants.appbarcolor,
           title: Center(
