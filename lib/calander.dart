@@ -1,107 +1,127 @@
-import 'package:booking_calendar/booking_calendar.dart';
-import 'package:flutter/cupertino.dart';
+
 import 'package:flutter/material.dart';
 
-class cal extends StatefulWidget {
+import 'package:table_calendar/table_calendar.dart';
 
-  State<cal> createState() => _calState();
+class BookingPage extends StatefulWidget {
+  BookingPage({Key? key}) : super(key: key);
+
+  @override
+  State<BookingPage> createState() => _BookingPageState();
 }
 
-class _calState extends State<cal> {
-  final now = DateTime.now();
-  late BookingService mockBookingService;
+class _BookingPageState extends State<BookingPage> {
+  //declaration
+  CalendarFormat _format = CalendarFormat.month;
+  DateTime _focusDay = DateTime.now();
+  DateTime _currentDay = DateTime.now();
+  int? _currentIndex;
+  bool _isWeekend = false;
+  bool _dateSelected = false;
+  bool _timeSelected = false;
+
 
   @override
   void initState() {
+
     super.initState();
-    // DateTime.now().startOfDay
-    // DateTime.now().endOfDay
-    mockBookingService = BookingService(
-        serviceName: 'Mock Service',
-        serviceDuration: 30,
-        bookingEnd: DateTime(now.year, now.month, now.day, 18, 0),
-        bookingStart: DateTime(now.year, now.month, now.day, 8, 0));
-  }
-
-  Stream<dynamic>? getBookingStreamMock(
-      {required DateTime end, required DateTime start}) {
-    return Stream.value([]);
-  }
-
-  Future<dynamic> uploadBookingMock(
-      {required BookingService newBooking}) async {
-    await Future.delayed(const Duration(seconds: 1));
-    converted.add(DateTimeRange(
-        start: newBooking.bookingStart, end: newBooking.bookingEnd));
-    print('${newBooking.toJson()} has been uploaded');
-  }
-
-  List<DateTimeRange> converted = [];
-
-  List<DateTimeRange> convertStreamResultMock({required dynamic streamResult}) {
-    ///here you can parse the streamresult and convert to [List<DateTimeRange>]
-    ///take care this is only mock, so if you add today as disabledDays it will still be visible on the first load
-    ///disabledDays will properly work with real data
-    DateTime first = now;
-    DateTime tomorrow = now.add(const Duration(days: 1));
-    DateTime second = now.add(const Duration(minutes: 55));
-    DateTime third = now.subtract(const Duration(minutes: 240));
-    DateTime fourth = now.subtract(const Duration(minutes: 500));
-    converted.add(
-        DateTimeRange(start: first, end: now.add(const Duration(minutes: 30))));
-    converted.add(DateTimeRange(
-        start: second, end: second.add(const Duration(minutes: 23))));
-    converted.add(DateTimeRange(
-        start: third, end: third.add(const Duration(minutes: 15))));
-    converted.add(DateTimeRange(
-        start: fourth, end: fourth.add(const Duration(minutes: 50))));
-
-    //book whole day example
-    converted.add(DateTimeRange(
-        start: DateTime(tomorrow.year, tomorrow.month, tomorrow.day, 5, 0),
-        end: DateTime(tomorrow.year, tomorrow.month, tomorrow.day, 23, 0)));
-    return converted;
-  }
-
-  List<DateTimeRange> generatePauseSlots() {
-    return [
-      DateTimeRange(
-          start: DateTime(now.year, now.month, now.day, 12, 0),
-          end: DateTime(now.year, now.month, now.day, 13, 0))
-    ];
   }
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
-    return Scaffold(
 
-          appBar: AppBar(
-            title: const Text('Booking Calendar Demo'),
+    final doctor = ModalRoute.of(context)!.settings.arguments as Map;
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("one")
+      ),
+      body: CustomScrollView(
+        slivers: <Widget>[
+          SliverToBoxAdapter(
+            child: Column(
+              children: <Widget>[
+
+                const Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 10, vertical: 25),
+                  child: Center(
+                    child: Text(
+                      'Select Consultation Time',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 20,
+                      ),
+                    ),
+                  ),
+                )
+              ],
+            ),
           ),
-          body: SingleChildScrollView(
-            scrollDirection: Axis.vertical,
-            child: BookingCalendar(
-              bookingService: mockBookingService,
-              convertStreamResultToDateTimeRanges: convertStreamResultMock,
-              getBookingStream: getBookingStreamMock,
-              uploadBooking: uploadBookingMock,
-              pauseSlots: generatePauseSlots(),
-              pauseSlotText: 'LUNCH',
-              hideBreakTime: false,
-              loadingWidget: const Text('Fetching data...'),
-              uploadingWidget: const CircularProgressIndicator(),
-              locale: 'hu_HU',
-              startingDayOfWeek: StartingDayOfWeek.tuesday,
-              wholeDayIsBookedWidget:
-              const Text('Sorry, for this day everything is booked'),
-              //disabledDates: [DateTime(2023, 1, 20)],
-              //disabledDays: [6, 7],
+          _isWeekend
+              ? SliverToBoxAdapter(
+            child: Container(
+              padding: const EdgeInsets.symmetric(
+                  horizontal: 10, vertical: 30),
+              alignment: Alignment.center,
+              child: const Text(
+                'Weekend is not available, please select another date',
+                style: TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.grey,
+                ),
+              ),
             ),
           )
-        );
+              : SliverGrid(
+            delegate: SliverChildBuilderDelegate(
+                  (context, index) {
+                return InkWell(
+                  splashColor: Colors.transparent,
+                  onTap: () {
+                    setState(() {
+                      _currentIndex = index;
+                      _timeSelected = true;
+                    });
+                  },
+                  child: Container(
+                    margin: const EdgeInsets.all(5),
+                    decoration: BoxDecoration(
+                      border: Border.all(
+                        color: _currentIndex == index
+                            ? Colors.white
+                            : Colors.black,
+                      ),
+                      borderRadius: BorderRadius.circular(15),
+
+                    ),
+                    alignment: Alignment.center,
+                    child: Text(
+                      '${index + 9}:00 ${index + 9 > 11 ? "PM" : "AM"}',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        color:
+                        _currentIndex == index ? Colors.white : null,
+                      ),
+                    ),
+                  ),
+                );
+              },
+              childCount: 8,
+            ),
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 4, childAspectRatio: 1.5),
+          ),
+          SliverToBoxAdapter(
+            child: Container(
+              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 80),
+
+              ),
+            ),
+
+        ],
+      ),
+    );
   }
 
 
-}
-
+  }

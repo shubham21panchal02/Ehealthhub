@@ -1,7 +1,12 @@
+import 'dart:convert';
+
 import 'package:devloperproject1/Admin/Afristpage.dart';
 import 'package:devloperproject1/Widgets/Colour.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+
+
 
 class Ahospital extends StatefulWidget{
   @override
@@ -11,6 +16,37 @@ class Ahospital extends StatefulWidget{
   }
 }
 class Ahospitalstate extends State{
+  String? data;
+  List<dynamic> ? hdata;
+  bool isLoading=true;
+  var l;
+
+  void initState() {
+    super.initState();
+    getvalue();
+  }
+  Future<void> getvalue() async {
+    setState(() {
+      isLoading=true;
+    });
+    http.Response response = await http.get(
+      Uri.parse("https://e-healthhub.000webhostapp.com/API/h_fetchapi1.php"),);
+    if (response.statusCode == 200) {
+      setState(() {
+        data = response.body;
+        hdata = jsonDecode(data!)["data"];
+        l=hdata?.length;
+
+        isLoading = false;
+      });
+    } else {
+      setState(() {
+        isLoading = false;
+      });
+      // Handle error
+      print("Failed to fetch data. Status code: ${response.statusCode}");
+    }
+  }
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
@@ -57,18 +93,29 @@ class Ahospitalstate extends State{
                   ),
                     child: Column(
                       children: [
-                        Image.asset('assets/image/feedback.jpg',height: 100,),
+
+                    Image.network (
+                    "https://e-healthhub.000webhostapp.com/API/" + jsonDecode(data!)["data"][index]["H_IMG"]),
+
                         Container(
                           child: Column(
                             children: [
-                              Row(children: [
-                                Icon(Icons.local_hospital),
-                                Text(" Hospital name",style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold),),
-                              ],),
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Row(
+
+                                  children: [
+                                  Icon(Icons.local_hospital),
+                                    SizedBox(
+                                      width: 5,
+                                    ),
+                                  Text(jsonDecode(data!)["data"][index]["H_NAME"],style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold),),
+                                ],),
+                              ),
                               SizedBox(height: 20,),
                               Row(children: [
                                 Icon(Icons.location_on_outlined),
-                                Expanded(child: Text(" 202, 3rd floor, c g road , ahmedabad, pin-382480",style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold),)),
+                                Expanded(child: Text(jsonDecode(data!)["data"][index]["ADDRESS"],style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold),)),
                               ],),
                               SizedBox(height: 20,),
                               Row(mainAxisAlignment: MainAxisAlignment.center,children: [
