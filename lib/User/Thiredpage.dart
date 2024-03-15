@@ -28,12 +28,6 @@ class Uthiredpage extends StatefulWidget{
 }
 
 class Thiredpage extends State<Uthiredpage>{
-  TextEditingController s_dateController = TextEditingController();
-  TextEditingController s_timeController = TextEditingController();
-  final _formKey = GlobalKey<FormState>();
-  var scheduledata;
-  var data;
-  bool isLoading = false;
 
   TimeOfDay selectedTime = TimeOfDay.now();
 
@@ -74,8 +68,7 @@ class Thiredpage extends State<Uthiredpage>{
         title: Text("Book Appointment",),
       ),
       body:SingleChildScrollView(
-          child: Form(
-            key:_formKey ,
+
             child: (
             Column(
               children: [
@@ -119,18 +112,6 @@ class Thiredpage extends State<Uthiredpage>{
                                     fontSize: 20,
                                     fontWeight: FontWeight.bold),
                               )),
-                        ],
-                      ),
-                      SizedBox(
-                        height: 8,
-                      ),
-                      Row(
-                        children: [
-                          Image.asset('assets/image/doctor.jpg',
-                          width:35),
-                         Expanded(child: Text("Dr.Panchal Dhruv",style: TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold),))
                         ],
                       ),
                       SizedBox(
@@ -222,17 +203,13 @@ class Thiredpage extends State<Uthiredpage>{
                       SizedBox(
                         height: 10,
                       ),
-
                     ],
                   ),
                 ),
-
               ],
             )
             ),
           ),
-        ),
-
     );
   }
 
@@ -264,52 +241,6 @@ class Thiredpage extends State<Uthiredpage>{
       ),
     );
   }
-  //
-  Future<void> _submit() async {
-    final form = _formKey.currentState;
-    if (form!.validate()) {
-      setState(() {
-        isLoading = true;
-      });
-      final login_url = Uri.parse(
-          "https://e-healthhub.000webhostapp.com/API/schedule.php");
-
-      final response = await http
-          .post(login_url, body: {
-        "S_DATE": s_dateController.text,
-        "S_TIME": s_timeController.text,
-      });
-      if (response.statusCode == 200) {
-        print("object");
-        scheduledata = jsonDecode(response.body);
-        data =
-        jsonDecode(response.body)['user'];
-        print(scheduledata);
-        setState(() {
-          isLoading = false;
-        });
-        if (scheduledata['error'] == false) {
-          Fluttertoast.showToast(
-              msg: scheduledata['message'].toString(),
-              toastLength: Toast.LENGTH_LONG,
-              gravity: ToastGravity.BOTTOM,
-              timeInSecForIosWeb: 2
-          );
-          Navigator.of(context).pushAndRemoveUntil(
-              MaterialPageRoute(builder: (context) => Ufirstpage()),
-                  (route) => false);
-        }else{
-          Fluttertoast.showToast(
-              msg: scheduledata['message'].toString(),
-              toastLength: Toast.LENGTH_LONG,
-              gravity: ToastGravity.BOTTOM,
-              timeInSecForIosWeb: 2
-          );
-        }
-      }
-    }
-  }
-  
 }
 
 

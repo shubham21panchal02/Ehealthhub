@@ -124,25 +124,6 @@ class Service extends State<Servicespage> {
                         SizedBox(
                           height: 10,
                         ),
-
-                        Row(
-                          children: [
-                            Text("Rewards Point:",style: TextStyle(
-                                fontSize: 20,
-                                fontWeight: FontWeight.bold),),
-                            Icon(Icons.currency_exchange,color: Colors.yellow,),
-
-                            Text(
-                              "300",
-                              style: TextStyle(
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.bold),
-                            ),
-                          ],
-                        ),
-                        SizedBox(
-                          height: 10,
-                        ),
                       ],
                     ),
                   ),
