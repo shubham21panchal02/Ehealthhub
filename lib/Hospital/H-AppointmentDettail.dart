@@ -119,6 +119,79 @@ shape: RoundedRectangleBorder(
                   height: .5,
                   color: Colors.black,
                 ),
+                Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text("Appointment_ID: "),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text("7",style: TextStyle( fontWeight: FontWeight.bold),),
+                    ),
+
+                  ],
+                ),
+                Divider(
+                  height: .5,
+                  color: Colors.black,
+                ),
+                Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text("sloat: "),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text("2024-03-03 20:33:51",style: TextStyle( fontWeight: FontWeight.bold),),
+                    ),
+
+                  ],
+                ),
+                Divider(
+                  height: .5,
+                  color: Colors.black,
+                ),
+                Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text("status: "),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text("Booked",style: TextStyle( fontWeight: FontWeight.bold),),
+                    ),
+
+                  ],
+                ),
+                Divider(
+                  height: .5,
+                  color: Colors.black,
+                ),
+                Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text("date: "),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text("2024-03-16 06:34:45",style: TextStyle( fontWeight: FontWeight.bold),),
+                    ),
+
+                  ],
+                ),
+                Divider(
+                  height: .5,
+                  color: Colors.black,
+                ),
+
                 Container(
                 /* decoration: BoxDecoration(
                    gradient: LinearGradient(

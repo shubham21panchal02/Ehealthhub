@@ -1,8 +1,9 @@
 
 import 'package:carousel_slider/carousel_controller.dart';
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:devloperproject1/Hospital/H-patientProfile.dart';
+
 import 'package:devloperproject1/Hospital/p.dart';
+import 'package:devloperproject1/Hospital/sloat.dart';
 
 import 'package:devloperproject1/Widgets/Colour.dart';
 import 'package:flutter/cupertino.dart';
@@ -151,96 +152,10 @@ class hopital extends State<h_firstpage> {
                         ),
                       ),
                       InkWell(
-                        onTap: () {
-                          showDialog(context: context, builder: (context) => AlertDialog(
-                           title: Text(" Enter Schedule"),
-                           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-                           backgroundColor: Colors.white,
-                            actions: [
-                              Column(
-                                children: [
-                                  TextFormField(
+                      onTap: (){
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => BookingPage(),));
+                      },
 
-                                    decoration: InputDecoration(
-                                      label: Text("enter time"),
-                                     suffixIcon:  Icon(Icons.timelapse_outlined),
-                                      hintText: 'enter time',
-                                      labelStyle: TextStyle(color: Colors.black,fontWeight: FontWeight.bold),
-
-
-                                      focusedBorder: OutlineInputBorder(
-                                        borderSide: BorderSide(color: Colors.red),
-                                        borderRadius: BorderRadius.circular(5.5),
-                                      ),
-                                      enabledBorder: OutlineInputBorder(
-                                        borderSide: BorderSide(
-                                          color: Colors.black,
-                                        ),
-                                      ),
-                                    ),
-
-                                    mouseCursor: MaterialStateMouseCursor.textable,
-                                   maxLength: 2,
-
-
-                                  ),
-                                  SizedBox(
-                                    height: 10,
-                                  ),
-                                  Align(
-                                    alignment: Alignment.center,
-                                    child: Text("TO",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20),),
-                                  ),
-                                  SizedBox(
-                                    height: 20,
-                                  ),
-                                  TextFormField(
-
-                                    decoration: InputDecoration(
-                                      label: Text("enter time"),
-                                      suffixIcon:  Icon(Icons.timelapse_outlined),
-                                      hintText: 'enter time',
-                                      labelStyle: TextStyle(color: Colors.black,fontWeight: FontWeight.bold),
-
-
-                                      focusedBorder: OutlineInputBorder(
-                                        borderSide: BorderSide(color: Colors.red),
-                                        borderRadius: BorderRadius.circular(5.5),
-                                      ),
-                                      enabledBorder: OutlineInputBorder(
-                                        borderSide: BorderSide(
-                                          color: Colors.black,
-                                        ),
-                                      ),
-                                    ),
-
-                                    mouseCursor: MaterialStateMouseCursor.textable,
-                                    maxLength: 2,
-
-
-                                  ),
-                                  SizedBox(
-                                    height: 20,
-                                  ),
-                                  TextButton(onPressed: (){}, child: Text("submit",style: TextStyle(fontSize: 20,color: Colors.black),),style: ButtonStyle(
-                                      backgroundColor: MaterialStateProperty.all(Colors.white),
-
-                                      elevation: MaterialStateProperty.all(10),
-                                      shape: MaterialStateProperty.all(
-
-                                          RoundedRectangleBorder(
-                                              side: BorderSide.none,
-                                              borderRadius: BorderRadius.circular(15)
-                                          )
-                                      )
-                                  ),
-                                  )
-
-                                ],
-                              )
-                            ],
-                          ),);
-                        },
                         child: Container(
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(10)),
@@ -249,8 +164,8 @@ class hopital extends State<h_firstpage> {
                             shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(10)),
                             child: ListTile(
-                              title: Text("Schedule"),
-                              trailing: Icon(Icons.timelapse_outlined),
+                              title: Text("Sloats"),
+                              trailing: Icon(Icons.schedule),
                             ),
                           ),
                         ),
@@ -353,6 +268,7 @@ class hopital extends State<h_firstpage> {
               height: 1,
             ),
 
+
                   InkWell(
                     onTap: () {
                       Navigator.push(
@@ -366,7 +282,7 @@ class hopital extends State<h_firstpage> {
                       child: Card(
 
                         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-                        elevation: 10,
+                        elevation: 5,
                         shadowColor: Colors.black,
                         surfaceTintColor: Colors.black,
                         clipBehavior: Clip.antiAlias,
@@ -393,45 +309,48 @@ class hopital extends State<h_firstpage> {
             SizedBox(
               height: 1,
             ),
-                  InkWell(
-                    onTap: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => patient_profile(),
-                          ));
-                    },
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Card(
-                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-                        elevation: 10,
-                        clipBehavior: Clip.antiAlias,
-                        child: Column(
-                          children: [
-                            Image.asset(
-                              'assets/image/p12.jpg',
-                              height: 300,
-                              width: double.infinity,
-                              fit: BoxFit.cover,
-                            ),
-                            SizedBox(
-                              height: 10,
-                            ),
-                            Text('Patient Profile',style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold)
-                            ),
-                            SizedBox(
-                              height: 5,
-                            ),
-                          ],
-                        ),
+            InkWell(
+              onTap: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => BookingPage(),
+                    ));
+              },
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Card(
+
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+                  elevation: 5,
+                  shadowColor: Colors.black,
+                  surfaceTintColor: Colors.black,
+                  clipBehavior: Clip.antiAlias,
+                  child: Column(
+                    children: [
+                      Image.asset(
+                        'assets/image/p12.jpg',
+                        height: 300,
+                        width: double.infinity,
+                        fit: BoxFit.cover,
                       ),
-                    ),
-                  )
+                      SizedBox(
+                        height: 10,
+                      ),
+                      Text('Sloats Detail',style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold),),
+                      SizedBox(
+                        height: 10,
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
 
 
 
- ]),
+
+          ]),
         ));
   }
 }
