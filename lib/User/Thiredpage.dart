@@ -1,7 +1,7 @@
 import 'dart:convert';
-
 import 'package:devloperproject1/User/Firstpage.dart';
 import 'package:devloperproject1/User/Fourthpage.dart';
+import 'package:devloperproject1/User/bookappointment.dart';
 import 'package:devloperproject1/Widgets/Colour.dart';
 import 'package:devloperproject1/calander.dart';
 import 'package:flutter/cupertino.dart';
@@ -145,22 +145,22 @@ class Thiredpage extends State<Uthiredpage>{
                       SizedBox(
                         height: 10,
                       ),
-                    /*  Center(
-                        child: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          children: <Widget>[
-                            Text("${selectedDate.toLocal()}".split(' ')[0]),
-                            const SizedBox(height: 20.0,),
-                            // ElevatedButton(
-                            //   style: TextButton.styleFrom(
-                            //     backgroundColor: ColorConstants.buttonscolor
-                            //   ),
-                            //   onPressed: () => _selectDate(context),
-                            //   child: const Text('Select date'),
-                            // ),
-                          ],
-                        ),
-                      ),*/
+                     // Center(
+                     //    child: Column(
+                     //      mainAxisSize: MainAxisSize.min,
+                     //      children: <Widget>[
+                     //        Text("${selectedDate.toLocal()}".split(' ')[0]),
+                     //        const SizedBox(height: 20.0,),
+                     //        // ElevatedButton(
+                     //        //   style: TextButton.styleFrom(
+                     //        //     backgroundColor: ColorConstants.buttonscolor
+                     //        //   ),
+                     //        //   onPressed: () => _selectDate(context),
+                     //        //   child: const Text('Select date'),
+                     //        // ),
+                     //      ],
+                     //    ),
+                     //  ),
 
                       SizedBox(
                         height: 20,
@@ -188,8 +188,7 @@ class Thiredpage extends State<Uthiredpage>{
 
     Center(child:
     ElevatedButton(onPressed: () {
-      Navigator.push(context, MaterialPageRoute(builder: (context) => BookingPage(),));
-     //  QuickAlert.show(
+      Navigator.push(context, MaterialPageRoute(builder: (context) => sloat(),));
      //        context: context,
      //        type: QuickAlertType.success,
      //        text: 'Book Appointment Successfully!',
