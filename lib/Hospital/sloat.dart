@@ -1,35 +1,34 @@
 
+
+import 'dart:async';
+
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+
 import 'package:table_calendar/table_calendar.dart';
 import 'dart:convert';
+import 'package:http/http.dart' as http;
 
-import 'package:dio/dio.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
-void main() {
-  runApp(Myapp());
-}
 
-class Myapp extends StatelessWidget{
+
+
+class BookingPage extends StatefulWidget {
   @override
-  Widget build(BuildContext context) {
-    // TODO: implement build
-    return MaterialApp(
-      home: BookingPage(),
-    );
+  State<StatefulWidget> createState() {
+    // TODO: implement createState
+    return _BookingPageState();
   }
 }
 
-class BookingPage extends StatefulWidget {
-  BookingPage({Key? key}) : super(key: key);
-
-  @override
-  State<BookingPage> createState() => _BookingPageState();
-}
-
 class _BookingPageState extends State<BookingPage> {
+  final _formKey = GlobalKey<FormState>();
+  var scheduledata;
+  var data;
+  bool isLoading = false;
+  TextEditingController s_dateController = TextEditingController();
+  TextEditingController s_timeController = TextEditingController();
+
   //declaration
   CalendarFormat _format = CalendarFormat.month;
   DateTime _focusDay = DateTime.now();
@@ -38,8 +37,8 @@ class _BookingPageState extends State<BookingPage> {
   bool _isWeekend = false;
   bool _dateSelected = false;
   bool _timeSelected = false;
-  String? token; //get token for insert booking date and time into database
 
+//get token for insert booking date and time into database
 
 
   @override
@@ -48,27 +47,33 @@ class _BookingPageState extends State<BookingPage> {
       body: CustomScrollView(
         slivers: <Widget>[
           SliverToBoxAdapter(
-            child: Column(
-              children: <Widget>[
-                _tableCalendar(),
-                const Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 10, vertical: 25),
-                  child: Center(
-                    child: Text(
-                      'Select Consultation Time',
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 20,
+            child: Form(
+              key: _formKey,
+              child: Column(
+                children: <Widget>[
+                  _tableCalendar(
+
+                  ),
+                  const Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 10, vertical: 25),
+                    child: Center(
+                      child: Text(
+                        'Select Consultation Time',
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 20,
+                        ),
                       ),
                     ),
-                  ),
-                )
-              ],
+                  )
+                ],
+              ),
             ),
           ),
           _isWeekend
               ? SliverToBoxAdapter(
             child: Container(
+
               padding: const EdgeInsets.symmetric(
                   horizontal: 10, vertical: 30),
               alignment: Alignment.center,
@@ -84,18 +89,23 @@ class _BookingPageState extends State<BookingPage> {
           )
               : SliverGrid(
             delegate: SliverChildBuilderDelegate(
+
                   (context, index) {
                 return InkWell(
-                  splashColor: Colors.transparent,
-                  onTap: (
+              splashColor: Colors.transparent,
 
-                      ) {
-                    setState(() {
+
+                  onTap: () {
+                    setState((
+
+                        ) {
+
                       _currentIndex = index;
-                      _timeSelected = true;
+
                     });
                   },
                   child: Container(
+
                     margin: const EdgeInsets.all(5),
                     decoration: BoxDecoration(
                       border: Border.all(
@@ -110,7 +120,7 @@ class _BookingPageState extends State<BookingPage> {
                     ),
                     alignment: Alignment.center,
                     child: Text(
-                      '${index +1}:00 ${index + 1 > 18 ? "PM" : "AM"}',
+                      '${index + 1}:00 ${index + 1 > 18 ? "PM" : "AM"}',
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                         color:
@@ -131,9 +141,7 @@ class _BookingPageState extends State<BookingPage> {
               child: ElevatedButton(
                   child: Text("submit"),
 
-                  onPressed: (
-                      //function
-                      ) {}
+                  onPressed:_submit
 
               ),
             ),
@@ -147,8 +155,10 @@ class _BookingPageState extends State<BookingPage> {
   Widget _tableCalendar() {
     return TableCalendar(
       focusedDay: _focusDay,
-      firstDay: DateTime.now(),//json
-      lastDay: DateTime(2024,04),//json
+      firstDay: DateTime.now(),
+      //json
+      lastDay: DateTime(2024, 04),
+      //json
       calendarFormat: _format,
       currentDay: _currentDay,
       rowHeight: 48,
@@ -182,4 +192,45 @@ class _BookingPageState extends State<BookingPage> {
       }),
     );
   }
+
+  Future<void> _submit() async {
+    final login_url = Uri.parse(
+        "https://e-healthhub.000webhostapp.com/API/schedule.php");
+
+    final response = await http
+        .post(login_url, body: {
+      "S_DATE": s_dateController.text,
+      "S_TIME": s_timeController.text,
+
+
+    });
+    if (response.statusCode == 200) {
+      print(scheduledata);
+      scheduledata = jsonDecode(response.body);
+      data = jsonDecode(response.body)['user'];
+      print(scheduledata);
+      setState(() {
+        isLoading = false;
+      });
+
+      if (['error'] == false) {
+        Fluttertoast.showToast(
+            msg: scheduledata['message'].toString(),
+            toastLength: Toast.LENGTH_LONG,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 2
+        );
+      }
+      else {
+        Fluttertoast.showToast(
+            msg: ['invalid '].toString(),
+            toastLength: Toast.LENGTH_LONG,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 2
+        );
+      }
+    }
+  }
+
+
 }
