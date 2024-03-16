@@ -17,6 +17,7 @@ import 'package:http/http.dart' as http;
 class Ufirstpage extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
+    // TODO: implement createState
     return Home();
   }
 }
@@ -25,6 +26,8 @@ class Home extends State<Ufirstpage> {
   String data = "";
   var hospitaldata;
   bool isLoading = true;
+  String userName = "T";
+  String userEmail = "";
 
   void initState() {
     super.initState();
@@ -32,8 +35,12 @@ class Home extends State<Ufirstpage> {
   }
 
   Future<void> getData(String category) async {
+    SharedPreferences setpreference =
+    await SharedPreferences.getInstance();
     setState(() {
       isLoading = true;
+      userName = setpreference.getString('name')!;
+      userEmail = setpreference.getString('email')!;
     });
     http.Response response = await http.get(
       Uri.parse("https://e-healthhub.000webhostapp.com/API/h_fetchapi1.php"),
@@ -41,7 +48,7 @@ class Home extends State<Ufirstpage> {
     if (response.statusCode == 200) {
       setState(() {
         data = response.body;
-        hospitaldata = jsonDecode(data!)["data"];
+        hospitaldata = jsonDecode(data)["data"];
         isLoading = false;
       });
     } else {
@@ -59,12 +66,11 @@ class Home extends State<Ufirstpage> {
   ];
   final CarouselController carouselController = CarouselController();
   int currentIndex = 0;
-  String userName = "User";
   final _advancedDrawerController = AdvancedDrawerController();
 
   @override
   Widget build(BuildContext context) {
-    return AdvancedDrawer(
+    return isLoading ? Center(child: CircularProgressIndicator(color:  ColorConstants.buttonscolor)) : AdvancedDrawer(
       backdrop: Container(
         width: double.infinity,
         height: double.infinity,
@@ -330,9 +336,10 @@ class Home extends State<Ufirstpage> {
                         radius: 70,
                         child: Center(
                           child: Text(
-                            "D",
+                            userName[0].toUpperCase(),
                             style: TextStyle(
                               fontSize: 50,
+                              color: Colors.white
                             ),
                           ),
                         ),
@@ -348,34 +355,14 @@ class Home extends State<Ufirstpage> {
                               "Name : ",
                               style: TextStyle(
                                 fontSize: 15,
+                                color: Colors.white
                               ),
                             ),
                             Text(
-                              "Dhruv",
+                             userName,
                               style: TextStyle(
                                 fontSize: 15,
-                              ),
-                            )
-                          ],
-                        ),
-                      ),
-                      SizedBox(height: 10),
-                      Padding(
-                        padding: EdgeInsets.only(left: 10),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.end,
-                          children: [
-                            Text(
-                              "Age : ",
-                              style: TextStyle(
-                                fontSize: 15,
-                              ),
-                            ),
-                            Text(
-                              "20",
-                              style: TextStyle(
-                                fontSize: 15,
+                                  color: Colors.white
                               ),
                             )
                           ],
@@ -392,12 +379,14 @@ class Home extends State<Ufirstpage> {
                               "Email : ",
                               style: TextStyle(
                                 fontSize: 15,
+                                color: Colors.white
                               ),
                             ),
                             Text(
-                              "dhruv123@gmail.com",
+                              userEmail,
                               style: TextStyle(
                                 fontSize: 15,
+                                  color: Colors.white
                               ),
                             )
                           ],
@@ -443,7 +432,14 @@ class Home extends State<Ufirstpage> {
                       title: Text('Feedback'),
                     ),
                     ListTile(
-                      onTap: () {},
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => Uforthpage(),
+                          ),
+                        );
+                      },
                       leading: Icon(Icons.details),
                       title: Text('Appointment Details'),
                     ),
@@ -473,7 +469,8 @@ class Home extends State<Ufirstpage> {
                 ),
                 child: Container(
                   margin: EdgeInsets.symmetric(vertical: 16.0),
-                  child: Text('Terms of Service | Privacy Policy'),
+                  child: Text('Terms of Service | Privacy Policy',style: TextStyle
+                    (color: Colors.black)),
                 ),
               ),
             ],

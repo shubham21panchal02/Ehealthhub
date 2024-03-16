@@ -49,13 +49,12 @@ class Second extends State<USecondpage> {
   }
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return Scaffold(
       appBar: AppBar(
         backgroundColor: ColorConstants.appbarcolor,
         title: Text('Hospitals'),
       ),
-      body:  isLoading ? Center(child: CircularProgressIndicator(color: Colors.black)) : SingleChildScrollView(
+      body: isLoading ? Center(child: CircularProgressIndicator(color:  ColorConstants.buttonscolor)) : SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -81,7 +80,7 @@ class Second extends State<USecondpage> {
                             topLeft: Radius.circular(15)),
                         child: Image(
                           image: NetworkImage(
-                              "https://e-healthhub.000webhostapp.com/API/" + jsonDecode(data!)["data"][index]["H_IMG"]),
+                              "https://e-healthhub.000webhostapp.com/API/" + jsonDecode(data)["data"][index]["H_IMG"]),
                         ),
                       ),
                       Padding(
@@ -94,11 +93,12 @@ class Second extends State<USecondpage> {
                                 children: [
                                   Image.asset('assets/image/hospital.png',
                                       width: 35),
+                                  SizedBox(width: 8,),
                                   Expanded(child:
                                   Text(
-                                   jsonDecode(data!)["data"][index]["H_NAME"],
+                                   jsonDecode(data)["data"][index]["H_NAME"],
                                     style: TextStyle(
-                                        fontSize: 20,
+                                        fontSize: 18,
                                         fontWeight: FontWeight.bold),
                                   ),)
                                 ],
@@ -112,11 +112,12 @@ class Second extends State<USecondpage> {
                                   Image.asset(
                                       'assets/image/hospital location.png',
                                       width: 35),
+                                  SizedBox(width: 8,),
                                   Expanded(
                                       child: Text(
-                                        jsonDecode(data!)["data"][index]["ADDRESS"],
+                                        jsonDecode(data)["data"][index]["ADDRESS"],
                                     style: TextStyle(
-                                        fontSize: 20,
+                                        fontSize: 16,
                                         fontWeight: FontWeight.bold),
                                   )),
                                 ],
@@ -127,12 +128,14 @@ class Second extends State<USecondpage> {
                               Row(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
+                                  SizedBox(width: 8,),
                                   Icon(Icons.call),
+                                  SizedBox(width: 8,),
                                   Expanded(
                                       child: Text(
                                         jsonDecode(data!)["data"][index]["PHONE_NO"],
                                         style: TextStyle(
-                                            fontSize: 20,
+                                            fontSize: 16,
                                             fontWeight: FontWeight.bold),
                                       )),
                                 ],

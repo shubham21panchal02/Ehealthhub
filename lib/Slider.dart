@@ -63,7 +63,7 @@ class _SliderState extends State<SliderScreen> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
               const SizedBox(
-                height: 480,
+                height: 380,
               ),
               Text(
                 "Get Follow up for your appointment",
@@ -98,7 +98,7 @@ class _SliderState extends State<SliderScreen> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
               const SizedBox(
-                height: 480,
+                height: 380,
               ),
               Text(
                 "Book the best hospital arround you",
@@ -132,11 +132,11 @@ class _SliderState extends State<SliderScreen> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
               const SizedBox(
-                height: 480,
+                height: 380,
               ),
               Text(
                 "Connect With your doctor",
-                textAlign: TextAlign.center,
+                textAlign: TextAlign.left,
                 style: TextStyle(
                   color: Colors.black,
                   fontSize: 30.0,

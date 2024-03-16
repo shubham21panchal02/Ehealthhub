@@ -38,7 +38,7 @@ class Loginpage extends StatefulWidget {
   Widget build(BuildContext context) {
     // TODO: implement build
     return Scaffold(
-      body:isLoading ? Center(child: CircularProgressIndicator(color: Colors.greenAccent)) :
+      body:isLoading ? Center(child: CircularProgressIndicator(color:  ColorConstants.buttonscolor)) :
       SingleChildScrollView(
         physics: AlwaysScrollableScrollPhysics(),
         scrollDirection: Axis.vertical,
@@ -103,9 +103,8 @@ class Loginpage extends StatefulWidget {
                       },
                       style: TextStyle(color: Colors.black),
                       decoration: InputDecoration(
-
-                          hintText: "Enter Your Email_ID",
-                          suffixIcon: Icon(Icons.email,color: Colors.blue,),
+                          hintText: "Email ID",
+                          suffixIcon: Icon(Icons.email,color: ColorConstants.buttonscolor,),
                           hintStyle: TextStyle(color: Colors.black),
                           border: InputBorder.none
                       ),
@@ -146,9 +145,9 @@ class Loginpage extends StatefulWidget {
                             _passwordVisible
                                 ? Icons.visibility
                                 : Icons.visibility_off,
-                            color: Theme.of(context).primaryColorDark,
+                            color: ColorConstants.buttonscolor,
                           ),),
-                        hintText: "password",
+                        hintText: "Password",
                         hintStyle: TextStyle(color: Colors.black),
                         border: InputBorder.none
                     ),
@@ -162,7 +161,9 @@ class Loginpage extends StatefulWidget {
                           FadeInUp(duration: Duration(milliseconds: 1500),
                               child: TextButton(onPressed: (){
                                 Navigator.push(context, MaterialPageRoute(builder: (context) => option(),));
-                              }, child: Text("sign up")),),
+                              }, child: Text("sign up",style: TextStyle(
+                                color:  ColorConstants.buttonscolor
+                              ),)),),
                           SizedBox(height: 10,),
                           FadeInUp(duration: Duration(milliseconds: 1600), child: MaterialButton(
                             onPressed: _submit,
@@ -175,7 +176,7 @@ class Loginpage extends StatefulWidget {
                             // decoration: BoxDecoration(
                             // ),
                             child: Center(
-                              child: Text("Sign In", style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),),
+                              child: Text("Sign In", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),),
                             ),
                           )),
 
@@ -206,32 +207,33 @@ class Loginpage extends StatefulWidget {
        });
        if (response.statusCode == 200) {
          logindata = jsonDecode(response.body);
-         data =
-         jsonDecode(response.body)['user'];
-         print(data);
+         print(logindata);
          setState(() {
            isLoading = false;
          });
            if (logindata['error'] == false) {
-             SharedPreferences share= await
-              SharedPreferences.getInstance();
-               String? id = share.getString('id');
-               String? role = share.getString('role');
-
-               if (id != null) {
-                 if (role == '0') {
-                   Navigator.of(context).pushReplacement(
-                     MaterialPageRoute(builder: (BuildContext context) => Afristpage()),
-                   );
-                 } else if (role == '1') {
-                   Navigator.of(context).pushReplacement(
-                     MaterialPageRoute(builder: (BuildContext context) => Ufirstpage()),
-                   );
-                 }
-               } else {
-                 Navigator.of(context).pushReplacement(
-                   MaterialPageRoute(builder: (BuildContext context) => h_firstpage()),
-                 );
+             SharedPreferences setpreference =
+             await SharedPreferences.getInstance();
+             data = jsonDecode(response.body)['user'];
+                 if (data['ROLE'].toString() == "0") {
+                   setpreference.setString('id', data['B_ID'].toString());
+                   setpreference.setString('name', data['B_NAME'].toString());
+                   setpreference.setString('email', data['EMAIL_ID'].toString());
+                   setpreference.setString('phone', data['PHONE_NO'].toString());
+                   setpreference.setString('password', data['B_PASSWORD'].toString());
+                   Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (BuildContext context) =>
+                       Afristpage()), (Route<dynamic> route) => false);
+                 } else if (data['ROLE'].toString() == "1") {
+                   setpreference.setString('id', data['U_ID'].toString());
+                   setpreference.setString('name', data['U_NAME'].toString());
+                   setpreference.setString('email', data['EMAIL_ID'].toString());
+                   // setpreference.setString('phone', data['PHONE_NO'].toString());
+                   setpreference.setString('password', data['PASSWORD'].toString());
+                   Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (BuildContext context) =>
+                       Ufirstpage()), (Route<dynamic> route) => false);
+                 } else {
+                   Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (BuildContext context) =>
+                       h_firstpage()), (Route<dynamic> route) => false);
                }
              }
 

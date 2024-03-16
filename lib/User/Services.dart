@@ -61,7 +61,7 @@ class Service extends State<Servicespage> {
           backgroundColor: ColorConstants.appbarcolor,
           title: Text("Services"),
         ),
-        body:  isLoading ? Center(child: CircularProgressIndicator(color: Colors.greenAccent)) :SingleChildScrollView(
+        body: isLoading ? Center(child: CircularProgressIndicator(color:  ColorConstants.buttonscolor)) : SingleChildScrollView(
             child: Column(
             children: [
             ListView.builder(
@@ -84,17 +84,27 @@ class Service extends State<Servicespage> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-
-                      Image.network("https://e-healthhub.000webhostapp.com/API/" + jsonDecode(data!)["data"][index]["S_IMG"]),
+                        ClipRRect(
+                          borderRadius: BorderRadius.only(
+                              topRight: Radius.circular(8),
+                              topLeft: Radius.circular(8)),
+                          child: Image(
+                            width: double.infinity,
+                            height: 250,
+                            fit: BoxFit.fill,
+                            image: NetworkImage(
+                                "https://e-healthhub.000webhostapp.com/API/" + jsonDecode(data)["data"][index]["S_IMG"]),
+                          ),
+                        ),
                         SizedBox(
                           height: 2,
                         ),
                         Row(
                           children: [
-                            Text("Specialist:",style: TextStyle(
+                            SizedBox(width: 8,),
+                            Text("Specialist: ",style: TextStyle(
                             fontSize: 20,
                             fontWeight: FontWeight.bold),),
-
                             Text(
                               jsonDecode(data!)["data"][index]["SPECIALIST"],
                               style: TextStyle(
@@ -108,13 +118,13 @@ class Service extends State<Servicespage> {
                         ),
                         Row(
                           children: [
-                            Text("Fees:",style: TextStyle(
+                            SizedBox(width: 8,),
+                            Text("Fees: ",style: TextStyle(
                                 fontSize: 20,
                                 fontWeight: FontWeight.bold),),
                             Icon(Icons.currency_rupee),
-
                             Text(
-                                jsonDecode(data!)["data"][index]["FEES"],
+                                jsonDecode(data)["data"][index]["FEES"],
                               style: TextStyle(
                                   fontSize: 20,
                                   fontWeight: FontWeight.bold),

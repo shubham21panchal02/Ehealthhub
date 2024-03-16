@@ -12,10 +12,9 @@ class feedback extends StatefulWidget {
 class ufeedback extends State<feedback> {
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return Scaffold (
       appBar: AppBar(backgroundColor: ColorConstants.appbarcolor,
-        title: const Text('Feedback form'),
+        title: const Text('Feedback'),
       ),
       body: SingleChildScrollView(
         physics: AlwaysScrollableScrollPhysics(),
