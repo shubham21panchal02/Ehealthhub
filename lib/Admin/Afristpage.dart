@@ -57,7 +57,7 @@ class Afristpagestate extends State<Afristpage>{
                     ],
                   ),
 
-                  Divider(height: 100, color: Colors.black),
+                  Divider(height: 90, color: Colors.black),
 
                   ListTile(
                     onTap: () {

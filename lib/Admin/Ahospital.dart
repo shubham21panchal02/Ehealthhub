@@ -74,7 +74,7 @@ class Ahospitalstate extends State{
                       children: [
                         ClipRRect(
                           borderRadius: BorderRadius.only(
-                              topRight: Radius.circular(15),
+                              topRight: Radius.circular(16),
                               topLeft: Radius.circular(15)),
                           child:Image(
                           image:NetworkImage (
