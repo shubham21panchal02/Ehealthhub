@@ -1,7 +1,11 @@
+import 'dart:convert';
+
 import 'package:devloperproject1/User/Firstpage.dart';
 import 'package:devloperproject1/Widgets/Colour.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:http/http.dart' as http;
 
 class Uforthpage extends StatefulWidget {
   @override
@@ -12,189 +16,170 @@ class Uforthpage extends StatefulWidget {
 }
 
 class Forthpage extends State<Uforthpage> {
+  bool isLoading = true;
+  String userName = "T";
+  String userEmail = "";
+  String data = "";
+  var hospitaldata;
+
+  Future<void> getData() async {
+    SharedPreferences setpreference =
+    await SharedPreferences.getInstance();
+    setState(() {
+      isLoading = true;
+      userName = setpreference.getString('name')!;
+      userEmail = setpreference.getString('email')!;
+    });
+    http.Response response = await http.post(
+      Uri.parse("https://e-healthhub.000webhostapp.com/API/fetch_user_appointment.php"),
+      body: {
+        "U_ID": setpreference.getString('id'),
+      }
+    );
+    if (response.statusCode == 200)
+    {
+      print("Failed to fetch data. Status code: ${response.body}");
+      setState(() {
+        data = response.body;
+        hospitaldata = jsonDecode(data)["status"];
+        isLoading = false;
+      });
+    } else {
+      setState(() {
+        isLoading = false;
+      });
+      print("Failed to fetch data. Status code: ${response.statusCode}");
+    }
+  }
+
+  @override
+  void initState() {
+    getData();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(appBar: AppBar(backgroundColor: ColorConstants.appbarcolor,
+    return Scaffold(
+        appBar: AppBar(backgroundColor: ColorConstants.appbarcolor,
       title: Text("Appointment",),
     ),
-      body:SingleChildScrollView(scrollDirection: Axis.vertical,
-      child:
-      Column(
-        children: [
-          Padding(padding: EdgeInsets.only(top:0,right:0,left: 10,bottom: 0),),
-        Card(color: ColorConstants.buttonscolor,margin:EdgeInsets.all(5),
+      body: isLoading ? Center(child: CircularProgressIndicator(color:  ColorConstants.buttonscolor)) :
+      hospitaldata.length == 0?
+          Center(child: Text('No appointment', style:TextStyle(
+              fontWeight: FontWeight.bold,
+              color: Colors.white,
+              fontSize: 14)),):
+      SingleChildScrollView(
           child: Column(
-            children: [Padding(padding: EdgeInsets.all(0)),
-              Card(elevation: 30,color: Color(0xFF9dcdd1),
-                // Define the shape of the card
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(4),
-                ),
-                // Define how the card's content should be clipped
-                clipBehavior: Clip.antiAliasWithSaveLayer,
-                // Define the child widget of the card
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    // Add padding around the row widget
-                    Padding(
-                      padding: const EdgeInsets.only(
-                        top: 40,right: 0,left: 10,bottom: 20
-                      ),
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          // Add an image widget to display an image
-                          Image.network("https://static.vecteezy.com/system/resources/previews/013/141/034/original/book-doctor-appointment-card-template-schedule-hospital-visit-editable-social-media-post-design-flat-color-illustration-for-poster-web-banner-ecard-vector.jpg"
-                            ,width: 200,height: 150,),
-                          // Add some spacing between the image and the text
-                          Container(width: 30),
-                          // Add an expanded widget to take up the remaining horizontal space
-                          Expanded(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: <Widget>[
-                                // Add some spacing between the top of the card and the title
-                                Container(height: 5),
-                                // Add a title widget
-                               Text("Appoinment no. ",style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold),),
-                                Container(height: 20,),
-                                Center(child: Text("20",style: TextStyle(fontSize: 40),))
-                                // Add a text widget to display some text
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
+            children: [
+              ListView.builder(
+                shrinkWrap: true,
+                itemCount: hospitaldata.length,
+                physics: NeverScrollableScrollPhysics(),
+                itemBuilder: (context, index)  {
+                  return  Container(
+                    margin: const EdgeInsets.only(left: 16, right: 16,top: 16),
+                    padding: const EdgeInsets.only(left: 16, right: 16,top: 8),
+                    decoration: BoxDecoration(
+                      color:  jsonDecode(data)["status"][index]["astatus"] =="Booked"?Color(0xFF2ca5ab):jsonDecode(data)["data"][index]["astatus"] =="Completed"?Color(0xFF08364B):Color(0xFF4CAF50),
+                      // border: Border.all(
+                      //   color: Color(0xFF032737),
+                      //   width: 4.0,
+                      // ),
+                      boxShadow: <BoxShadow>[
+                        BoxShadow(
+                          color:  Color(0xFF032737).withOpacity(0.4),
+                          offset: const Offset(1, 1),
+                          blurRadius: 16,
+                        ),
+                      ],
+                      borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(5.0),
+                          topRight: Radius.circular(24.0),
+                          bottomLeft: Radius.circular(24.0),
+                          bottomRight: Radius.circular(5.0)),
                     ),
-                  ],
-                ),
-              ),
-              Column(
-                children: [Padding(padding: EdgeInsets.all(0)),
-                  Card(elevation: 30,color: Color(0xFF9dcdd1),
-                    // Define the shape of the card
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(4),
-                    ),
-                    // Define how the card's content should be clipped
-                    clipBehavior: Clip.antiAliasWithSaveLayer,
-                    // Define the child widget of the card
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        // Add padding around the row widget
-                        Padding(
-                            padding: const EdgeInsets.only(
-                                top: 10,right: 10,left: 10,bottom: 10
-                            ),
-                            child:Container(
-                              child: Row(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: <Widget>[
-                                  // Add an image widget to display an image
-                                  Text("ID :",style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold),),
-                                  Text("ASDF12302355",style: TextStyle(fontSize: 20),),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Expanded(
+                          flex: 1,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              SizedBox(height: 8,),
+                              Row(
+                                children: [
+                                  // Text("Full Name: ",
+                                  //   textAlign: TextAlign.start,
+                                  //   style: TextStyle(
+                                  //       fontWeight: FontWeight.bold,
+                                  //       color: Colors.black54,
+                                  //       fontSize: 14),
+                                  // ),
+                                  Text( jsonDecode(data)["status"][index]["hname"],
+                                    textAlign: TextAlign.start,
+                                    style:TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.white,
+                                        fontSize: 14),
+                                  ),
                                 ],
                               ),
-                            )
+                              SizedBox(height: 4,),
+                              Row(
+                                children: [
+                                  Text("Booking Date: ",
+                                    textAlign: TextAlign.start,
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.normal,
+                                        color: Colors.white,
+                                        fontSize: 14),
+                                  ),
+                                  Text( jsonDecode(data)["status"][index]["slot_date"] + " "+ jsonDecode(data)["status"][index]["slot_time"],
+                                    textAlign: TextAlign.start,
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.white,
+                                        fontSize: 14),
+                                  ),
+                                ],
+                              ),
+                              SizedBox(height: 4,),
+                              Row(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text("Status: ",
+                                    textAlign: TextAlign.start,
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.normal,
+                                        color: Colors.white,
+                                        fontSize: 14),
+                                  ),
+                                  Expanded(
+                                    child: Text( jsonDecode(data)["status"][index]["astatus"],
+                                      textAlign: TextAlign.start,
+                                      style:TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.white,
+                                          fontSize: 14),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              SizedBox(height: 16,),
+                            ],
+                          ),
                         ),
-                        Divider(
-                          height: 20,color: Colors.black,thickness:1,
-                        ),
-                        Container(
-                            child: Column(
-                              children: [
-                                Row(
-                                  children: [
-                                    Icon(Icons.date_range),
-                                    Text("  Appointment Detail",style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold),)
-                                  ],
-                                ),
-                                Container(height: 10,),
-                                Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                  children: [Padding(padding: EdgeInsets.only(left: 10,right: 30,top: 20,bottom: 20),
-                                    child:Column(crossAxisAlignment: CrossAxisAlignment.start,
-                                      children: [
-                                        Text("Location",style:TextStyle(fontSize: 20,fontWeight: FontWeight.bold) ,),
-                                        SizedBox(height: 15,),
-                                        Text("Service",style:TextStyle(fontSize: 20,fontWeight: FontWeight.bold) ,),
-                                        SizedBox(height: 15,),
-                                        Text("Date & Time",style:TextStyle(fontSize: 20,fontWeight: FontWeight.bold) ,),
-                                        SizedBox(height: 15,),
-                                      ],
-                                    ) ,),
-                                    Column(crossAxisAlignment: CrossAxisAlignment.end,
-                                      children: [
-                                        Text("Ahmedabad",style:TextStyle(fontSize: 20,) ,),
-                                        SizedBox(height: 15,),
-                                        Text("Ear, Nose",style:TextStyle(fontSize: 20) ,),
-                                        SizedBox(height: 15,),
-                                        Text("Monday,7pm to 9pm",style:TextStyle(fontSize: 20,) ,),
-                                        SizedBox(height: 15,),
-                                      ],
-                                    )
-
-                                  ],
-                                ),
-
-                              ],
-                            )
-                        ),
-                        Container(
-                            child: Column(
-                              children: [
-                                Row(
-                                  children: [
-                                    Icon(Icons.supervised_user_circle),
-                                    Text(" Personal Infomartion",style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold),)
-                                  ],
-                                ),
-                                Container(height: 10,),
-                                Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                  children: [Padding(padding: EdgeInsets.only(left: 10,right: 30,top: 20,bottom: 20),
-                                    child:Column(crossAxisAlignment: CrossAxisAlignment.start,
-                                      children: [
-                                        Text("Name",style:TextStyle(fontSize: 20,fontWeight: FontWeight.bold) ,),
-                                        SizedBox(height: 15,),
-                                        Text("Age",style:TextStyle(fontSize: 20,fontWeight: FontWeight.bold) ,),
-                                        SizedBox(height: 15,),
-                                        Text("Adress",style:TextStyle(fontSize: 20,fontWeight: FontWeight.bold) ,),
-                                        SizedBox(height: 15,),
-                                      ],
-                                    ) ,),
-                                    Column(crossAxisAlignment: CrossAxisAlignment.end,
-                                      children: [
-                                        Text("panchal",style:TextStyle(fontSize: 20,) ,),
-                                        SizedBox(height: 15,),
-                                        Text("20 year",style:TextStyle(fontSize: 20) ,),
-                                        SizedBox(height: 15,),
-                                        Text("ranip",style:TextStyle(fontSize: 20,) ,),
-                                        SizedBox(height: 15,),
-                                      ],
-                                    )
-                                  ],
-                                ),
-                              ],
-                            )
-                        )
                       ],
                     ),
-                  )
-                ],
-              ),
-              Container(height: 5,),
-              Text("* please arrive 15 minits before the scheduled time",style: TextStyle(fontWeight: FontWeight.bold),),
-              Container(height: 10,),
+                  );
+                },
+              )
             ],
-          ),
-        ),
-          ElevatedButton(onPressed: (){
-          }, style: ElevatedButton.styleFrom(primary: Color(0xFF0e9096)),
-              child: Padding(padding: EdgeInsets.only(left: 30,right: 30),child: Text("Back to Home"),))//card
-        ],
-      ),
-      ),
-    );
+          )));
   }
 }

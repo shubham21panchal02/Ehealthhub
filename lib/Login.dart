@@ -221,14 +221,19 @@ class Loginpage extends StatefulWidget {
                    setpreference.setString('email', data['EMAIL_ID'].toString());
                    setpreference.setString('phone', data['PHONE_NO'].toString());
                    setpreference.setString('password', data['B_PASSWORD'].toString());
+                   setpreference.setString('role', data['ROLE'].toString());
                    Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (BuildContext context) =>
                        Afristpage()), (Route<dynamic> route) => false);
                  } else if (data['ROLE'].toString() == "1") {
                    setpreference.setString('id', data['U_ID'].toString());
                    setpreference.setString('name', data['U_NAME'].toString());
                    setpreference.setString('email', data['EMAIL_ID'].toString());
-                   // setpreference.setString('phone', data['PHONE_NO'].toString());
+                   setpreference.setString('role', data['ROLE'].toString());
                    setpreference.setString('password', data['PASSWORD'].toString());
+                   setpreference.setString('age', data['AGE'].toString());
+                   setpreference.setString('gender', data['GENDER'].toString());
+                   setpreference.setString('blood_group', data['BLOOD_GROUP'].toString());
+                   setpreference.setString('address', data['ADDRESS'].toString());
                    Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (BuildContext context) =>
                        Ufirstpage()), (Route<dynamic> route) => false);
                  } else {

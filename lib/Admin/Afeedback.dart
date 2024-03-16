@@ -1,6 +1,10 @@
+import 'dart:convert';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import '../Widgets/Colour.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:http/http.dart' as http;
 
 class Afeedback extends StatefulWidget{
   @override
@@ -9,6 +13,41 @@ class Afeedback extends StatefulWidget{
   }
 }
 class Afeedbackstate extends State<Afeedback>{
+  String? data;
+  List<dynamic> ? hdata;
+  final _formKey = GlobalKey<FormState>();
+  var logindata;
+  var data1;
+  bool isLoading = false;
+  var l;
+
+  void initState() {
+    super.initState();
+    getvalue();
+  }
+  Future<void> getvalue() async {
+    setState(() {
+      isLoading=true;
+    });
+    http.Response response = await http.get(
+      Uri.parse("https://e-healthhub.000webhostapp.com/API/fetchallfeedback.php"),);
+    if (response.statusCode == 200) {
+      setState(() {
+        data = response.body;
+        hdata = jsonDecode(data!)["feedback"];
+        l=hdata?.length;
+
+        isLoading = false;
+      });
+    } else {
+      setState(() {
+        isLoading = false;
+      });
+      // Handle error
+      print("Failed to fetch data. Status code: ${response.statusCode}");
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
@@ -21,7 +60,8 @@ class Afeedbackstate extends State<Afeedback>{
           SizedBox(height: 10,),
           Expanded(
             child: SingleChildScrollView(
-              child: ListView.builder(shrinkWrap: true,physics: NeverScrollableScrollPhysics(),itemCount: 5,itemBuilder:(BuildContext Context, int index){
+              child: ListView.builder(shrinkWrap: true,physics: NeverScrollableScrollPhysics(),
+                  itemCount:hdata!.length,itemBuilder:(BuildContext Context, int index){
                 return Padding(
                   padding: const EdgeInsets.all(20),
                   child: Card(color: ColorConstants.lightcolor,elevation: 10,shape: RoundedRectangleBorder(
@@ -38,17 +78,12 @@ class Afeedbackstate extends State<Afeedback>{
                               children: [
                                 Row(children: [
                                   Text("Users Name :",style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold),),
-                                  Text("shubham panchal",style: TextStyle(fontSize: 20),),
-                                ],),
-                                SizedBox(height: 20,),
-                                Row(children: [
-                                  Text("Users PhoneNo. :",style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold),),
-                                  Text("1234567890",style: TextStyle(fontSize: 20),),
+                                  Text(jsonDecode(data!)["feedback"][index]["U_NAME"],style: TextStyle(fontSize: 20),),
                                 ],),
                                 SizedBox(height: 20,),
                                 Row(children: [
                                   Text("Users Feedback :",style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold),),
-                                  Expanded(child:Text("this hospital is best in ahmedabad and gujrat",style: TextStyle(fontSize: 20),), ),
+                                  Expanded(child:Text(jsonDecode(data!)["feedback"][index]["COMMENT"],style: TextStyle(fontSize: 20),), ),
 
                                 ],),
                                 SizedBox(height: 20,),

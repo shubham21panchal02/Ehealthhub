@@ -64,7 +64,8 @@ class Ahospitalstate extends State{
 
           Expanded(
             child: SingleChildScrollView(
-              child: ListView.builder(shrinkWrap: true,physics: NeverScrollableScrollPhysics(),itemCount: 5,itemBuilder:(BuildContext Context, int index){
+              child: ListView.builder(shrinkWrap: true,physics: NeverScrollableScrollPhysics(),
+                  itemCount: hdata!.length ,itemBuilder:(BuildContext Context, int index){
                 return Padding(
                   padding: const EdgeInsets.all(20),
                   child: Card(elevation: 10,shape: RoundedRectangleBorder(
@@ -104,7 +105,9 @@ class Ahospitalstate extends State{
                                 ],),
                                 SizedBox(height: 20,),
                                 Row(mainAxisAlignment: MainAxisAlignment.center,children: [
-                                  ElevatedButton(onPressed:_submit, child: Text("Remove"),
+                                  ElevatedButton(onPressed:(){
+                                    _submit(jsonDecode(data!)["data"][index]["H_ID"]);
+                                  }, child: Text("Remove"),
 
                                     style: ElevatedButton.styleFrom(primary: ColorConstants.appbarcolor,
 
@@ -125,7 +128,7 @@ class Ahospitalstate extends State{
       ),
     );
   }
-  Future<void> _submit() async {
+  Future<void> _submit(String id) async {
       setState(() {
         isLoading = true;
       });
@@ -134,7 +137,7 @@ class Ahospitalstate extends State{
 
       final response = await http
           .post(login_url, body: {
-        "H_ID": hidController.text,
+        "H_ID": id,
 
       });
       if (response.statusCode == 200) {
@@ -151,7 +154,7 @@ class Ahospitalstate extends State{
               gravity: ToastGravity.BOTTOM,
               timeInSecForIosWeb: 2
           );
-
+          getvalue();
         }
         else{
           Fluttertoast.showToast(
