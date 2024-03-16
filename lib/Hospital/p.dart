@@ -33,6 +33,7 @@ class profilescreen extends State<p>{
 
 
   final formKey = new GlobalKey<FormState>();
+  bool _passwordVisible = false;
   bool _isLoading = false;
   var logindata;
   var data;
@@ -195,10 +196,23 @@ class profilescreen extends State<p>{
                  ),
 
                  TextFormField(
+                   obscureText: !_passwordVisible,
                    controller: passwordController,
                    decoration: InputDecoration(
-                 suffixIcon: Icon(Icons.remove_red_eye),
-                     border: OutlineInputBorder(borderRadius: BorderRadius.circular(15),borderSide: BorderSide.none),
+                 suffixIcon:    IconButton(onPressed: (){
+                 setState(() {
+                 _passwordVisible = !_passwordVisible;
+                 });
+                 },
+                 icon: Icon(
+                 // Based on passwordVisible state choose the icon
+                 _passwordVisible
+                 ? Icons.visibility
+                     : Icons.visibility_off,
+                 color: Theme.of(context).primaryColorDark,
+                 ),),
+
+                 border: OutlineInputBorder(borderRadius: BorderRadius.circular(15),borderSide: BorderSide.none),
                      hintText:"password",
                    ),
                    style: TextStyle(color: Colors.black),
