@@ -1,6 +1,9 @@
+import 'dart:convert';
+
 import 'package:devloperproject1/Admin/Afeedback.dart';
 import 'package:devloperproject1/Admin/Ahospital.dart';
 import 'package:devloperproject1/Admin/Ausers.dart';
+import 'package:devloperproject1/Login.dart';
 import 'package:devloperproject1/Widgets/Colour.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -38,27 +41,51 @@ class Afristpagestate extends State<Afristpage>{
                     height: 128.0,
                     margin: const EdgeInsets.only(
                       top: 24.0,
-                      bottom: 64.0,
+                      bottom: 24.0,
                     ),
-                    clipBehavior: Clip.antiAlias,
-                    decoration: BoxDecoration(
-                      color: Colors.black26,
-                      shape: BoxShape.circle,
-                    ),
-                    child: Image.asset(
-                      'assets/images/flutter_logo.png',
-                    ),
+                   child:
+                   CircleAvatar(child:
+                   Image.asset('assets/image/admin2.png',fit: BoxFit.fill,
+                     alignment: Alignment.center,),backgroundColor: Colors.white,),
+                  ),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text("Name:"+ " admin",style:TextStyle(fontSize: 20,color: Colors.white,)),
+                      SizedBox(height: 20,),
+                      Text("Email:"+ " admin2024@gmail.com",style:TextStyle(fontSize: 20,color: Colors.white)),
+                    ],
                   ),
 
+                  Divider(height: 100, color: Colors.black),
+
                   ListTile(
-                    onTap: () {},
-                    leading: Icon(Icons.settings),
-                    title: Text('Settings'),
+                    onTap: () {
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => Ahospital(),));
+                    },
+                    leading: Icon(Icons.local_hospital),
+                    title: Text('Manage Hospital'),
                   ),
                   ListTile(
-                    onTap: () {},
+                    onTap: () {
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => Ausers(),));
+                    },
+                    leading: Icon(Icons.supervised_user_circle),
+                    title: Text('Manage User'),
+                  ),
+                  ListTile(
+                    onTap: () {
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => Afeedback(),));
+                    },
+                    leading: Icon(Icons.feedback_outlined),
+                    title: Text('Manage Feedback'),
+                  ),
+                  ListTile(
+                    onTap: () {
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => Loginpage(),));
+                    },
                     leading: Icon(Icons.logout),
-                    title: Text('Log out'),
+                    title: Text('Log Out'),
                   ),
                   Spacer(),
                   DefaultTextStyle(
@@ -145,7 +172,7 @@ class Afristpagestate extends State<Afristpage>{
 
                     // Add a container with padding that contains the card's title, text, and buttons
                     Container(
-                      padding: EdgeInsets.all(10),
+                      padding: EdgeInsets.all(0),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
@@ -185,7 +212,7 @@ class Afristpagestate extends State<Afristpage>{
                 Center(child:Lottie.asset('assets/image/user.json',height: 200,width: double.infinity  ) ,),
                     // Add a container with padding that contains the card's title, text, and buttons
                     Container(
-                      padding: EdgeInsets.all(10),
+                      padding: EdgeInsets.all(0),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[

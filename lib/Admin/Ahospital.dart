@@ -4,6 +4,7 @@ import 'package:devloperproject1/Admin/Afristpage.dart';
 import 'package:devloperproject1/Widgets/Colour.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
 
 
@@ -16,9 +17,13 @@ class Ahospital extends StatefulWidget{
   }
 }
 class Ahospitalstate extends State{
+  TextEditingController hidController = TextEditingController();
   String? data;
   List<dynamic> ? hdata;
-  bool isLoading=true;
+  final _formKey = GlobalKey<FormState>();
+  var logindata;
+  var data1;
+  bool isLoading = false;
   var l;
 
   void initState() {
@@ -50,39 +55,13 @@ class Ahospitalstate extends State{
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
-    return Scaffold(backgroundColor:Color(0xFF9dcdd1),
+    return Scaffold(backgroundColor:Colors.white,
       appBar: AppBar(leading: IconButton(icon:Icon(Icons.arrow_back_ios_new),onPressed: (){
         Navigator.push(context, MaterialPageRoute(builder: (context) => Afristpage(),),);
       },),backgroundColor: ColorConstants.appbarcolor,centerTitle: true,title: Text("Hospital"),),
-      body: Column(
+      body:  isLoading ? Center(child: CircularProgressIndicator(color:  ColorConstants.buttonscolor)) :Column(
         children: [
-          SizedBox(height:20),
-          Center(
-            child: Padding(
-              padding: const EdgeInsets.all(10.0),
-              child:TextField( style:TextStyle(fontWeight: FontWeight.bold,color: Colors.black),
-                decoration: (InputDecoration(filled: true,fillColor: Colors.white
-                  ,label: Row(
-                    children: [
-                      Icon(Icons.search),
-                      Text("Search Hospital"),
-                    ],
-                  ),
-                  labelStyle: TextStyle(color: Colors.black),
-                  enabledBorder: OutlineInputBorder(
-                      borderRadius:BorderRadius.circular(50) ,
-                      borderSide:BorderSide(color: Colors.black)),
-                  focusedBorder: OutlineInputBorder(
-                    borderSide: BorderSide(
-                        color: Colors.black
-                    ),borderRadius: BorderRadius.circular(50),
-                  ),
-                  hintText: "Search hospital",)
-                ),
-              ),
-            ),
-          ),
-          SizedBox(height: 10,),
+
           Expanded(
             child: SingleChildScrollView(
               child: ListView.builder(shrinkWrap: true,physics: NeverScrollableScrollPhysics(),itemCount: 5,itemBuilder:(BuildContext Context, int index){
@@ -93,39 +72,48 @@ class Ahospitalstate extends State{
                   ),
                     child: Column(
                       children: [
-
-                    Image.network (
-                    "https://e-healthhub.000webhostapp.com/API/" + jsonDecode(data!)["data"][index]["H_IMG"]),
+                        ClipRRect(
+                          borderRadius: BorderRadius.only(
+                              topRight: Radius.circular(15),
+                              topLeft: Radius.circular(15)),
+                          child:Image(
+                          image:NetworkImage (
+                    "https://e-healthhub.000webhostapp.com/API/" + jsonDecode(data!)["data"][index]["H_IMG"],
+                    ),),),
 
                         Container(
-                          child: Column(
-                            children: [
-                              Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Row(
 
-                                  children: [
-                                  Icon(Icons.local_hospital),
-                                    SizedBox(
-                                      width: 5,
-                                    ),
-                                  Text(jsonDecode(data!)["data"][index]["H_NAME"],style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold),),
+                            child: Column(
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Row(
+
+                                    children: [
+                                    Icon(Icons.local_hospital),
+                                      SizedBox(
+                                        width: 5,
+                                      ),
+                                    Expanded(child: Text(jsonDecode(data!)["data"][index]["H_NAME"],style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold),)),
+                                  ],),
+                                ),
+                                SizedBox(height: 20,),
+                                Row(children: [
+                                  Icon(Icons.location_on_outlined),
+                                  Expanded(child: Text(jsonDecode(data!)["data"][index]["ADDRESS"],style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold),)),
                                 ],),
-                              ),
-                              SizedBox(height: 20,),
-                              Row(children: [
-                                Icon(Icons.location_on_outlined),
-                                Expanded(child: Text(jsonDecode(data!)["data"][index]["ADDRESS"],style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold),)),
-                              ],),
-                              SizedBox(height: 20,),
-                              Row(mainAxisAlignment: MainAxisAlignment.center,children: [
-                                ElevatedButton(onPressed: (){}, child: Text("Remove"),
-                                  style: ElevatedButton.styleFrom(primary: ColorConstants.appbarcolor
-                                ),)
-                              ],)
-                            ],
+                                SizedBox(height: 20,),
+                                Row(mainAxisAlignment: MainAxisAlignment.center,children: [
+                                  ElevatedButton(onPressed:_submit, child: Text("Remove"),
+
+                                    style: ElevatedButton.styleFrom(primary: ColorConstants.appbarcolor,
+
+                                  ),)
+                                ],)
+                              ],
+                            ),
                           ),
-                        )
+
                       ],
                     ),
                   ),
@@ -137,5 +125,42 @@ class Ahospitalstate extends State{
       ),
     );
   }
+  Future<void> _submit() async {
+      setState(() {
+        isLoading = true;
+      });
+      final login_url = Uri.parse(
+          "https://e-healthhub.000webhostapp.com/API/removehospital.php");
 
+      final response = await http
+          .post(login_url, body: {
+        "H_ID": hidController.text,
+
+      });
+      if (response.statusCode == 200) {
+        print("object");
+        logindata = jsonDecode(response.body);
+        print(logindata);
+        setState(() {
+          isLoading = false;
+        });
+        if (logindata['error'] == false) {
+          Fluttertoast.showToast(
+              msg: logindata['message'].toString(),
+              toastLength: Toast.LENGTH_LONG,
+              gravity: ToastGravity.BOTTOM,
+              timeInSecForIosWeb: 2
+          );
+
+        }
+        else{
+          Fluttertoast.showToast(
+              msg: logindata['message'].toString(),
+              toastLength: Toast.LENGTH_LONG,
+              gravity: ToastGravity.BOTTOM,
+              timeInSecForIosWeb: 2
+          );
+        }
+      }
+  }
 }

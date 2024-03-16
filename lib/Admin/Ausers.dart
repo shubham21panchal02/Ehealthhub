@@ -1,4 +1,7 @@
+import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+
 
 import '../Widgets/Colour.dart';
 import 'Afristpage.dart';
@@ -11,42 +14,47 @@ class Ausers extends StatefulWidget{
   }
 }
 class Ausersstate extends State<Ausers>{
+  String? data;
+  List<dynamic> ? udata;
+  bool isLoading=true;
+  var l;
+
+  void initState() {
+    super.initState();
+    getvalue();
+  }
+  Future<void> getvalue() async {
+    setState(() {
+      isLoading=true;
+    });
+    http.Response response = await http.get(
+      Uri.parse("https://e-healthhub.000webhostapp.com/API/userfetch.php"),);
+    if (response.statusCode == 200) {
+      setState(() {
+        data = response.body;
+        udata = jsonDecode(data!)["data"];
+        l=udata?.length;
+
+        isLoading = false;
+      });
+    } else {
+      setState(() {
+        isLoading = false;
+      });
+      // Handle error
+      print("Failed to fetch data. Status code: ${response.statusCode}");
+    }
+  }
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
-    return Scaffold(backgroundColor:Color(0xFF9dcdd1),
+    return Scaffold(backgroundColor:Colors.white,
       appBar: AppBar(leading: IconButton(icon:Icon(Icons.arrow_back_ios_new),onPressed: (){
         Navigator.push(context, MaterialPageRoute(builder: (context) => Afristpage(),),);
       },),backgroundColor: ColorConstants.appbarcolor,centerTitle: true,title: Text("Users"),),
-      body: Column(
+      body:isLoading ? Center(child: CircularProgressIndicator(color: Colors.black)) : Column(
         children: [
-          SizedBox(height:20),
-          Center(
-            child: Padding(
-              padding: const EdgeInsets.all(10.0),
-              child:TextField(style:TextStyle(fontWeight: FontWeight.bold,color: Colors.black),
-                decoration: (InputDecoration(filled: true,
-                  fillColor: Colors.white,label: Row(
-                children: [
-                Icon(Icons.search),
-                    Text("Search Hospital"),
-                ],
-              ),
-                  labelStyle: TextStyle(color: Colors.black),
-                  enabledBorder: OutlineInputBorder(
-                    borderRadius:BorderRadius.circular(50) ,
-                      borderSide:BorderSide(color: Colors.black)),
-                  focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(
-                          color: Colors.black
-                      ),borderRadius: BorderRadius.circular(50),
-                  ),
-                  hintText: "Search users",)
-                ),
-              ),
-            ),
-          ),
-          SizedBox(height: 10,),
+
           Expanded(
             child: SingleChildScrollView(
               child: ListView.builder(shrinkWrap: true,physics: NeverScrollableScrollPhysics(),itemCount: 5,itemBuilder:(BuildContext Context, int index){
@@ -62,29 +70,25 @@ class Ausersstate extends State<Ausers>{
                             children: [
                               Row(children: [
                                 Text("Users Name :",style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold),),
-                                Text("shubham panchal",style: TextStyle(fontSize: 20),),
+                                Text(jsonDecode(data!)["data"][index]["U_NAME"],style: TextStyle(fontSize: 20),),
                               ],),
                               SizedBox(height: 20,),
                               Row(children: [
                                 Text("Users Age :",style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold),),
-                                Expanded(child: Text("20",style: TextStyle(fontSize: 20),),),
+                                Expanded(child: Text(jsonDecode(data!)["data"][index]["AGE"],style: TextStyle(fontSize: 20),),),
                               ],),
                               SizedBox(height: 20,),
                               Row(children: [
                                 Text("Users Email :",style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold),),
-                                Expanded(child: Text("shubham@gmail.com",style: TextStyle(fontSize: 20),),),
+                                Expanded(child: Text(jsonDecode(data!)["data"][index]["EMAIL_ID"],style: TextStyle(fontSize: 20),),),
                               ],),
                               SizedBox(height: 20,),
                               Row(children: [
                                 Text("Users Password :",style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold),),
-                                Expanded(child: Text("sggdsj2121",style: TextStyle(fontSize: 20),),),
+                                Expanded(child: Text(jsonDecode(data!)["data"][index]["PASSWORD"],style: TextStyle(fontSize: 20),),),
                               ],),
                               SizedBox(height: 20,),
-                              Row(mainAxisAlignment: MainAxisAlignment.center,children: [
-                                ElevatedButton(onPressed: (){}, child: Text("Remove"),
-                                  style: ElevatedButton.styleFrom(primary: ColorConstants.appbarcolor
-                                  ),)
-                              ],)
+
                             ],
                           ),
                         ),)

@@ -12,7 +12,7 @@ class Afeedbackstate extends State<Afeedback>{
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
-    return Scaffold(backgroundColor:Color(0xFF9dcdd1),
+    return Scaffold(backgroundColor:Colors.white,
       appBar: AppBar(backgroundColor: ColorConstants.appbarcolor,centerTitle: true,title: Text("Feedback"),),
       body: Column(
         children: [
@@ -24,9 +24,11 @@ class Afeedbackstate extends State<Afeedback>{
               child: ListView.builder(shrinkWrap: true,physics: NeverScrollableScrollPhysics(),itemCount: 5,itemBuilder:(BuildContext Context, int index){
                 return Padding(
                   padding: const EdgeInsets.all(20),
-                  child: Card(elevation: 10,shape: RoundedRectangleBorder(
+                  child: Card(color: ColorConstants.lightcolor,elevation: 10,shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(15),
+
                   ),
+
                     child: Column(
                       children: [
                         Container(
