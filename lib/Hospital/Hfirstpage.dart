@@ -1,9 +1,9 @@
-import 'dart:ui';
 
 import 'package:carousel_slider/carousel_controller.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:devloperproject1/Hospital/H-patientProfile.dart';
 import 'package:devloperproject1/Hospital/p.dart';
+
 import 'package:devloperproject1/Widgets/Colour.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -37,7 +37,7 @@ class hopital extends State<h_firstpage> {
   Widget build(BuildContext context) {
     // TODO: implement build
     return Scaffold(
-      backgroundColor: ColorConstants.lightcolor,
+
         appBar: AppBar(
           backgroundColor: ColorConstants.appbarcolor,
           title: Center(
@@ -150,6 +150,111 @@ class hopital extends State<h_firstpage> {
                           ),
                         ),
                       ),
+                      InkWell(
+                        onTap: () {
+                          showDialog(context: context, builder: (context) => AlertDialog(
+                           title: Text(" Enter Schedule"),
+                           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+                           backgroundColor: Colors.white,
+                            actions: [
+                              Column(
+                                children: [
+                                  TextFormField(
+
+                                    decoration: InputDecoration(
+                                      label: Text("enter time"),
+                                     suffixIcon:  Icon(Icons.timelapse_outlined),
+                                      hintText: 'enter time',
+                                      labelStyle: TextStyle(color: Colors.black,fontWeight: FontWeight.bold),
+
+
+                                      focusedBorder: OutlineInputBorder(
+                                        borderSide: BorderSide(color: Colors.red),
+                                        borderRadius: BorderRadius.circular(5.5),
+                                      ),
+                                      enabledBorder: OutlineInputBorder(
+                                        borderSide: BorderSide(
+                                          color: Colors.black,
+                                        ),
+                                      ),
+                                    ),
+
+                                    mouseCursor: MaterialStateMouseCursor.textable,
+                                   maxLength: 2,
+
+
+                                  ),
+                                  SizedBox(
+                                    height: 10,
+                                  ),
+                                  Align(
+                                    alignment: Alignment.center,
+                                    child: Text("TO",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20),),
+                                  ),
+                                  SizedBox(
+                                    height: 20,
+                                  ),
+                                  TextFormField(
+
+                                    decoration: InputDecoration(
+                                      label: Text("enter time"),
+                                      suffixIcon:  Icon(Icons.timelapse_outlined),
+                                      hintText: 'enter time',
+                                      labelStyle: TextStyle(color: Colors.black,fontWeight: FontWeight.bold),
+
+
+                                      focusedBorder: OutlineInputBorder(
+                                        borderSide: BorderSide(color: Colors.red),
+                                        borderRadius: BorderRadius.circular(5.5),
+                                      ),
+                                      enabledBorder: OutlineInputBorder(
+                                        borderSide: BorderSide(
+                                          color: Colors.black,
+                                        ),
+                                      ),
+                                    ),
+
+                                    mouseCursor: MaterialStateMouseCursor.textable,
+                                    maxLength: 2,
+
+
+                                  ),
+                                  SizedBox(
+                                    height: 20,
+                                  ),
+                                  TextButton(onPressed: (){}, child: Text("submit",style: TextStyle(fontSize: 20,color: Colors.black),),style: ButtonStyle(
+                                      backgroundColor: MaterialStateProperty.all(Colors.white),
+
+                                      elevation: MaterialStateProperty.all(10),
+                                      shape: MaterialStateProperty.all(
+
+                                          RoundedRectangleBorder(
+                                              side: BorderSide.none,
+                                              borderRadius: BorderRadius.circular(15)
+                                          )
+                                      )
+                                  ),
+                                  )
+
+                                ],
+                              )
+                            ],
+                          ),);
+                        },
+                        child: Container(
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10)),
+                          child: Card(
+                            elevation: 1,
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10)),
+                            child: ListTile(
+                              title: Text("Schedule"),
+                              trailing: Icon(Icons.timelapse_outlined),
+                            ),
+                          ),
+                        ),
+                      ),
                     ],
                   ),
                 ),
@@ -174,6 +279,9 @@ class hopital extends State<h_firstpage> {
                   ),
                 ),
               ),
+              SizedBox(
+                height: 10,
+              )
             ],
           ),
         ),
@@ -256,19 +364,24 @@ class hopital extends State<h_firstpage> {
                     child: Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Card(
+
+                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
                         elevation: 10,
+                        shadowColor: Colors.black,
+                        surfaceTintColor: Colors.black,
+                        clipBehavior: Clip.antiAlias,
                         child: Column(
                           children: [
                             Image.asset(
                               'assets/image/Firstpage.jpg',
-                              height: 200,
+                              height: 300,
                               width: double.infinity,
                               fit: BoxFit.cover,
                             ),
                          SizedBox(
                            height: 10,
                          ),
-                            Text('Appointment Detail'),
+                            Text('Appointment Detail',style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold),),
                             SizedBox(
                               height: 10,
                             ),
@@ -291,19 +404,22 @@ class hopital extends State<h_firstpage> {
                     child: Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Card(
+                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
                         elevation: 10,
+                        clipBehavior: Clip.antiAlias,
                         child: Column(
                           children: [
                             Image.asset(
                               'assets/image/p12.jpg',
-                              height: 200,
+                              height: 300,
                               width: double.infinity,
                               fit: BoxFit.cover,
                             ),
                             SizedBox(
                               height: 10,
                             ),
-                            Text('Patient Profile'),
+                            Text('Patient Profile',style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold)
+                            ),
                             SizedBox(
                               height: 5,
                             ),

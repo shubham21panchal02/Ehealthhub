@@ -9,12 +9,12 @@ import 'package:devloperproject1/User/Fourthpage.dart';
 import 'package:devloperproject1/User/Secondpage.dart';
 import 'package:devloperproject1/User/Services.dart';
 import 'package:devloperproject1/User/Thiredpage.dart';
-import 'package:devloperproject1/calander.dart';
 import 'package:flutter/material.dart';
 import 'Hospital/H-AppointmentDettail.dart';
 import 'Hospital/H-patientProfile.dart';
 import 'Hospital/Hfirstpage.dart';
 import 'Hospital/Registration.dart';
+import 'Hospital/sloat.dart';
 import 'Splash.dart';
 
 void main() {
