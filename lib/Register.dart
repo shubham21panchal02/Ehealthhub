@@ -382,10 +382,7 @@ Future<void> _submit() async {
 
     });
     if (response.statusCode == 200) {
-      print("object");
       logindata = jsonDecode(response.body);
-      data =
-      jsonDecode(response.body)['user'];
       print(logindata);
       setState(() {
         isLoading = false;
