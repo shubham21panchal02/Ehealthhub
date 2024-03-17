@@ -371,32 +371,32 @@ class profilescreen extends State<p>{
                          SizedBox(
                            height:20 ,
                          ),
-                         SingleChildScrollView(
-                           scrollDirection: Axis.horizontal,
-                           child: Row(
-                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                             children: [
-
-                               Text("Upload Hospital Photo",style: TextStyle(fontSize: 10,color: Colors.black),),
-                               SizedBox(
-                                 width: 10,
-                               ),
-                               TextButton(onPressed: _getImage, child: Text("Upload Photo",style: TextStyle(fontSize: 20),),style: ButtonStyle(
-                                   backgroundColor: MaterialStateProperty.all(Colors.grey.shade200),
-
-                                   elevation: MaterialStateProperty.all(15),
-                                   shape: MaterialStateProperty.all(
-
-                                       RoundedRectangleBorder(
-                                           side: BorderSide.none,
-                                           borderRadius: BorderRadius.circular(20)
-                                       )
-                                   )
-                               ),
-                               )
-                             ],
-                           ),
-                         ),
+                         // SingleChildScrollView(
+                         //   scrollDirection: Axis.horizontal,
+                         //   child: Row(
+                         //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                         //     children: [
+                         //
+                         //       Text("Upload Hospital Photo",style: TextStyle(fontSize: 10,color: Colors.black),),
+                         //       SizedBox(
+                         //         width: 10,
+                         //       ),
+                         //       TextButton(onPressed: _getImage, child: Text("Upload Photo",style: TextStyle(fontSize: 20),),style: ButtonStyle(
+                         //           backgroundColor: MaterialStateProperty.all(Colors.grey.shade200),
+                         //
+                         //           elevation: MaterialStateProperty.all(15),
+                         //           shape: MaterialStateProperty.all(
+                         //
+                         //               RoundedRectangleBorder(
+                         //                   side: BorderSide.none,
+                         //                   borderRadius: BorderRadius.circular(20)
+                         //               )
+                         //           )
+                         //       ),
+                         //       )
+                         //     ],
+                         //   ),
+                         // ),
 
                        ],
                      ),
