@@ -70,7 +70,8 @@ class Home extends State<Ufirstpage> {
 
   @override
   Widget build(BuildContext context) {
-    return isLoading ? Center(child: CircularProgressIndicator(color:  ColorConstants.buttonscolor)) : AdvancedDrawer(
+    return isLoading ? Center(child: CircularProgressIndicator(color:  ColorConstants.buttonscolor)) :
+    AdvancedDrawer(
       backdrop: Container(
         width: double.infinity,
         height: double.infinity,
@@ -424,7 +425,7 @@ class Home extends State<Ufirstpage> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => feedback(),
+                            builder: (context) => AddFeedbackPage(),
                           ),
                         );
                       },

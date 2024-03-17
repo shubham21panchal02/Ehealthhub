@@ -35,9 +35,9 @@ class _SplashScreenState extends State<SplashScreen> {
     bool _seen = (prefs.getBool('seen') ?? false);
     if (_seen) {
       if(prefs.getString('id') != null) {
-        if(prefs.getString('Role') != null && prefs.getString('Role') == "0"){
+        if(prefs.getString('role') != null && prefs.getString('role') == "0"){
           Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (BuildContext context) => Afristpage()), (Route<dynamic> route) => false);
-        }else if(prefs.getString('Role') != null && prefs.getString('Role') == "2"){
+        }else if(prefs.getString('role') != null && prefs.getString('role') == "2"){
           Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (BuildContext context) => h_firstpage()), (Route<dynamic> route) => false);
         }else {
           Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (BuildContext context) => Ufirstpage()), (Route<dynamic> route) => false);

@@ -4,6 +4,7 @@ import 'package:devloperproject1/User/Firstpage.dart';
 import 'package:devloperproject1/Widgets/Colour.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 
@@ -82,7 +83,9 @@ class Forthpage extends State<Uforthpage> {
                     margin: const EdgeInsets.only(left: 16, right: 16,top: 16),
                     padding: const EdgeInsets.only(left: 16, right: 16,top: 8),
                     decoration: BoxDecoration(
-                      color:  jsonDecode(data)["status"][index]["astatus"] =="Booked"?Color(0xFF2ca5ab):jsonDecode(data)["data"][index]["astatus"] =="Completed"?Color(0xFF08364B):Color(0xFF4CAF50),
+                      color: jsonDecode(data)["status"][index]["astatus"] =="Booked"?Color(0xFF2ca5ab):
+                      jsonDecode(data)["status"][index]["astatus"] =="Complete"?Color(0xFF08364B):
+                      jsonDecode(data)["status"][index]["astatus"] =="Reject"? Colors.redAccent:Color(0xFF4CAF50),
                       // border: Border.all(
                       //   color: Color(0xFF032737),
                       //   width: 4.0,
@@ -170,6 +173,29 @@ class Forthpage extends State<Uforthpage> {
                                   ),
                                 ],
                               ),
+                              if(jsonDecode(data)["status"][index]["astatus"] !="Booked") ...[
+                                SizedBox(height: 4,),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.end,
+                                  crossAxisAlignment: CrossAxisAlignment.end,
+                                  children: [
+                                    Expanded(
+                                      child: InkWell(
+                                        onTap: (){
+                                          _submit(jsonDecode(data)["status"][index]["appoid"],"Reject");
+                                        },
+                                        child: Text("Reject",
+                                          textAlign: TextAlign.end,
+                                          style:TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                              color: Colors.white,
+                                              fontSize: 14),
+                                        ),
+                                      )
+                                    ),
+                                  ],
+                                ),
+                              ],
                               SizedBox(height: 16,),
                             ],
                           ),
@@ -182,4 +208,44 @@ class Forthpage extends State<Uforthpage> {
             ],
           )));
   }
+
+  _submit(String id,String status) async {
+    var logindata;
+
+    setState(() {
+      isLoading = true;
+    });
+    final login_url = Uri.parse(
+        "https://e-healthhub.000webhostapp.com/API/updateslotstatus.php");
+    final response = await http
+        .post(login_url, body: {
+      "A_ID": id,
+      "STATUS": status,
+    });
+    if (response.statusCode == 200) {
+      print(response.body);
+      logindata = jsonDecode(response.body);
+      setState(() {
+        isLoading = false;
+      });
+      if (logindata['error'] == false) {
+        Fluttertoast.showToast(
+            msg: logindata['message'].toString(),
+            toastLength: Toast.LENGTH_LONG,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 2
+        );
+        getData();
+      }else{
+        Fluttertoast.showToast(
+            msg: logindata['message'].toString(),
+            toastLength: Toast.LENGTH_LONG,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 2
+        );
+      }
+    }
+
+  }
+
 }

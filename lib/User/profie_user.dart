@@ -51,7 +51,6 @@ class p extends State<user_profile> {
       genderController = TextEditingController(text: setpreference.getString('gender')!);
       addressController = TextEditingController(text: setpreference.getString('address')!);
       bloodgroupController = TextEditingController(text: setpreference.getString('blood_group')!);
-      print(setpreference.getString('password')!);
     });
   }
 
@@ -331,7 +330,7 @@ class p extends State<user_profile> {
                     // decoration: BoxDecoration(
                     // ),
                     child: Center(
-                      child: Text("Sign In", style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),),
+                      child: Text("Update", style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),),
                     ),
                   )),
 

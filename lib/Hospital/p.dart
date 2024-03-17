@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:animate_do/animate_do.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
@@ -26,8 +27,8 @@ class profilescreen extends State<p>{
 
 
   TextEditingController hospitalNameController = TextEditingController();
-
   TextEditingController passwordController = TextEditingController();
+  TextEditingController emailController = TextEditingController();
   TextEditingController phoneNoController = TextEditingController();
   TextEditingController addressController = TextEditingController();
 
@@ -47,6 +48,24 @@ class profilescreen extends State<p>{
     });
   }
 
+  @override
+  void initState() {
+    getData();
+    super.initState();
+  }
+
+  void getData() async {
+    SharedPreferences setpreference =
+    await SharedPreferences.getInstance();
+    setState(() {
+      hospitalNameController = TextEditingController(text:setpreference.getString('name')!);
+      emailController = TextEditingController(text: setpreference.getString('email')!);
+      passwordController = TextEditingController(text: setpreference.getString('password')!);
+      addressController = TextEditingController(text: setpreference.getString('address')!);
+      phoneNoController = TextEditingController(text: setpreference.getString('phone')!);
+    });
+  }
+
   uploadImageMedia(File fileImage) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     final mimeTypeData =
@@ -58,10 +77,9 @@ class profilescreen extends State<p>{
         contentType: MediaType(mimeTypeData![0], mimeTypeData[1]));
 
     imageUploadRequest.fields['D_NAME']= "Mrs.Doctor";
-    imageUploadRequest.fields['H_ID'] = "1";
+    imageUploadRequest.fields['H_ID'] = prefs.getString('id')!;
     imageUploadRequest.fields['H_NAME']= hospitalNameController.text;
     imageUploadRequest.fields['PHONE_NO']= phoneNoController.text ;
-
     imageUploadRequest.fields['ADDRESS']= addressController.text ;
     imageUploadRequest.fields['PASSWORD']= passwordController.text ;
     imageUploadRequest.files.add(file);
@@ -83,6 +101,12 @@ class profilescreen extends State<p>{
                 gravity: ToastGravity.BOTTOM,
                 timeInSecForIosWeb: 2
             );
+            prefs.setString('name', hospitalNameController.text);
+            prefs.setString('email', emailController.text);
+            prefs.setString('phone', phoneNoController.text);
+            prefs.setString('password', passwordController.text);
+            prefs.setString('address', addressController.text);
+
             Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder:
                 (BuildContext context) => h_firstpage()), (Route<dynamic> route) => false);
           }else{
@@ -131,7 +155,7 @@ class profilescreen extends State<p>{
         title: const Text(' Edit Profile '),
       ),
 
-      body: _isLoading ? Center(child: CircularProgressIndicator(color: Colors.greenAccent)) :
+      body: _isLoading ? Center(child: CircularProgressIndicator(color: ColorConstants.appbarcolor)) :
        SingleChildScrollView(
       child: Column(
   children: [
@@ -165,121 +189,240 @@ class profilescreen extends State<p>{
 
            child: Form(
              key: formKey,
-             child: Column(
-               children: [
-                 SizedBox(
-                   height: 5,
-                 ),
-                 TextFormField(
-                   controller: hospitalNameController,
-                   decoration: InputDecoration(
+             child:  Column(
 
-                     border: OutlineInputBorder(borderRadius: BorderRadius.circular(15),borderSide: BorderSide.none),
-                     hintText:"Enter Hospital Name",
+               children: <Widget>[
+
+
+                 FadeInUp(duration: Duration(milliseconds: 1400),
+
+
+
+
+                   child: Container(
+
+                     decoration: BoxDecoration(
+                         color: Colors.white,
+
+                         borderRadius: BorderRadius.circular(15),
+                         boxShadow: [BoxShadow(
+                           color: Color.fromRGBO(225, 95, 27, .3),
+
+
+                         )]
+                     ),
+                     child: Column(
+                       children: <Widget>[
+
+                         Container(
+                           padding: EdgeInsets.all(10),
+                           decoration: BoxDecoration(
+                               borderRadius: BorderRadius.circular(15),
+                               border: Border.all(
+                                   color: Colors.black,
+                                   width: 2
+                               )
+                           ),
+                           child: TextFormField(
+                             controller: hospitalNameController,
+                             validator:  (val) {
+                               if (val!.isEmpty) {
+                                 return "Enter Hospital Name ";
+                               }
+                             },
+                             style: TextStyle(color: Colors.black),
+                             decoration: InputDecoration(
+
+                                 hintText: "Hospital Name",
+                                 suffixIcon: Icon(Icons.local_hospital,color: ColorConstants.appbarcolor,),
+                                 hintStyle: TextStyle(color: Colors.black),
+                                 border: InputBorder.none
+                             ),
+                           ),
+                         ),
+                         SizedBox(
+                           height: 7,
+                         ),
+                         Container(
+
+                           padding: EdgeInsets.all(10),
+
+                           decoration: BoxDecoration(
+                               borderRadius: BorderRadius.circular(15),
+                               border: Border.all(
+                                   color: Colors.black,
+                                   width: 2
+                               )
+                           ),
+
+                           child: TextFormField(
+                             controller: emailController,
+                             validator:  (val) {
+                               if (val!.isEmpty ||
+                                   RegExp(r"\s").hasMatch(val)) {
+                                 return "Enter email ";
+                               }
+                             },
+                             style: TextStyle(color: Colors.black),
+                             decoration: InputDecoration(
+                                 suffixIcon: Icon(Icons.email,color:ColorConstants.appbarcolor,),
+                                 hintText: "Email",
+                                 hintStyle: TextStyle(color: Colors.black),
+                                 border: InputBorder.none
+                             ),
+                           ),
+                         ),SizedBox(
+                           height: 7,
+                         ),
+                         Container(
+
+                           padding: EdgeInsets.all(10),
+                           decoration: BoxDecoration(
+                               borderRadius: BorderRadius.circular(15),
+                               border: Border.all(
+                                   color: Colors.black,
+                                   width: 2
+                               )
+                           ),
+                           child: TextFormField(
+                             controller: passwordController,
+                             obscureText: !_passwordVisible,
+                             validator:  (val) {
+                               if (val!.isEmpty ||
+                                   RegExp(r"\s").hasMatch(val)) {
+                                 return "Enter password ";
+                               }
+                             },
+                             style: TextStyle(color: Colors.black),
+                             decoration: InputDecoration(
+                                 suffixIcon: IconButton(onPressed: (){
+                                   setState(() {
+                                     _passwordVisible = !_passwordVisible;
+                                   });
+                                 },
+                                   icon: Icon(
+                                     // Based on passwordVisible state choose the icon
+                                     _passwordVisible
+                                         ? Icons.visibility
+                                         : Icons.visibility_off,
+                                     color: ColorConstants.appbarcolor,
+                                   ),),
+                                 hintText: "Password",
+                                 hintStyle: TextStyle(color: Colors.black),
+                                 border: InputBorder.none
+                             ),
+                           ),
+                         ),
+                         SizedBox(height: 7,),
+                         Container(
+
+                           padding: EdgeInsets.all(10),
+                           decoration: BoxDecoration(
+                               borderRadius: BorderRadius.circular(15),
+                               border: Border.all(
+                                   color: Colors.black,
+                                   width: 2
+                               )
+                           ),
+                           child: TextFormField(
+                             controller: addressController,
+
+                             validator:  (val) {
+                               if (val!.isEmpty) {
+                                 return "Enter address ";
+                               }
+                             },
+                             style: TextStyle(color: Colors.black),
+                             decoration: InputDecoration(
+                                 suffixIcon: Icon(Icons.location_on,color: ColorConstants.appbarcolor,),
+                                 hintText: "Address",
+                                 hintStyle: TextStyle(color: Colors.black),
+                                 border: InputBorder.none
+                             ),
+                           ),
+                         ),
+                         SizedBox(height: 7,),
+                         Container(
+                           padding: EdgeInsets.all(10),
+                           decoration: BoxDecoration(
+                               borderRadius: BorderRadius.circular(15),
+                               border: Border.all(
+                                   color: Colors.black,
+                                   width: 2
+                               )
+                           ),
+                           child: TextFormField(
+                             controller: phoneNoController,
+                             validator:  (val) {
+                               if (val!.isEmpty ||
+                                   RegExp(r"\s").hasMatch(val)) {
+                                 return "Enter Phone No ";
+                               }
+                             },
+                             style: TextStyle(color: Colors.black),
+                             decoration: InputDecoration(
+                                 suffixIcon: Icon(Icons.phone,color: ColorConstants.appbarcolor,),
+                                 hintText: "PHONE_NO",
+                                 hintStyle: TextStyle(color: Colors.black),
+                                 border: InputBorder.none
+                             ),
+                           ),
+                         ),
+                         SizedBox(
+                           height:20 ,
+                         ),
+                         SingleChildScrollView(
+                           scrollDirection: Axis.horizontal,
+                           child: Row(
+                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                             children: [
+
+                               Text("Upload Hospital Photo",style: TextStyle(fontSize: 10,color: Colors.black),),
+                               SizedBox(
+                                 width: 10,
+                               ),
+                               TextButton(onPressed: _getImage, child: Text("Upload Photo",style: TextStyle(fontSize: 20),),style: ButtonStyle(
+                                   backgroundColor: MaterialStateProperty.all(Colors.grey.shade200),
+
+                                   elevation: MaterialStateProperty.all(15),
+                                   shape: MaterialStateProperty.all(
+
+                                       RoundedRectangleBorder(
+                                           side: BorderSide.none,
+                                           borderRadius: BorderRadius.circular(20)
+                                       )
+                                   )
+                               ),
+                               )
+                             ],
+                           ),
+                         ),
+
+                       ],
+                     ),
                    ),
-                   style: TextStyle(color: Colors.black),
                  ),
-                 SizedBox(
-                   height: 20,
-                 ),
-                 TextFormField(
-                   controller: addressController,
-                   decoration: InputDecoration(
 
-                     border: OutlineInputBorder(borderRadius: BorderRadius.circular(15),borderSide: BorderSide.none),
-                     hintText:"address",
+                 SizedBox(height: 20,),
+                 FadeInUp(duration: Duration(milliseconds: 1600), child: MaterialButton(
+                   onPressed: _submit,
+                   height: 50,
+                   // margin: EdgeInsets.symmetric(horizontal: 50),
+                   color:ColorConstants.appbarcolor,
+                   shape: RoundedRectangleBorder(
+                     borderRadius: BorderRadius.circular(50),
+
                    ),
-                   style: TextStyle(color: Colors.black),
-                 ),
-                 SizedBox(
-                   height: 20,
-                 ),
-
-                 TextFormField(
-                   obscureText: !_passwordVisible,
-                   controller: passwordController,
-                   decoration: InputDecoration(
-                 suffixIcon:    IconButton(onPressed: (){
-                 setState(() {
-                 _passwordVisible = !_passwordVisible;
-                 });
-                 },
-                 icon: Icon(
-                 // Based on passwordVisible state choose the icon
-                 _passwordVisible
-                 ? Icons.visibility
-                     : Icons.visibility_off,
-                 color: Theme.of(context).primaryColorDark,
-                 ),),
-
-                 border: OutlineInputBorder(borderRadius: BorderRadius.circular(15),borderSide: BorderSide.none),
-                     hintText:"password",
+                   // decoration: BoxDecoration(
+                   // ),
+                   child: Center(
+                     child: Text("Update", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),),
                    ),
-                   style: TextStyle(color: Colors.black),
-                 ),
-
-                 SizedBox(
-                   height: 20,
-                 ),
-                 TextFormField(
-                   controller: phoneNoController,
-                   decoration: InputDecoration(
-
-                     border: OutlineInputBorder(borderRadius: BorderRadius.circular(15),borderSide: BorderSide.none),
-                     hintText:"phone",
-                   ),
-                   style: TextStyle(color: Colors.black),
-                 ),
-               SizedBox(
-                 height: 20,
-               ),
-               Row(
-                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                 children: [
-
-                   Text("Upload Hospital Photo",style: TextStyle(fontSize: 20),),
-                   TextButton(onPressed: _getImage, child: Text("Upload Photo",style: TextStyle(fontSize: 20),),style: ButtonStyle(
-                     backgroundColor: MaterialStateProperty.all(Colors.grey.shade200),
-
-                     elevation: MaterialStateProperty.all(15),
-                     shape: MaterialStateProperty.all(
-
-                      RoundedRectangleBorder(
-                        side: BorderSide.none,
-                        borderRadius: BorderRadius.circular(20)
-                      )
-                     )
-                   ),
-                   )
-                 ],
-               ),
-                 SizedBox(
-                   height: 30,
-                 ),
-              SingleChildScrollView(
-                scrollDirection: Axis.horizontal,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
+                 )),
 
 
-                    TextButton(onPressed: _submit,
-                    child: Text("Edit",style: TextStyle(color:Colors.white,fontSize: 25),),style: ButtonStyle(
-                        backgroundColor: MaterialStateProperty.all(Colors.blueAccent),
 
-                        elevation: MaterialStateProperty.all(15),
-                        shape: MaterialStateProperty.all(
-
-                            RoundedRectangleBorder(
-                                side: BorderSide.none,
-                                borderRadius: BorderRadius.circular(20)
-                            )
-                        )
-                    ),
-                    ),
-                  ],
-                ),
-              )]
+               ],
              ),
            ),
           ),
@@ -301,14 +444,63 @@ class profilescreen extends State<p>{
         });
         uploadImageMedia(_image!);
       }else{
-        Fluttertoast.showToast(
-            msg: "Please select image",
-            toastLength: Toast.LENGTH_LONG,
-            gravity: ToastGravity.BOTTOM,
-            timeInSecForIosWeb: 2
-        );
+        _upate();
       }
 
+    }
+
+  }
+
+  Future<void> _upate() async {
+    var logindata;
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    final form = formKey.currentState;
+    if (form!.validate()) {
+      setState(() {
+        _isLoading = true;
+      });
+      final login_url = Uri.parse(
+          "https://e-healthhub.000webhostapp.com/API/hospitalupdate.php");
+      final response = await http
+          .post(login_url, body: {
+        "H_ID": prefs.getString('id'),
+        "D_NAME": "Mrs.Doctor",
+        "H_NAME": hospitalNameController.text,
+        "EMAIL_ID": emailController.text,
+        "PASSWORD": passwordController.text,
+        "PHONE_NO": phoneNoController.text,
+        "ADDRESS": addressController.text,
+      });
+      if (response.statusCode == 200) {
+        print(response.body);
+        logindata = jsonDecode(response.body);
+        setState(() {
+          _isLoading = false;
+        });
+        if (logindata['error'] == false) {
+          Fluttertoast.showToast(
+              msg: logindata['message'].toString(),
+              toastLength: Toast.LENGTH_LONG,
+              gravity: ToastGravity.BOTTOM,
+              timeInSecForIosWeb: 2
+          );
+          prefs.setString('name', hospitalNameController.text);
+          prefs.setString('email', emailController.text);
+          prefs.setString('phone', phoneNoController.text);
+          prefs.setString('password', passwordController.text);
+          prefs.setString('address', addressController.text);
+
+          Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder:
+              (BuildContext context) => h_firstpage()), (Route<dynamic> route) => false);
+        }else{
+          Fluttertoast.showToast(
+              msg: logindata['message'].toString(),
+              toastLength: Toast.LENGTH_LONG,
+              gravity: ToastGravity.BOTTOM,
+              timeInSecForIosWeb: 2
+          );
+        }
+      }
     }
 
   }

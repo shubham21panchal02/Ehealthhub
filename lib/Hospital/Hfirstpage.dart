@@ -1,6 +1,7 @@
-
 import 'package:carousel_slider/carousel_controller.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:devloperproject1/Hospital/AddSlotsPage.dart';
+import 'package:devloperproject1/Hospital/SloatListPage.dart';
 
 import 'package:devloperproject1/Hospital/p.dart';
 import 'package:devloperproject1/Hospital/sloat.dart';
@@ -34,11 +35,22 @@ class hopital extends State<h_firstpage> {
   String userName = "User";
   final _advancedDrawerController = AdvancedDrawerController();
 
+  void initState() {
+    super.initState();
+    getData();
+  }
+
+  Future<void> getData() async {
+    SharedPreferences setpreference = await SharedPreferences.getInstance();
+    setState(() {
+      userName = setpreference.getString('name')!;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
     return Scaffold(
-
         appBar: AppBar(
           backgroundColor: ColorConstants.appbarcolor,
           title: Center(
@@ -74,21 +86,21 @@ class hopital extends State<h_firstpage> {
           child: Column(
             children: [
               Stack(
+                alignment: Alignment.center,
                 children: [
                   Container(
                     color: ColorConstants.appbarcolor,
                     height: 300,
                   ),
-                  Padding(
-                    padding: const EdgeInsets.all(30),
+                  CircleAvatar(
+                    backgroundColor: Colors.white,
+                    foregroundColor: Colors.white,
+                    radius: 70,
                     child: Center(
-                      child: CircleAvatar(
-                        child: ClipRRect(),
-                        radius: 80,
-                        backgroundImage: AssetImage(
-                          "assets"
-                          "/image/th.jpg",
-                        ),
+                      child: Text(
+                        userName[0].toUpperCase(),
+                        style: TextStyle(
+                            fontSize: 50, color: ColorConstants.appbarcolor),
                       ),
                     ),
                   ),
@@ -97,9 +109,9 @@ class hopital extends State<h_firstpage> {
                     child: Align(
                       alignment: Alignment.center,
                       child: Text(
-                        "Apollo Hospital",
+                        userName,
                         style: TextStyle(
-                            color: Colors.black,
+                            color: Colors.white,
                             fontSize: 25,
                             fontWeight: FontWeight.bold),
                       ),
@@ -134,7 +146,7 @@ class hopital extends State<h_firstpage> {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (context) => feed(),
+                                builder: (context) => Adetailpage(),
                               ));
                         },
                         child: Container(
@@ -145,17 +157,20 @@ class hopital extends State<h_firstpage> {
                             shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(10)),
                             child: ListTile(
-                              title: Text("Feedback"),
+                              title: Text("Appointment"),
                               trailing: Icon(Icons.feedback_outlined),
                             ),
                           ),
                         ),
                       ),
                       InkWell(
-                      onTap: (){
-                        Navigator.push(context, MaterialPageRoute(builder: (context) => BookingPage(),));
-                      },
-
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => SlotListPage(),
+                              ));
+                        },
                         child: Container(
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(10)),
@@ -176,11 +191,13 @@ class hopital extends State<h_firstpage> {
               ),
               Expanded(child: SizedBox()),
               InkWell(
-                onTap: () async{
+                onTap: () async {
                   final pref = await SharedPreferences.getInstance();
                   await pref.clear();
                   await pref.setBool('seen', true);
-                  Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) => Loginpage()), (route) => false);
+                  Navigator.of(context).pushAndRemoveUntil(
+                      MaterialPageRoute(builder: (context) => Loginpage()),
+                      (route) => false);
                 },
                 child: Container(
                   decoration: BoxDecoration(),
@@ -188,8 +205,14 @@ class hopital extends State<h_firstpage> {
                     color: ColorConstants.appbarcolor,
                     elevation: 1,
                     child: ListTile(
-                      title: Text("Log Out"),
-                      trailing: Icon(Icons.logout),
+                      title: Text(
+                        "Log Out",
+                        style: TextStyle(color: Colors.white),
+                      ),
+                      trailing: Icon(
+                        Icons.logout,
+                        color: Colors.white,
+                      ),
                     ),
                   ),
                 ),
@@ -267,45 +290,47 @@ class hopital extends State<h_firstpage> {
             SizedBox(
               height: 1,
             ),
-
-
-                  InkWell(
-                    onTap: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => Adetailpage(),
-                          ));
-                    },
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Card(
-
-                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-                        elevation: 5,
-                        shadowColor: Colors.black,
-                        surfaceTintColor: Colors.black,
-                        clipBehavior: Clip.antiAlias,
-                        child: Column(
-                          children: [
-                            Image.asset(
-                              'assets/image/Firstpage.jpg',
-                              height: 300,
-                              width: double.infinity,
-                              fit: BoxFit.cover,
-                            ),
-                         SizedBox(
-                           height: 10,
-                         ),
-                            Text('Appointment Detail',style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold),),
-                            SizedBox(
-                              height: 10,
-                            ),
-                          ],
-                        ),
+            InkWell(
+              onTap: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => Adetailpage(),
+                    ));
+              },
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Card(
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20)),
+                  elevation: 5,
+                  shadowColor: Colors.black,
+                  surfaceTintColor: Colors.black,
+                  clipBehavior: Clip.antiAlias,
+                  child: Column(
+                    children: [
+                      Image.asset(
+                        'assets/image/Firstpage.jpg',
+                        height: 300,
+                        width: double.infinity,
+                        fit: BoxFit.cover,
                       ),
-                    ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      Text(
+                        'Appointment Detail',
+                        style: TextStyle(
+                            fontSize: 20, fontWeight: FontWeight.bold),
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                    ],
                   ),
+                ),
+              ),
+            ),
             SizedBox(
               height: 1,
             ),
@@ -320,8 +345,8 @@ class hopital extends State<h_firstpage> {
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Card(
-
-                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20)),
                   elevation: 5,
                   shadowColor: Colors.black,
                   surfaceTintColor: Colors.black,
@@ -337,7 +362,11 @@ class hopital extends State<h_firstpage> {
                       SizedBox(
                         height: 10,
                       ),
-                      Text('Sloats Detail',style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold),),
+                      Text(
+                        'Sloats Detail',
+                        style: TextStyle(
+                            fontSize: 20, fontWeight: FontWeight.bold),
+                      ),
                       SizedBox(
                         height: 10,
                       ),
@@ -346,10 +375,6 @@ class hopital extends State<h_firstpage> {
                 ),
               ),
             ),
-
-
-
-
           ]),
         ));
   }

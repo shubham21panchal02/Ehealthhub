@@ -23,7 +23,6 @@ class Rpage extends StatefulWidget {
 }
 class Loginstate extends State<Rpage> {
 
-  TextEditingController doctorNameController = TextEditingController();
   TextEditingController hospitalNameController = TextEditingController();
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
