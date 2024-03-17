@@ -248,8 +248,14 @@ class Loginpage extends StatefulWidget {
                    Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (BuildContext context) =>
                        h_firstpage()), (Route<dynamic> route) => false);
                }
-             }
-
+             }else {
+             Fluttertoast.showToast(
+                 msg: logindata['message'].toString(),
+                 toastLength: Toast.LENGTH_LONG,
+                 gravity: ToastGravity.BOTTOM,
+                 timeInSecForIosWeb: 2
+             );
+           }
                } else {
                  Fluttertoast.showToast(
                      msg: logindata['message'].toString(),
