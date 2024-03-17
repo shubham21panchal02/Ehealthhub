@@ -290,91 +290,91 @@ class hopital extends State<h_firstpage> {
             SizedBox(
               height: 1,
             ),
-            // InkWell(
-            //   onTap: () {
-            //     Navigator.push(
-            //         context,
-            //         MaterialPageRoute(
-            //           builder: (context) => Adetailpage(),
-            //         ));
-            //   },
-            //   child: Padding(
-            //     padding: const EdgeInsets.all(8.0),
-            //     child: Card(
-            //       shape: RoundedRectangleBorder(
-            //           borderRadius: BorderRadius.circular(20)),
-            //       elevation: 5,
-            //       shadowColor: Colors.black,
-            //       surfaceTintColor: Colors.black,
-            //       clipBehavior: Clip.antiAlias,
-            //       child: Column(
-            //         children: [
-            //           Image.asset(
-            //             'assets/image/Firstpage.jpg',
-            //             height: 300,
-            //             width: double.infinity,
-            //             fit: BoxFit.cover,
-            //           ),
-            //           SizedBox(
-            //             height: 10,
-            //           ),
-            //           Text(
-            //             'Appointment Detail',
-            //             style: TextStyle(
-            //                 fontSize: 20, fontWeight: FontWeight.bold),
-            //           ),
-            //           SizedBox(
-            //             height: 10,
-            //           ),
-            //         ],
-            //       ),
-            //     ),
-            //   ),
-            // ),
-            // SizedBox(
-            //   height: 1,
-            // ),
-            // InkWell(
-            //   onTap: () {
-            //     Navigator.push(
-            //         context,
-            //         MaterialPageRoute(
-            //           builder: (context) => BookingPage(),
-            //         ));
-            //   },
-            //   child: Padding(
-            //     padding: const EdgeInsets.all(8.0),
-            //     child: Card(
-            //       shape: RoundedRectangleBorder(
-            //           borderRadius: BorderRadius.circular(20)),
-            //       elevation: 5,
-            //       shadowColor: Colors.black,
-            //       surfaceTintColor: Colors.black,
-            //       clipBehavior: Clip.antiAlias,
-            //       child: Column(
-            //         children: [
-            //           Image.asset(
-            //             'assets/image/p12.jpg',
-            //             height: 300,
-            //             width: double.infinity,
-            //             fit: BoxFit.cover,
-            //           ),
-            //           SizedBox(
-            //             height: 10,
-            //           ),
-            //           Text(
-            //             'Sloats Detail',
-            //             style: TextStyle(
-            //                 fontSize: 20, fontWeight: FontWeight.bold),
-            //           ),
-            //           SizedBox(
-            //             height: 10,
-            //           ),
-            //         ],
-            //       ),
-            //     ),
-            //   ),
-            // ),
+            InkWell(
+              onTap: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => Adetailpage(),
+                    ));
+              },
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Card(
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20)),
+                  elevation: 5,
+                  shadowColor: Colors.black,
+                  surfaceTintColor: Colors.black,
+                  clipBehavior: Clip.antiAlias,
+                  child: Column(
+                    children: [
+                      Image.asset(
+                        'assets/image/Firstpage.jpg',
+                        height: 300,
+                        width: double.infinity,
+                        fit: BoxFit.cover,
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      Text(
+                        'Appointment Detail',
+                        style: TextStyle(
+                            fontSize: 20, fontWeight: FontWeight.bold),
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+            SizedBox(
+              height: 1,
+            ),
+            InkWell(
+              onTap: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => BookingPage(),
+                    ));
+              },
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Card(
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20)),
+                  elevation: 5,
+                  shadowColor: Colors.black,
+                  surfaceTintColor: Colors.black,
+                  clipBehavior: Clip.antiAlias,
+                  child: Column(
+                    children: [
+                      Image.asset(
+                        'assets/image/p12.jpg',
+                        height: 300,
+                        width: double.infinity,
+                        fit: BoxFit.cover,
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      Text(
+                        'Sloats Detail',
+                        style: TextStyle(
+                            fontSize: 20, fontWeight: FontWeight.bold),
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
           ]),
         ));
   }
