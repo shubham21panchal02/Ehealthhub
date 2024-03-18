@@ -9,6 +9,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_advanced_drawer/flutter_advanced_drawer.dart';
 import 'package:lottie/lottie.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Afristpage extends StatefulWidget{
   @override
@@ -49,13 +50,14 @@ class Afristpagestate extends State<Afristpage>{
                      alignment: Alignment.center,),backgroundColor: Colors.white,),
                   ),
                   Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text("Name:"+ " admin",style:TextStyle(fontSize: 20,color: Colors.white,)),
-                      SizedBox(height: 20,),
-                      Text("Email:"+ " admin2024@gmail.com",style:TextStyle(fontSize: 20,color: Colors.white)),
-                    ],
-                  ),
+                      crossAxisAlignment: CrossAxisAlignment.start,
+
+                      children: [
+                        Text("Name:"+ " admin",style:TextStyle(fontSize: 15,color: Colors.white,)),
+                        SizedBox(height: 20,),
+                        Text("Email:admin2024@gmail.com",style:TextStyle(fontSize: 15,color: Colors.white)),
+                      ],
+                    ),
 
                   Divider(height: 90, color: Colors.black),
 
@@ -81,8 +83,16 @@ class Afristpagestate extends State<Afristpage>{
                     title: Text('Manage Feedback'),
                   ),
                   ListTile(
-                    onTap: () {
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => Loginpage(),));
+                    onTap:() async {
+                      final pref = await SharedPreferences.getInstance();
+                      await pref.clear();
+                      await pref.setBool('seen', true);
+                      Navigator.of(context).pushAndRemoveUntil(
+                        MaterialPageRoute(
+                          builder: (BuildContext context) => Loginpage(),
+                        ),
+                            (Route<dynamic> route) => false,
+                      );
                     },
                     leading: Icon(Icons.logout),
                     title: Text('Log Out'),
