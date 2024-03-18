@@ -97,7 +97,7 @@ class hopital extends State<h_firstpage> {
                     foregroundColor: Colors.white,
                     radius: 70,
                     child: Center(
-                      child: Text(
+                      child:  Text(
                         userName[0].toUpperCase(),
                         style: TextStyle(
                             fontSize: 50, color: ColorConstants.appbarcolor),
