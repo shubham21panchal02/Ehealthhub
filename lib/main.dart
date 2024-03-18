@@ -1,4 +1,5 @@
 
+import 'package:devloperproject1/Admin/Afristpage.dart';
 import 'package:devloperproject1/Splash.dart';
 import 'package:flutter/material.dart';
 
@@ -7,6 +8,6 @@ import 'package:flutter/material.dart';
 void main() {
   runApp(Material(child:MaterialApp(
     debugShowCheckedModeBanner: false,
-    home:SplashScreen(),
+    home:Afristpage(),
   )));
 }

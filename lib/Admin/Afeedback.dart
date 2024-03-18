@@ -53,7 +53,7 @@ class Afeedbackstate extends State<Afeedback>{
     // TODO: implement build
     return Scaffold(backgroundColor:Colors.white,
       appBar: AppBar(backgroundColor: ColorConstants.appbarcolor,centerTitle: true,title: Text("Feedback"),),
-      body: Column(
+      body: isLoading ? Center(child: CircularProgressIndicator(color:  ColorConstants.buttonscolor)) :Column(
         children: [
           SizedBox(height:20),
 
