@@ -339,7 +339,7 @@ class hopital extends State<h_firstpage> {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => BookingPage(),
+                      builder: (context) => SlotListPage(),
                     ));
               },
               child: Padding(
