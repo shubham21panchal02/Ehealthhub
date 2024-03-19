@@ -84,8 +84,8 @@ class Ausersstate extends State<Ausers>{
                               ],),
                               SizedBox(height: 20,),
                               Row(children: [
-                                Text("Users Password :",style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold),),
-                                Expanded(child: Text(jsonDecode(data!)["data"][index]["PASSWORD"],style: TextStyle(fontSize: 20),),),
+                                Text("Users Address :",style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold),),
+                                Expanded(child: Text(jsonDecode(data!)["data"][index]["ADDRESS"],style: TextStyle(fontSize: 20),),),
                               ],),
                               SizedBox(height: 21,),
 

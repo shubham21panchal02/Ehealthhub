@@ -8,6 +8,6 @@ import 'package:flutter/material.dart';
 void main() {
   runApp(Material(child:MaterialApp(
     debugShowCheckedModeBanner: false,
-    home:Afristpage(),
+    home:SplashScreen(),
   )));
 }
