@@ -5,6 +5,7 @@ import 'package:devloperproject1/Widgets/Colour.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 
@@ -65,7 +66,8 @@ class Forthpage extends State<Uforthpage> {
         appBar: AppBar(backgroundColor: ColorConstants.appbarcolor,
       title: Text("Appointment",),
     ),
-      body: isLoading ? Center(child: CircularProgressIndicator(color:  ColorConstants.buttonscolor)) :
+      body:  isLoading ? Center(child: LoadingAnimationWidget.discreteCircle(color: ColorConstants.drawercolor, size: 30)
+      ):
       hospitaldata.length == 0?
           Center(child: Text('No appointment', style:TextStyle(
               fontWeight: FontWeight.bold,

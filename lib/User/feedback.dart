@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
@@ -31,7 +32,8 @@ class _AddFeedbackPageState extends State<AddFeedbackPage> {
       appBar: AppBar(backgroundColor: ColorConstants.appbarcolor,
         title: Text("Add Feedback",),
       ),
-      body: isLoading ? Center(child: CircularProgressIndicator(color:  ColorConstants.buttonscolor)) : SingleChildScrollView(
+      body:  isLoading ? Center(child: LoadingAnimationWidget.discreteCircle(color: ColorConstants.drawercolor, size: 30)
+      ): SingleChildScrollView(
         child: Form(
           key: formKey,
           child: Column(

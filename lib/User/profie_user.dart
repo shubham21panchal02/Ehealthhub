@@ -5,6 +5,7 @@ import 'package:devloperproject1/User/Firstpage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:lottie/lottie.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
@@ -61,7 +62,8 @@ class p extends State<user_profile> {
       appBar: AppBar(backgroundColor: ColorConstants.appbarcolor,
         title: Text("Edit Profile",),
       ),
-      body:isLoading ? Center(child: CircularProgressIndicator(color:  ColorConstants.buttonscolor)) : SingleChildScrollView(
+      body: isLoading ? Center(child: LoadingAnimationWidget.discreteCircle(color: ColorConstants.drawercolor, size: 30)
+      ): SingleChildScrollView(
         scrollDirection: Axis.vertical,
         child: Container(
           decoration: BoxDecoration(

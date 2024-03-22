@@ -11,6 +11,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_advanced_drawer/flutter_advanced_drawer.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 
@@ -70,7 +71,9 @@ class Home extends State<Ufirstpage> {
 
   @override
   Widget build(BuildContext context) {
-    return isLoading ? Center(child: CircularProgressIndicator(color:  ColorConstants.buttonscolor)) :
+    return isLoading ? Center(child: LoadingAnimationWidget.discreteCircle(color: ColorConstants.drawercolor, size: 30)
+    ):
+
     AdvancedDrawer(
       backdrop: Container(
         width: double.infinity,

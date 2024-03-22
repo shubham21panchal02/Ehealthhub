@@ -59,7 +59,8 @@ class Ahospitalstate extends State{
       appBar: AppBar(leading: IconButton(icon:Icon(Icons.arrow_back_ios_new),onPressed: (){
         Navigator.push(context, MaterialPageRoute(builder: (context) => Afristpage(),),);
       },),backgroundColor: ColorConstants.appbarcolor,centerTitle: true,title: Text("Hospital"),),
-      body:  isLoading ? Center(child: CircularProgressIndicator(color:  ColorConstants.buttonscolor)) :Column(
+      body:  isLoading ? Center(child: CircularProgressIndicator(color:  ColorConstants.buttonscolor)) :
+      Column(
         children: [
 
           Expanded(

@@ -6,6 +6,7 @@ import 'package:devloperproject1/User/Services.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 import '../Widgets/Colour.dart';
 
 class USecondpage extends StatefulWidget {
@@ -54,7 +55,8 @@ class Second extends State<USecondpage> {
         backgroundColor: ColorConstants.appbarcolor,
         title: Text('Hospitals'),
       ),
-      body: isLoading ? Center(child: CircularProgressIndicator(color:  ColorConstants.buttonscolor)) : SingleChildScrollView(
+      body: isLoading ? Center(child: LoadingAnimationWidget.discreteCircle(color: ColorConstants.drawercolor, size: 30)
+      ): SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [

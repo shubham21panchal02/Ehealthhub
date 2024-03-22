@@ -5,6 +5,7 @@ import 'package:devloperproject1/User/Thiredpage.dart';
 import 'package:devloperproject1/Widgets/Colour.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 
 class Servicespage extends StatefulWidget {
@@ -61,7 +62,8 @@ class Service extends State<Servicespage> {
           backgroundColor: ColorConstants.appbarcolor,
           title: Text("Services"),
         ),
-        body: isLoading ? Center(child: CircularProgressIndicator(color:  ColorConstants.buttonscolor)) : SingleChildScrollView(
+        body:  isLoading ? Center(child: LoadingAnimationWidget.discreteCircle(color: ColorConstants.drawercolor, size: 30)
+        ): SingleChildScrollView(
             child: Column(
             children: [
             ListView.builder(

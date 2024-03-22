@@ -11,6 +11,7 @@ import 'package:flutter/material.dart';
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 
@@ -38,7 +39,8 @@ class Loginpage extends StatefulWidget {
   Widget build(BuildContext context) {
     // TODO: implement build
     return Scaffold(
-      body:isLoading ? Center(child: CircularProgressIndicator(color:  ColorConstants.buttonscolor)) :
+      body: isLoading ? Center(child: LoadingAnimationWidget.discreteCircle(color: ColorConstants.drawercolor, size: 30)
+      ):
       SingleChildScrollView(
         physics: AlwaysScrollableScrollPhysics(),
         scrollDirection: Axis.vertical,
