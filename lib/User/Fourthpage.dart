@@ -33,7 +33,7 @@ class Forthpage extends State<Uforthpage> {
       userEmail = setpreference.getString('email')!;
     });
     http.Response response = await http.post(
-      Uri.parse("https://e-healthhub.000webhostapp.com/API/fetch_user_appointment.php"),
+      Uri.parse("https://ehealthub.000webhostapp.com/API/fetch_user_appointment.php"),
       body: {
         "U_ID": setpreference.getString('id'),
       }
@@ -218,7 +218,7 @@ class Forthpage extends State<Uforthpage> {
       isLoading = true;
     });
     final login_url = Uri.parse(
-        "https://e-healthhub.000webhostapp.com/API/updateslotstatus.php");
+        "https://ehealthub.000webhostapp.com/API/updateslotstatus.php");
     final response = await http
         .post(login_url, body: {
       "A_ID": id,

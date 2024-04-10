@@ -539,11 +539,12 @@ class Thiredpage extends State<Uthiredpage> {
     var logindata;
     var data;
     final login_url = Uri.parse(
-        "https://e-healthhub.000webhostapp.com/API/add_appointment.php");
+        "https://ehealthub.000webhostapp.com/API/add_appointment.php");
     final response = await http
         .post(login_url, body: {
       "U_ID": setpreference.getString('id'),
       "S_ID": timeSlotId,
+      "DATETIME": bodController.text,
       "STATUS": "1",
     });
     if (response.statusCode == 200) {
@@ -599,7 +600,7 @@ class Thiredpage extends State<Uthiredpage> {
     SharedPreferences prefs = await SharedPreferences.getInstance();
 
     final login_url =
-    Uri.parse("https://e-healthhub.000webhostapp.com/API/schedule_fetch.php");
+    Uri.parse("https://ehealthub.000webhostapp.com/API/schedule_fetch.php");
     final response = await http.post(login_url, body: {
       "H_ID": widget.hospitalId,
       "S_DATE": bodController.text,

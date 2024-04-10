@@ -355,7 +355,7 @@ class p extends State<user_profile> {
         isLoading = true;
       });
       final login_url = Uri.parse(
-          "https://e-healthhub.000webhostapp.com/API/userupdate.php");
+          "https://ehealthub.000webhostapp.com/API/userupdate.php");
       final response = await http
           .post(login_url, body: {
         "U_ID": setpreference.getString('id'),

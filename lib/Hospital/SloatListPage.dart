@@ -38,7 +38,7 @@ class ad extends State<SlotListPage> with TickerProviderStateMixin {
       isLoading = true;
     });
     http.Response response = await http.post(
-        Uri.parse("https://e-healthhub.000webhostapp.com/API/schedule_fetch.php"),
+        Uri.parse("https://ehealthub.000webhostapp.com/API/schedule_fetch.php"),
         body: {
           "H_ID": setpreference.getString('id'),
           "S_DATE": selectDateController.text,
@@ -329,7 +329,7 @@ class ad extends State<SlotListPage> with TickerProviderStateMixin {
       isLoading = true;
     });
     final login_url = Uri.parse(
-        "https://e-healthhub.000webhostapp.com/API/updateslotstatus.php");
+        "https://ehealthub.000webhostapp.com/API/updateslotstatus.php");
     final response = await http
         .post(login_url, body: {
       "A_ID": id,

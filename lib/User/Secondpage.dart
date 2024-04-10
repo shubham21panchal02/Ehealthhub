@@ -33,7 +33,7 @@ class Second extends State<USecondpage> {
     });
     http.Response response =
     await http.get(
-      Uri.parse("https://e-healthhub.000webhostapp.com/API/h_fetchapi1.php"),);
+      Uri.parse("https://ehealthub.000webhostapp.com/API/h_fetchapi1.php"),);
     if (response.statusCode == 200) {
       setState(() {
         data = response.body;
@@ -82,7 +82,7 @@ class Second extends State<USecondpage> {
                             topLeft: Radius.circular(15)),
                         child: Image(
                           image: NetworkImage(
-                              "https://e-healthhub.000webhostapp.com/API/" + jsonDecode(data)["data"][index]["H_IMG"]),
+                              "https://ehealthub.000webhostapp.com/API/" + jsonDecode(data)["data"][index]["H_IMG"]),
                         ),
                       ),
                       Padding(
@@ -152,7 +152,7 @@ class Second extends State<USecondpage> {
                                               builder: (context) =>
                                                   Servicespage(hospitalAddress: jsonDecode(data!)["data"][index]["ADDRESS"] ,
                                                       hospitalId:jsonDecode(data!)["data"][index]["H_ID"] ,
-                                                      hospitalImage:"https://e-healthhub.000webhostapp.com/API/" + jsonDecode(data!)["data"][index]["H_IMG"] ,
+                                                      hospitalImage:"https://ehealthub.000webhostapp.com/API/" + jsonDecode(data!)["data"][index]["H_IMG"] ,
                                                       hospitalName:jsonDecode(data!)["data"][index]["H_NAME"]
                                             )));
                                       },

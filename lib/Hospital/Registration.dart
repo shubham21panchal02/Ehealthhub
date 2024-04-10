@@ -50,7 +50,7 @@ class Loginstate extends State<Rpage> {
     final mimeTypeData =
     lookupMimeType(fileImage.path, headerBytes: [0xFF, 0xD8])?.split('/');
     final imageUploadRequest =
-    http.MultipartRequest('POST', Uri.parse("https://e-healthhub.000webhostapp.com/API/hregister.php"));
+    http.MultipartRequest('POST', Uri.parse("https://ehealthub.000webhostapp.com/API/hregistration.php"));
 
     final file = await http.MultipartFile.fromPath('H_IMG', fileImage.path,
         contentType: MediaType(mimeTypeData![0], mimeTypeData[1]));

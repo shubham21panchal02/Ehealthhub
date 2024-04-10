@@ -51,7 +51,7 @@ class _AddSlotPageState extends State<AddSlotPage> {
       'S_DATE': selectDateController.text,
       'S_TIME': selectTimeController.text,
     };
-    var response = await http.post(Uri.parse("https://e-healthhub.000webhostapp.com/API/schedule.php"), body: data);
+    var response = await http.post(Uri.parse("https://ehealthub.000webhostapp.com/API/schedule.php"), body: data);
     commonClass = CommonClass.fromJsonMap(json.decode(response.body.toString()));
     if(response.statusCode == 200) {
       if (!commonClass.error) {

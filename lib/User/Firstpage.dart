@@ -44,7 +44,7 @@ class Home extends State<Ufirstpage> {
       userEmail = setpreference.getString('email')!;
     });
     http.Response response = await http.get(
-      Uri.parse("https://e-healthhub.000webhostapp.com/API/h_fetchapi1.php"),
+      Uri.parse("https://ehealthub.000webhostapp.com/API/h_fetchapi1.php"),
     );
     if (response.statusCode == 200) {
       setState(() {
@@ -273,7 +273,7 @@ class Home extends State<Ufirstpage> {
                             Expanded(
                               child: Image(
                                 image: NetworkImage(
-                                  "https://e-healthhub.000webhostapp.com/API/" +
+                                  "https://ehealthub.000webhostapp.com/API/" +
                                       jsonDecode(data!)["data"][index]["H_IMG"],
                                 ),
                                 fit: BoxFit.cover,

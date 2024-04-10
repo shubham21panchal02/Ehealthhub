@@ -204,7 +204,7 @@ class _BookingPageState extends State<BookingPage> {
 
   Future<void> _submit() async {
     final login_url = Uri.parse(
-        "https://e-healthhub.000webhostapp.com/API/schedule.php");
+        "https://ehealthub.000webhostapp.com/API/schedule.php");
 
     final response = await http
         .post(login_url, body: {

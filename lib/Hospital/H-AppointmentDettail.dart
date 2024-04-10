@@ -38,7 +38,7 @@ class ad extends State<Adetailpage> with TickerProviderStateMixin {
       userEmail = setpreference.getString('email')!;
     });
     http.Response response = await http.post(
-        Uri.parse("https://e-healthhub.000webhostapp.com/API/fetch_hospital_appointment.php"),
+        Uri.parse("https://ehealthub.000webhostapp.com/API/fetch_hospital_appointment.php"),
         body: {
           "H_ID": setpreference.getString('id'),
         }
@@ -296,7 +296,7 @@ class ad extends State<Adetailpage> with TickerProviderStateMixin {
       isLoading = true;
     });
     final login_url = Uri.parse(
-        "https://e-healthhub.000webhostapp.com/API/updateslotstatus.php");
+        "https://ehealthub.000webhostapp.com/API/updateslotstatus.php");
     final response = await http
         .post(login_url, body: {
       "A_ID": id,

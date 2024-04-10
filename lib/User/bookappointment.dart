@@ -43,7 +43,7 @@ class Sloatstate extends State<sloat>{
     });
     http.Response response =
     await http.get(
-      Uri.parse("https://e-healthhub.000webhostapp.com/API/schedule_fetch.php"),);
+      Uri.parse("https://ehealthub.000webhostapp.com/API/schedule_fetch.php"),);
     if (response.statusCode == 200) {
       setState(() {
         data = response.body;

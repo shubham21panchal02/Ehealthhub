@@ -186,7 +186,7 @@ class _AddFeedbackPageState extends State<AddFeedbackPage> {
         isLoading = true;
       });
       final login_url = Uri.parse(
-          "https://e-healthhub.000webhostapp.com/API/addfeedback.php");
+          "https://ehealthub.000webhostapp.com/API/addfeedback.php");
       final response = await http
           .post(login_url, body: {
         "U_ID": prefs.getString('id'),

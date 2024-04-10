@@ -39,7 +39,7 @@ class Service extends State<Servicespage> {
     });
     http.Response response =
     await http.get(
-      Uri.parse("https://e-healthhub.000webhostapp.com/API/servicefetch.php"),);
+      Uri.parse("https://ehealthub.000webhostapp.com/API/servicefetch.php"),);
     if (response.statusCode == 200) {
       setState(() {
         data = response.body;
@@ -95,7 +95,7 @@ class Service extends State<Servicespage> {
                             height: 250,
                             fit: BoxFit.fill,
                             image: NetworkImage(
-                                "https://e-healthhub.000webhostapp.com/API/" + jsonDecode(data)["data"][index]["S_IMG"]),
+                                "https://ehealthub.000webhostapp.com/API/" + jsonDecode(data)["data"][index]["S_IMG"]),
                           ),
                         ),
                         SizedBox(

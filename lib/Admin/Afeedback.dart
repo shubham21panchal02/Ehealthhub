@@ -30,7 +30,7 @@ class Afeedbackstate extends State<Afeedback>{
       isLoading=true;
     });
     http.Response response = await http.get(
-      Uri.parse("https://e-healthhub.000webhostapp.com/API/fetchallfeedback.php"),);
+      Uri.parse("https://ehealthub.000webhostapp.com/API/fetchallfeedback.php"),);
     if (response.statusCode == 200) {
       setState(() {
         data = response.body;

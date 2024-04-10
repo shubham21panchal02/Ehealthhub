@@ -71,7 +71,7 @@ class profilescreen extends State<p>{
     final mimeTypeData =
     lookupMimeType(fileImage.path, headerBytes: [0xFF, 0xD8])?.split('/');
     final imageUploadRequest =
-    http.MultipartRequest('POST', Uri.parse("https://e-healthhub.000webhostapp.com/API/hospitalupdate.php"));
+    http.MultipartRequest('POST', Uri.parse("https://ehealthub.000webhostapp.com/API/hospitalupdate.php"));
 
     final file = await http.MultipartFile.fromPath('H_IMG', fileImage.path,
         contentType: MediaType(mimeTypeData![0], mimeTypeData[1]));
@@ -460,7 +460,7 @@ class profilescreen extends State<p>{
         _isLoading = true;
       });
       final login_url = Uri.parse(
-          "https://e-healthhub.000webhostapp.com/API/hospitalupdate.php");
+          "https://ehealthub.000webhostapp.com/API/hospitalupdate.php");
       final response = await http
           .post(login_url, body: {
         "H_ID": prefs.getString('id'),
