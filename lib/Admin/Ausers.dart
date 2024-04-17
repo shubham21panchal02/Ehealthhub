@@ -32,7 +32,7 @@ class Ausersstate extends State<Ausers>{
     if (response.statusCode == 200) {
       setState(() {
         data = response.body;
-        udata = jsonDecode(data!)["data"];
+        udata = jsonDecode(data!)["users"];
         l=udata?.length;
 
         isLoading = false;
@@ -57,7 +57,9 @@ class Ausersstate extends State<Ausers>{
 
           Expanded(
             child: SingleChildScrollView(
-              child: ListView.builder(shrinkWrap: true,physics: NeverScrollableScrollPhysics(),itemCount: 5,itemBuilder:(BuildContext Context, int index){
+              child: ListView.builder(shrinkWrap: true,
+                  physics: NeverScrollableScrollPhysics(),itemCount: udata!.length,
+                  itemBuilder:(BuildContext Context, int index){
                 return Padding(
                   padding: const EdgeInsets.all(10),
                   child: Card(elevation: 10,shape: RoundedRectangleBorder(
@@ -70,22 +72,22 @@ class Ausersstate extends State<Ausers>{
                             children: [
                               Row(children: [
                                 Text("Users Name :",style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold),),
-                                Text(jsonDecode(data!)["data"][index]["U_NAME"],style: TextStyle(fontSize: 20),),
+                                Text(jsonDecode(data!)["users"][index]["U_NAME"],style: TextStyle(fontSize: 20),),
                               ],),
                               SizedBox(height: 20,),
                               Row(children: [
                                 Text("Users Age :",style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold),),
-                                Expanded(child: Text(jsonDecode(data!)["data"][index]["AGE"],style: TextStyle(fontSize: 20),),),
+                                Expanded(child: Text(jsonDecode(data!)["users"][index]["AGE"],style: TextStyle(fontSize: 20),),),
                               ],),
                               SizedBox(height: 20,),
                               Row(children: [
                                 Text("Users Email :",style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold),),
-                                Expanded(child: Text(jsonDecode(data!)["data"][index]["EMAIL_ID"],style: TextStyle(fontSize: 20),),),
+                                Expanded(child: Text(jsonDecode(data!)["users"][index]["EMAIL_ID"],style: TextStyle(fontSize: 20),),),
                               ],),
                               SizedBox(height: 20,),
                               Row(children: [
                                 Text("Users Address :",style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold),),
-                                Expanded(child: Text(jsonDecode(data!)["data"][index]["ADDRESS"],style: TextStyle(fontSize: 20),),),
+                                Expanded(child: Text(jsonDecode(data!)["users"][index]["ADDRESS"],style: TextStyle(fontSize: 20),),),
                               ],),
                               SizedBox(height: 21,),
 

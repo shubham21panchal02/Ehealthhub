@@ -47,9 +47,10 @@ class Home extends State<Ufirstpage> {
       Uri.parse("https://ehealthub.000webhostapp.com/API/h_fetchapi1.php"),
     );
     if (response.statusCode == 200) {
+      print(response.body);
       setState(() {
         data = response.body;
-        hospitaldata = jsonDecode(data)["data"];
+        hospitaldata = jsonDecode(data)["hospitals"];
         isLoading = false;
       });
     } else {
@@ -274,7 +275,7 @@ class Home extends State<Ufirstpage> {
                               child: Image(
                                 image: NetworkImage(
                                   "https://ehealthub.000webhostapp.com/API/" +
-                                      jsonDecode(data!)["data"][index]["H_IMG"],
+                                      jsonDecode(data!)["hospitals"][index]["H_IMG"].toString(),
                                 ),
                                 fit: BoxFit.cover,
                               ),
@@ -288,7 +289,7 @@ class Home extends State<Ufirstpage> {
                                 children: [
                                   Expanded(
                                     child: Text(
-                                      jsonDecode(data!)["data"][index]
+                                      jsonDecode(data!)["hospitals"][index]
                                       ["H_NAME"],
                                       style: TextStyle(
                                         color: Colors.black,

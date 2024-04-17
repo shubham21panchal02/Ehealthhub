@@ -39,7 +39,7 @@ class Ahospitalstate extends State{
     if (response.statusCode == 200) {
       setState(() {
         data = response.body;
-        hdata = jsonDecode(data!)["data"];
+        hdata = jsonDecode(data!)["hospitals"];
         l=hdata?.length;
 
         isLoading = false;
@@ -80,7 +80,7 @@ class Ahospitalstate extends State{
                               topLeft: Radius.circular(15)),
                           child:Image(
                           image:NetworkImage (
-                    "https://ehealthub.000webhostapp.com/API/" + jsonDecode(data!)["data"][index]["H_IMG"],
+                    "https://ehealthub.000webhostapp.com/API/" + jsonDecode(data!)["hospitals"][index]["H_IMG"].toString(),
                     ),),),
 
                         Container(
@@ -96,18 +96,18 @@ class Ahospitalstate extends State{
                                       SizedBox(
                                         width: 5,
                                       ),
-                                    Expanded(child: Text(jsonDecode(data!)["data"][index]["H_NAME"],style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold),)),
+                                    Expanded(child: Text(jsonDecode(data!)["hospitals"][index]["H_NAME"],style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold),)),
                                   ],),
                                 ),
                                 SizedBox(height: 20,),
                                 Row(children: [
                                   Icon(Icons.location_on_outlined),
-                                  Expanded(child: Text(jsonDecode(data!)["data"][index]["ADDRESS"],style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold),)),
+                                  Expanded(child: Text(jsonDecode(data!)["hospitals"][index]["ADDRESS"],style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold),)),
                                 ],),
                                 SizedBox(height: 20,),
                                 Row(mainAxisAlignment: MainAxisAlignment.center,children: [
                                   ElevatedButton(onPressed:(){
-                                    _submit(jsonDecode(data!)["data"][index]["H_ID"]);
+                                    _submit(jsonDecode(data!)["hospitals"][index]["H_ID"]);
                                   }, child: Text("Remove"),
 
                                     style: ElevatedButton.styleFrom(primary: ColorConstants.appbarcolor,

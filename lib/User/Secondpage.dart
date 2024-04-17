@@ -37,7 +37,7 @@ class Second extends State<USecondpage> {
     if (response.statusCode == 200) {
       setState(() {
         data = response.body;
-        hospitaldata = jsonDecode(data!)["data"];
+        hospitaldata = jsonDecode(data!)["hospitals"];
         isLoading = false;
       });
     } else {
@@ -82,7 +82,7 @@ class Second extends State<USecondpage> {
                             topLeft: Radius.circular(15)),
                         child: Image(
                           image: NetworkImage(
-                              "https://ehealthub.000webhostapp.com/API/" + jsonDecode(data)["data"][index]["H_IMG"]),
+                              "https://ehealthub.000webhostapp.com/API/" + jsonDecode(data)["hospitals"][index]["H_IMG"].toString()),
                         ),
                       ),
                       Padding(
@@ -98,7 +98,7 @@ class Second extends State<USecondpage> {
                                   SizedBox(width: 8,),
                                   Expanded(child:
                                   Text(
-                                   jsonDecode(data)["data"][index]["H_NAME"],
+                                   jsonDecode(data)["hospitals"][index]["H_NAME"],
                                     style: TextStyle(
                                         fontSize: 18,
                                         fontWeight: FontWeight.bold),
@@ -117,7 +117,7 @@ class Second extends State<USecondpage> {
                                   SizedBox(width: 8,),
                                   Expanded(
                                       child: Text(
-                                        jsonDecode(data)["data"][index]["ADDRESS"],
+                                        jsonDecode(data)["hospitals"][index]["ADDRESS"],
                                     style: TextStyle(
                                         fontSize: 16,
                                         fontWeight: FontWeight.bold),
@@ -135,7 +135,7 @@ class Second extends State<USecondpage> {
                                   SizedBox(width: 8,),
                                   Expanded(
                                       child: Text(
-                                        jsonDecode(data!)["data"][index]["PHONE_NO"],
+                                        jsonDecode(data!)["hospitals"][index]["PHONE_NO"],
                                         style: TextStyle(
                                             fontSize: 16,
                                             fontWeight: FontWeight.bold),
@@ -150,10 +150,10 @@ class Second extends State<USecondpage> {
                                             context,
                                             MaterialPageRoute(
                                               builder: (context) =>
-                                                  Servicespage(hospitalAddress: jsonDecode(data!)["data"][index]["ADDRESS"] ,
-                                                      hospitalId:jsonDecode(data!)["data"][index]["H_ID"] ,
-                                                      hospitalImage:"https://ehealthub.000webhostapp.com/API/" + jsonDecode(data!)["data"][index]["H_IMG"] ,
-                                                      hospitalName:jsonDecode(data!)["data"][index]["H_NAME"]
+                                                  Servicespage(hospitalAddress: jsonDecode(data!)["hospitals"][index]["ADDRESS"] ,
+                                                      hospitalId:jsonDecode(data!)["hospitals"][index]["H_ID"] ,
+                                                      hospitalImage:"https://ehealthub.000webhostapp.com/API/" + jsonDecode(data!)["hospitals"][index]["H_IMG"].toString() ,
+                                                      hospitalName:jsonDecode(data!)["hospitals"][index]["H_NAME"]
                                             )));
                                       },
                                       child:(Text("View Services",
