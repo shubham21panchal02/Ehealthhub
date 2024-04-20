@@ -49,7 +49,7 @@ class _BookingPageState extends State<BookingPage> {
 
         backgroundColor: ColorConstants.appbarcolor,
         toolbarOpacity: 0.5,
-        title: Text("Sloat"),
+        title: Text("Slot"),
       ),
 
       body: CustomScrollView(

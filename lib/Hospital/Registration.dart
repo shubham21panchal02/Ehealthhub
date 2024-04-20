@@ -426,7 +426,6 @@ class Loginstate extends State<Rpage> {
 
   }
 
-
   void _submit() {
     final form = formKey.currentState;
     if (form!.validate()) {

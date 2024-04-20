@@ -26,9 +26,9 @@ class h_firstpage extends StatefulWidget {
 
 class hopital extends State<h_firstpage> {
   List imageList = [
-    {"id": 1, "image_path": 'assets/image/had1.jpeg'},
-    {"id": 2, "image_path": 'assets/image/had2.jpeg'},
-    {"id": 3, "image_path": 'assets/image/had3.jpeg'},
+    {"id": 1, "image_path": 'assets/image/had1.jpg'},
+    {"id": 2, "image_path": 'assets/image/had2.jpg'},
+    {"id": 3, "image_path": 'assets/image/had3.jpg'},
   ];
   final CarouselController carouselController = CarouselController();
   int currentIndex = 0;
@@ -179,7 +179,7 @@ class hopital extends State<h_firstpage> {
                             shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(10)),
                             child: ListTile(
-                              title: Text("Sloats"),
+                              title: Text("Slots"),
                               trailing: Icon(Icons.schedule),
                             ),
                           ),
@@ -363,7 +363,7 @@ class hopital extends State<h_firstpage> {
                         height: 10,
                       ),
                       Text(
-                        'Sloats Detail',
+                        'Slots Detail',
                         style: TextStyle(
                             fontSize: 20, fontWeight: FontWeight.bold),
                       ),
