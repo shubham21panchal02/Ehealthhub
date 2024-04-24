@@ -27,7 +27,7 @@ class h_firstpage extends StatefulWidget {
 class hopital extends State<h_firstpage> {
   List imageList = [
     {"id": 1, "image_path": 'assets/image/had1.jpg'},
-    {"id": 2, "image_path": 'assets/image/had2.jpg'},
+    {"id": 2, "image_path": 'assets/image/pd1.jpg'},
     {"id": 3, "image_path": 'assets/image/had3.jpg'},
   ];
   final CarouselController carouselController = CarouselController();
