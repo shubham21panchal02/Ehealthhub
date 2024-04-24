@@ -66,7 +66,7 @@ class Sloatstate extends State<sloat>{
         appBar: AppBar(
           backgroundColor:ColorConstants.appbarcolor,
           title: Text(
-            "Apply Sloat Booking",
+            "Apply Slot Booking",
           ),
         ),
         body:Center(

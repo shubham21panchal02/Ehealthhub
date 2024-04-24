@@ -220,6 +220,7 @@ class ad extends State<Adetailpage> with TickerProviderStateMixin {
                                 ),
                               ],
 
+
                               Container(
                                 /* decoration: BoxDecoration(
                    gradient: LinearGradient(
