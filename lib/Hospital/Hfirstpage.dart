@@ -128,16 +128,21 @@ class hopital extends State<h_firstpage> {
                   decoration: BoxDecoration(),
                   child: Column(
                     children: [
-                      Container(
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10)),
-                        child: Card(
-                          elevation: 1,
-                          shape: RoundedRectangleBorder(
+                      InkWell(
+                        onTap: (){
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => h_firstpage(),));
+                        },
+                        child: Container(
+                          decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(10)),
-                          child: ListTile(
-                            title: Text("Home"),
-                            trailing: Icon(Icons.home),
+                          child: Card(
+                            elevation: 1,
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10)),
+                            child: ListTile(
+                              title: Text("Home"),
+                              trailing: Icon(Icons.home),
+                            ),
                           ),
                         ),
                       ),

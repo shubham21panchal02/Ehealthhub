@@ -55,7 +55,7 @@ class Afristpagestate extends State<Afristpage>{
                       children: [
                         Text("Name:"+ " admin",style:TextStyle(fontSize: 15,color: Colors.white,)),
                         SizedBox(height: 20,),
-                        Text("Email:admin2024@gmail.com",style:TextStyle(fontSize: 15,color: Colors.white)),
+                        Text("Email:admin@gmail.com",style:TextStyle(fontSize: 15,color: Colors.white)),
                       ],
                     ),
 
