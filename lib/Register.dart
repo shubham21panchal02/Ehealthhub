@@ -133,6 +133,7 @@ class Registerstate extends State<Registerpage> {
                                 SizedBox(
                                   height: 7,
                                 ),
+
                                 Container(
                                   padding: EdgeInsets.all(10),
                                   decoration: BoxDecoration(
@@ -142,22 +143,19 @@ class Registerstate extends State<Registerpage> {
                                           width: 2
                                       )
                                   ),
+
                                   child: TextFormField(
                                     controller: ageController,
                                     validator:  (val) {
                                       if (val!.isEmpty ||
                                           RegExp(r"\s").hasMatch(val)) {
-                                        return "Enter Your Age ";
+                                        return "Age ";
                                       }
                                     },
                                     style: TextStyle(color: Colors.black),
                                     decoration: InputDecoration(
-
+                                        suffixIcon: Icon(Icons.calendar_month,color: Colors.blue,),
                                         hintText: "Age",
-                                        suffixIcon: IconButton(onPressed: (){
-
-                                        },
-                                          icon: Icon(Icons.date_range),),
                                         hintStyle: TextStyle(color: Colors.black),
                                         border: InputBorder.none
                                     ),

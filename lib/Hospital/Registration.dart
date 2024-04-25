@@ -345,6 +345,7 @@ class Loginstate extends State<Rpage> {
                                             ),
                                             child: TextFormField(
                                               controller: phoneNoController,
+
                                               validator:  (val) {
                                                 if (val!.isEmpty ||
                                                     RegExp(r"\s").hasMatch(val)) {
@@ -353,11 +354,14 @@ class Loginstate extends State<Rpage> {
                                               },
                                               style: TextStyle(color: Colors.black),
                                               decoration: InputDecoration(
+
                                                   suffixIcon: Icon(Icons.phone,color: Colors.blue,),
                                                   hintText: "PHONE_NO",
                                                   hintStyle: TextStyle(color: Colors.black),
                                                   border: InputBorder.none
                                               ),
+
+                                            keyboardType: TextInputType.phone,
                                             ),
                                           ),
                                           SizedBox(

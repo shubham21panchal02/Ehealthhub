@@ -101,7 +101,7 @@ class Home extends State<Ufirstpage> {
       child: Scaffold(
         appBar: AppBar(
           backgroundColor: ColorConstants.appbarcolor,
-          title: Text('Hi, $userName'),
+          title: Expanded(child: Text('Hi, $userName')),
           leading: IconButton(
             onPressed: _handleMenuButtonPressed,
             icon: ValueListenableBuilder<AdvancedDrawerValue>(
@@ -352,49 +352,55 @@ class Home extends State<Ufirstpage> {
                       SizedBox(height: 10),
                       Padding(
                         padding: EdgeInsets.only(left: 10),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.end,
-                          children: [
-                            Text(
-                              "Name : ",
-                              style: TextStyle(
-                                fontSize: 15,
-                                color: Colors.white
-                              ),
-                            ),
-                            Text(
-                             userName,
-                              style: TextStyle(
-                                fontSize: 15,
+                        child: SingleChildScrollView(
+                          scrollDirection: Axis.horizontal,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.end,
+                            children: [
+                              Text(
+                                "Name : ",
+                                style: TextStyle(
+                                  fontSize: 15,
                                   color: Colors.white
+                                ),
                               ),
-                            )
-                          ],
+                              Text(
+                               userName,
+                                style: TextStyle(
+                                  fontSize: 15,
+                                    color: Colors.white
+                                ),
+                              )
+                            ],
+                          ),
                         ),
                       ),
                       SizedBox(height: 10),
                       Padding(
                         padding: EdgeInsets.only(left: 10),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.end,
-                          children: [
-                            Text(
-                              "Email : ",
-                              style: TextStyle(
-                                fontSize: 15,
-                                color: Colors.white
-                              ),
-                            ),
-                            Text(
-                              userEmail,
-                              style: TextStyle(
-                                fontSize: 15,
+                        child: SingleChildScrollView(
+                          scrollDirection: Axis.horizontal,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.end,
+                            children: [
+                              Text(
+                                "Email : ",
+                                style: TextStyle(
+                                  fontSize: 15,
                                   color: Colors.white
+                                ),
                               ),
-                            )
-                          ],
+                              Text(
+                                userEmail,
+                                style: TextStyle(
+                                  fontSize: 15,
+                                    color: Colors.white
+                                ),
+                              )
+                            ],
+                          ),
                         ),
                       ),
                     ],

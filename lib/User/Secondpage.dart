@@ -68,9 +68,9 @@ class Second extends State<USecondpage> {
                   margin: EdgeInsets.all(10),
                   elevation: 20,
                   color: Colors.white,
-                  shape: BeveledRectangleBorder(
+                  shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.only(
-                          topRight: Radius.circular(16.0),
+                          topRight: Radius.circular(10.0),
                           topLeft: Radius.circular(10.0),
                           bottomRight: Radius.circular(10.0),
                           bottomLeft: Radius.circular(10.0))),
@@ -78,8 +78,10 @@ class Second extends State<USecondpage> {
                     children: [
                       ClipRRect(
                         borderRadius: BorderRadius.only(
-                            topRight: Radius.circular(15),
-                            topLeft: Radius.circular(15)),
+                            topRight: Radius.circular(10),
+                            topLeft: Radius.circular(10),
+                            bottomRight: Radius.circular(10),
+                            bottomLeft: Radius.circular(10)),
                         child: Image(
                           image: NetworkImage(
                               "https://ehealthub.000webhostapp.com/API/" + jsonDecode(data)["hospitals"][index]["H_IMG"].toString()),
@@ -158,7 +160,7 @@ class Second extends State<USecondpage> {
                                       },
                                       child:(Text("View Services",
                                       style: TextStyle(
-                                          color: Colors.black, fontSize: 15),
+                                          color: Colors.blueAccent, fontSize: 15),
                                       )
                                        )),
                                 ],
